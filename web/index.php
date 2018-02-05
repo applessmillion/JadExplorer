@@ -3,30 +3,25 @@ include_once 'vars.php';
 ?>
 <html>
 	<head>
-		<title>Maralook - Marapets Search</title>
+		<title>SHU DoIT | Asset Catalog</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
-		<div class="main">
 		<?php
 		echo    file_get_contents('header.html') . "</br>";
 		?>
+		<div class="main">
 		<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
 		<table align="center" width="710">
 			<tr>
 				<th>
-					<h2>Welcome to Maralook</h2>
+					<h2>Siena Heights University IT Assets</h2>
+					<p>Search and find the status on logged assets throughout Siena.</p>
 					</br>
 				</th>
 			</tr>
-			<tr>
-				<th>
-					<img src="img/search-telescope.png">
-				</th>
-			</tr>
 		<?php
-		echo    '<tr><th></br>',$var_item_updatetxt,'</br><p>';
-		echo        $index_desc;
+		echo    '<tr><th></br> PHP Variable 1 </br><p>';
 		?>
 			</p></th></tr>
 		</table>
