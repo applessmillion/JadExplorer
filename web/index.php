@@ -1,5 +1,5 @@
 <?php
-include_once 'vars.php';
+//for future use
 ?>
 <html>
 	<head>
