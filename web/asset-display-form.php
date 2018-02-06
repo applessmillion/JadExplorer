@@ -40,15 +40,41 @@ else{
 <table align="center" width="780" style="background:#efefef">
 	<tr style="background:#ddd"><td><h1><?php echo $row['aname']; ?></h1></td></tr>
     <tr>
-		<td style="height:20px"></td>
+		<td style="height:5px"></td>
 	</tr>
-	<?php    
-	
-	
-	echo "<tr><th><h3>Name ", $row['aname'] ,"</h3>";
-	echo "<tr><th><h3>Asset# ", $row['asset'] ,"</h3>";
+	<tr>
+		<td>
 		
-	?>
+		<?php
+		//Let's check to see if this is still in use.
+		if($row['inuse'] == '1'){
+			//It's in use! Let's say so with some green text
+			echo '<h3 style="color:267F00">CURRENTLY IN USE</h3>';
+		}
+		else{
+			//Not in use! Let's say so with some dark red text. Also, let's show the last edit date.
+			echo '<h3 style="color:7F0000">NO LONGER IN USE</h3></br>';
+			echo '<strong>Last edit to this machine was on ', $row['edited'] ,'.</strong>';
+		}
+		?>
+		</td>
+	</tr>
+	<tr><td>
+		<table align="center" width="450" style="background:#fafafa">
+			<?php
+			//Let's do the main table here
+			//Device Name
+			echo "<tr style='text-align:left'><td>Device Name: </td><td>", $row['aname'] ,"</td></tr>";
+			//Asset Tag
+			echo "<tr style='text-align:left'><td>Asset Number: </td><td>", $row['assettag'] ,"</td></tr>";
+			//Service Tag
+			echo "<tr style='text-align:left'><td>Service Tag: </td><td>", $row['servicetag'] ,"</td></tr>";
+			//Asset type
+			echo "<tr style='text-align:left'><td>Device Type: </td><td>", $row['type'] ,"</td></tr>";
+		
+			?>
+		</table>
+	</td></tr>
 	
 	
 <?php 
