@@ -2,7 +2,7 @@ html,body{margin:0;padding:0;min-width:780px;letter-spacing:1px;font-family:'ver
 h2{font-size:11pt;color:#0;text-align:center}
 h3{font-size:9pt;color:#0;text-align:center}
 p{font-size:8pt;text-align:left;margin-right:12px!important;margin-left:12px!important}
-a{text-decoration:none;font-size:initial;color:#D8844B}
+a{text-decoration:none;font-size:initial;}
 #main{height:100%;text-align:center}
 
 table{font-size:8pt;text-align:center}
@@ -13,4 +13,6 @@ th,td{padding:2px}
 .headtable{background:url(img/headtile.png);display: inline-block;top: 0; left: 0; z-index: 999;width="100%"}
 .head{font-size:10pt!important;text-align:center;vertical-align: top;}
 .bolded-dred{font-weight:700;color:#C13232!important;font-size:10pt!important}
+.bolded-orange{font-weight:700;color:#D8844B!important;font-size:10pt!important}
+.bolded-head{font-weight:700;color:#f0f0f0!important;font-size:10pt!important}
 .bolded-green{font-weight:700;color:#2B9100!important;font-size:10pt!important}

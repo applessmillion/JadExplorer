@@ -1,0 +1,45 @@
+<!-- This will be the asset form to fill out. Stored seperately cuz it's quite a bit of HTML, and can
+	 sometimes be difficult to find in the mist of add.php.
+-->
+<table align="center" width="780" style="background:#efefef">
+	<tr style="background:#ddd"><td><h2>Add a Computer-Related Asset</h2></td></tr>
+    <tr>
+		<td style="height:20px"></td>
+	</tr>
+    <tr>
+		<th>
+			<form action="add.php?create" method="post">
+				<strong>Asset Name: </strong><input type="text" name="aname" pattern=".{6,15}" required title="Names are usually formatted like user-assetnum"><br></br>
+				<strong>Asset Tag: </strong><input type="text" name="assettag" pattern=".{5,5}" required title="Asset Tag must be 5 characters."><br></br>
+				<strong>Service Tag: </strong><input type="text" name="servicetag"><br></br>
+				<strong>Serial Number: </strong><input type="text" name="serial"><br></br>
+				<strong>Used By: </strong><input type="text" name="user" pattern=".{4,10}" title="Username of the owner"><br></br>	
+				<strong>Device Type: </strong><select name="type" required>
+					<option value="Desktop" selected>Desktop Computer</option>
+					<option value="Laptop">Laptop</option>
+					<option value="iMac">iMac</option>
+					<option value="Macbook">Macbook</option>
+					<option value="Monitor">Monitor</option>
+					<option value="Tablet">Tablet</option>
+					<option value="Other">Other</option>
+				</select><br></br>
+				<strong>Device Model: </strong><input type="text" name="model" required pattern=".{3,}" title="What type of device is it? Vostro? iMac 2015?"><br></br>
+				<strong>Campus: </strong><select name="campus" required>
+					<option value="Adrian" selected>Adrian</option>
+					<option value="Battle Creek">Battle Creek</option>
+					<option value="Benton Harbor">Benton Harbor</option>
+					<option value="Jackson">Jackson</option>
+					<option value="Kalamazoo">Kalamazoo</option>
+					<option value="Lansing">Lansing</option>
+					<option value="Monroe">Monroe</option>
+					<option value="Southfield">Southfield</option>
+				</select><br></br>
+				<strong>Building: </strong><input type="text" name="building"><br></br>
+				<strong>Room/Office Number: </strong><input type="text" name="room"><br></br>		
+				<br><br></br>
+				<input type="submit" value="Add Device">
+			</form>
+		</th>
+	</tr>
+</table>
+ 

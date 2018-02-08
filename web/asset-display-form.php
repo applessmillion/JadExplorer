@@ -49,7 +49,10 @@ else{
 		//Let's check to see if this is still in use.
 		if($row['inuse'] == '1'){
 			//It's in use! Let's say so with some green text
-			echo '<h3 style="color:267F00">CURRENTLY IN USE</h3>';
+			echo '<h3 style="color:267F00">CURRENTLY IN USE</h3></br>';
+			echo '<strong>Entry created ', $row['created'] ,'.</strong></br>';
+			echo '<strong>Last edit to this machine was on ', $row['edited'] ,'.</strong></br>';
+			echo '<h4><a class="bolded-orange" href="http://spiceworks.sienaheights.edu/search?query=', $row['aname'] ,'">Search for on Spiceworks</a></h4>';
 		}
 		else{
 			//Not in use! Let's say so with some dark red text. Also, let's show the last edit date.
@@ -64,16 +67,27 @@ else{
 			<?php
 			//Let's do the main table here
 			//Device Name
-			echo "<tr style='text-align:left'><td>Device Name: </td><td>", $row['aname'] ,"</td></tr>";
+			echo "<tr style='text-align:left'><td><strong>Device Name: </strong></td><td><strong>", $row['aname'] ,"</strong></td></tr>";
 			//Asset Tag
-			echo "<tr style='text-align:left'><td>Asset Number: </td><td>", $row['assettag'] ,"</td></tr>";
+			echo "<tr style='text-align:left'><td>Asset Number: </td><td>", $row['asset'] ,"</td></tr>";
 			//Service Tag
-			echo "<tr style='text-align:left'><td>Service Tag: </td><td>", $row['servicetag'] ,"</td></tr>";
+			echo "<tr style='text-align:left'><td>Service Tag: </td><td>", $row['service'] ,"</td></tr>";
 			//Asset type
 			echo "<tr style='text-align:left'><td>Device Type: </td><td>", $row['type'] ,"</td></tr>";
+			//Asset model
+			echo "<tr style='text-align:left'><td>Device Model: </td><td>", $row['model'] ,"</td></tr>";
+			//Asset campus location
+			echo "<tr style='text-align:left'><td>Campus Location: </td><td>", $row['campus'] ,"</td></tr>";
+			//Asset location
+			echo "<tr style='text-align:left'><td>Specific Location: </td><td>", $row['location'] ,"</td></tr>";
+			//Asset owner
+			echo "<tr style='text-align:left'><td>Device Owner: </td><td>", $row['owner'] ,"</td></tr>";
 		
 			?>
 		</table>
+		<?php // Maybe make a cookie condition to show this? ?>
+		<br></br>
+		<p class="bolded-green">Edit Entry</p>
 	</td></tr>
 	
 	
