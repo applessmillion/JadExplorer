@@ -52,7 +52,7 @@ elseif($row['category'] == '1'){
 	<tr style="background:#ddd">
 		<td>
 			<h1><?php echo $row['aname']; ?></h1>
-			<?php echo '<b>', $row['manu'], $row['model'] ,'.</b>'; ?>
+			<?php echo '<strong>', $row['manu'], $row['model'] ,'.</strong>'; ?>
 		</td>
 	</tr>
     <tr>
@@ -66,7 +66,7 @@ elseif($row['category'] == '1'){
 		if($row['active'] == '1'){
 			//It's in use! Let's say so with some green text
 			echo '<h4 style="color:267F00">CURRENTLY IN USE</h4>';
-			echo '<b>Entry created ', $dt2->format('M j Y H:i') ,'.</b></br>';
+			echo '<strong>Entry created ', $dt2->format('M j Y H:i') ,'.</strong></br>';
 			echo '<h4><a class="bolded-orange" href="http://spiceworks.sienaheights.edu/search?query=', $row['aname'] ,'">Search for on Spiceworks</a></h4>';
 		}
 		else{
@@ -105,7 +105,7 @@ elseif($row['category'] == '1'){
 		
 				
 			echo '</table></br>';
-			echo '<b>Last edit to this machine was on ', $dt1->format('M j Y H:i') ,'.</b></br>';
+			echo '<strong>Last edit to this machine was on ', $dt1->format('M j Y H:i') ,'.</strong></br>';
 			echo '<br></br>';
 			
 			//This needs to be in the main PHP so it can pull the row data.

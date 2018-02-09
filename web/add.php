@@ -2,16 +2,18 @@
 
 //Let's process a request if we have one first. If not, the else statement will give the landing page.
 //Take all the POSTS from the form and try to create an entry in our database.
-if(ISSET($_GET['create'])){
+if(ISSET($_GET['create-cpu'])){
 	
 	//Let's convert all of our posts into php vars.
 	$name = $_POST['aname'];
 	$atag = $_POST['assettag'];
 	$stag = $_POST['servicetag'];
+	$serial = $_POST['serial'];
 	$type = $_POST['type'];
 	$model = $_POST['model'];
 	$camp = $_POST['campus'];
-	$loc = $_POST['location'];
+	$build = $_POST['build'];
+	$room = $_POST['room'];
 	$owner = $_POST['user'];
 	
 	//Connects to mySQL database
@@ -31,12 +33,17 @@ if(ISSET($_GET['create'])){
 	
 	//Now for the fun part... Adding it to the db
 	
-	//The sql to use for inserting into the db
-	$sql = "INSERT INTO shutest.assets (aname, asset, service, type, model, campus, location, owner)
-		    VALUES ('$name', '$atag', '$stag', '$type', '$model', '$camp', '$loc', '$owner')";		
+	//Insert asset information
+	$sqlass = "INSERT INTO shutest.assets (category, aname, asset, service, serial, owner, type, model)
+		    VALUES (1, '$name', '$atag', '$stag', '$serial', '$owner', '$type', '$model')";	
+
+	//Insert asset's location information
+	$sqlloc = "INSERT INTO shutest.locations (asset, room, building, campus)
+		    VALUES ('$atag', '$room', '$build', '$camp')";				
 			
 	//Connect and insert
-	$con->query($sql);
+	$con->query($sqlass);
+	$con->query($sqlloc);
 	
 ?>
 <html>
@@ -70,7 +77,7 @@ else{
 		<div id="main">
 			<?php echo file_get_contents('header.html') ?>
 			<br><br></br>
-			<?php include('asset-form.htm'); ?>
+			<?php include('cpu-asset-form.htm'); ?>
 		</div>
 	</body>
 </html>
