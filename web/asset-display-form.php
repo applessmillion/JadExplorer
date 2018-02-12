@@ -52,7 +52,7 @@ elseif($row['category'] == '1'){
 	<tr style="background:#ddd">
 		<td>
 			<h1><?php echo $row['aname']; ?></h1>
-			<?php echo '<b>', $row['manu'], $row['model'] ,'.</b>'; ?>
+			<?php echo '<b>', $row['manu'], " " , $row['model'] ,'.</b>'; ?>
 		</td>
 	</tr>
     <tr>
@@ -91,18 +91,17 @@ elseif($row['category'] == '1'){
 				//Service Tag and Serial Number
 				echo "<tr style='text-align:left'><td><b>Service Tag: </b>", $row['service'] ,"</td><td><b>Serial Number: </b>", $row['serial'] ,"</td></tr>";
 				
-				//Asset model and manufacturer
-				echo "<tr style='text-align:left'><td><b>Device Model: </b>", $row['manu'] , " " ,$row['model'] ,"</td></tr>";
+				//Break bebtween general and location information
+				echo "<tr><th colspan='2'></br><hr></br></th></tr>";
 				
 				//Heading for Location Info
 				echo "<th colspan='2'><u><h2>Location Info</h2></u></th>";
 				
 				//Asset campus location
 				echo "<tr style='text-align:left'><td><b>Campus Location:</b> ", $row2['campus'] ,"</td></tr>";
+				
 				//Asset location
 				echo "<tr style='text-align:left'><td><b>Location: </b>", $row2['building'] ," Rm. ", $row2['room'] ,"</td></tr>";
-				
-		
 				
 			echo '</table></br>';
 			echo '<b>Last edit to this entry was on ', $dt1->format('M j Y H:i') ,'.</b></br>';
