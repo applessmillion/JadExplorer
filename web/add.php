@@ -15,6 +15,7 @@ if(ISSET($_GET['create-cpu'])){
 	$build = $_POST['build'];
 	$room = $_POST['room'];
 	$owner = $_POST['user'];
+	$manufacturer = $_POST['manu'];
 	
 	//Connects to mySQL database
 	include_once('config.php');
@@ -34,8 +35,8 @@ if(ISSET($_GET['create-cpu'])){
 	//Now for the fun part... Adding it to the db
 	
 	//Insert asset information
-	$sqlass = "INSERT INTO shutest.assets (category, aname, asset, service, serial, owner, type, model)
-		    VALUES (1, '$name', '$atag', '$stag', '$serial', '$owner', '$type', '$model')";	
+	$sqlass = "INSERT INTO shutest.assets (category, aname, asset, service, serial, owner, type, model, manu)
+		    VALUES (1, '$name', '$atag', '$stag', '$serial', '$owner', '$type', '$model', $manufacturer)";	
 
 	//Insert asset's location information
 	$sqlloc = "INSERT INTO shutest.locations (asset, room, building, campus)

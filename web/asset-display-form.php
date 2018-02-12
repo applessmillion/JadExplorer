@@ -105,7 +105,7 @@ elseif($row['category'] == '1'){
 		
 				
 			echo '</table></br>';
-			echo '<b>Last edit to this machine was on ', $dt1->format('M j Y H:i') ,'.</b></br>';
+			echo '<b>Last edit to this entry was on ', $dt1->format('M j Y H:i') ,'.</b></br>';
 			echo '<br></br>';
 			
 			//This needs to be in the main PHP so it can pull the row data.
