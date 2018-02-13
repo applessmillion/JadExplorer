@@ -17,12 +17,14 @@ $names = $_GET["n"];
 
     $name = $_GET["n"];
     #GET NAME FROM SEARCH TERMS#
-    $search_query = mysqli_query($con, "SELECT * FROM assets WHERE aname LIKE '%$name%' LIMIT 25");
+    $search_query = mysqli_query($con, "SELECT * FROM assets WHERE aname LIKE '%$name%' ORDER BY asset ASC LIMIT 25");
     $search_nums = mysqli_num_rows($search_query);	
 
 	echo '<tr><th colspan="3"><h2>Found '. $search_nums .' results for "'. $names . '"...</h2></th></tr>';
-        echo "<tr><td><b>Asset Name</b></td><td><b>Asset Tag</b></td><td><b>Asset Owner</b></td></th></tr>";
+    echo "<tr><td><b>Asset Name</b></td><td><b>Asset Tag</b></td><td><b>Asset Owner</b></td></th></tr>";
     echo '<tr><th colspan="3"><hr style="border-color:#6D7ACE; width:85%;"></th></tr>';
+	
+	//List search variables in table rows.
     while ($obj = mysqli_fetch_object($search_query)) {
 		
         echo "<tr><td><a class='reg' href='search.php?a=" . urlencode($obj->asset) . "'><b>" . $obj->aname ."</b></a></td>";

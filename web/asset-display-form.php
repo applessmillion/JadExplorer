@@ -49,7 +49,7 @@ if($row['asset'] == NULL){
 elseif($row['category'] == '1'){
 ?>
 <table align="center" width="780" style="background:#efefef">
-	<tr style="background:#ddd">
+	<tr style="background:#46B6F2">
 		<td>
 			<h1><?php echo $row['aname']; ?></h1>
 			<?php echo '<b>', $row['manu'], " " , $row['model'] ,'.</b>'; ?>
@@ -67,7 +67,7 @@ elseif($row['category'] == '1'){
 			//It's in use! Let's say so with some green text
 			echo '<h4 style="color:267F00">CURRENTLY IN USE</h4>';
 			echo '<b>Entry created ', $dt2->format('M j Y H:i') ,'.</b></br>';
-			echo '<h4><a class="bolded-orange" href="http://spiceworks.sienaheights.edu/search?query=', $row['aname'] ,'">Search for on Spiceworks</a></h4>';
+			echo '<a class="bolded-orange" href="http://spiceworks.sienaheights.edu/search?query=', $row['aname'] ,'">Search for on Spiceworks</a></br>';
 		}
 		else{
 			//Not in use! Let's say so with some dark red text.
@@ -87,6 +87,76 @@ elseif($row['category'] == '1'){
 				
 				//Asset owner and Asset number
 				echo "<tr style='text-align:left'><td><b>Device Owner: </b>", $row['owner'] ,"</td><td><b>Asset Number: </b>", $row['asset'] ,"</td></tr>";
+				
+				//Service Tag and Serial Number
+				echo "<tr style='text-align:left'><td><b>Service Tag: </b>", $row['service'] ,"</td><td><b>Serial Number: </b>", $row['serial'] ,"</td></tr>";
+				
+				//Break bebtween general and location information
+				echo "<tr><th colspan='2'></br><hr></br></th></tr>";
+				
+				//Heading for Location Info
+				echo "<th colspan='2'><u><h2>Location Info</h2></u></th>";
+				
+				//Asset campus location
+				echo "<tr style='text-align:left'><td><b>Campus Location:</b> ", $row2['campus'] ,"</td></tr>";
+				
+				//Asset location
+				echo "<tr style='text-align:left'><td><b>Location: </b>", $row2['building'] ," Rm. ", $row2['room'] ,"</td></tr>";
+				
+			echo '</table></br>';
+			echo '<b>Last edit to this entry was on ', $dt1->format('M j Y H:i') ,'.</b></br>';
+			echo '<br></br>';
+			
+			//This needs to be in the main PHP so it can pull the row data.
+			echo '<p><a class="bolded-green" href="edit/?edit=', $row['asset'] , '">Edit Entry</p>';
+			?>
+		</td>
+	</tr>
+	
+	
+<?php 
+}
+//If the data returns a 2, the category is meant for AV assets.
+elseif($row['category'] == '2'){
+?>
+<table align="center" width="780" style="background:#efefef">
+	<tr style="background:#FFC023">
+		<td>
+			<h1><?php echo "Asset #" . $row['asset']; ?></h1>
+			<?php echo '<b>', $row['manu'], " " , $row['model'] ,'.</b>'; ?>
+		</td>
+	</tr>
+    <tr>
+		<td style="height:5px"></td>
+	</tr>
+	<tr>
+		<td>
+		
+		<?php
+		//Let's check to see if this is still in use.
+		if($row['active'] == '1'){
+			//It's in use! Let's say so with some green text
+			echo '<h4 style="color:267F00">CURRENTLY IN USE</h4>';
+			echo '<b>Entry created ', $dt2->format('M j Y H:i') ,'.</b></br>';
+		}
+		else{
+			//Not in use! Let's say so with some dark red text.
+			echo '<h3 style="color:7F0000">NO LONGER IN USE</h3></br>';
+		}
+		?>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table align="center" width="450" style="background:#fafafa">
+				<?php
+				//Let's do the main table here
+				
+				//Heading for General Info
+				echo "<th colspan='2'><u><h2>General Info</h2></u></th>";
+				
+				//Asset owner and Asset number
+				echo "<tr style='text-align:left'><td><b>Device Owner: </b>", $row['owner'] ,"</td><td><b>Asset Name: </b>", $row['aname'] ,"</td></tr>";
 				
 				//Service Tag and Serial Number
 				echo "<tr style='text-align:left'><td><b>Service Tag: </b>", $row['service'] ,"</td><td><b>Serial Number: </b>", $row['serial'] ,"</td></tr>";
