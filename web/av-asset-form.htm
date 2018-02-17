@@ -10,6 +10,11 @@
 		<th>
 			<form action="add.php?create-av" method="post">
 			<table width="500" align="center" style="background:#f5f5f5">
+				<tr>
+					<th colspan="2">
+						<h3>General Info</h3>
+					</th>
+				</tr>
 				<tr style="text-align:left">
 					<td>
 						<strong>Device Name: </strong>
@@ -28,14 +33,6 @@
 				</tr style="text-align:left">
 				<tr style="text-align:left">
 					<td>
-						<strong>Service Tag: </strong>
-					</td>
-					<td>
-						<input type="text" name="servicetag"><br>
-					</td>
-				</tr>
-				<tr style="text-align:left">
-					<td>
 						<strong>Serial Number: </strong>
 					</td>
 					<td>
@@ -50,13 +47,17 @@
 						<select name="type" required>
 							<option value="Projector" selected>Projector</option>
 							<option value="TV/Monitor">TV/Monitor</option>
-							<option value="Projection Screen">Projection Screen</option>
-							<option value="Switch">Switch</option>
-							<option value="Multimedia Player">DVD/Media Player</option>
-							<option value="">Option</option>
-							<option value="">Option</option>
-							<option value="">Option</option>
 							<option value="Other">Other</option>
+							<option value="Other">----------</option>
+							<option value="Transmitter/Reciever">CAT-X Transmitter/Reciever</option>
+							<option value="Controller">Controller</option>
+							<option value="Document Camera">Document Camera</option>
+							<option value="Multimedia Player">DVD/Media Player</option>
+							<option value="Projection Screen">Projection Screen</option>
+							<option value="Microphone">Microphone</option>
+							<option value="Speakers">Speakers</option>
+							<option value="Switch">Switch</option>
+							<option value="Webcam">Webcam</option>
 						</select>*</br>
 					</td>
 				</tr>
@@ -66,12 +67,16 @@
 					</td>
 					<td>
 						<select name="manu">
-							<option value="Epson" selected>Epson</option>
-							<option value="Samsung">Samsung</option>
+							<option value="Crestron">Crestron</option>
+							<option value="Epson">Epson</option>
+							<option value="Extron" selected>Extron</option>
+							<option value="JBL">JBL</option>
 							<option value="LG">LG</option>
+							<option value="Lumens">Lumens</option>
+							<option value="HuddleCam">HuddleCam</option>
+							<option value="Samsung">Samsung</option>
 							<option value="ViewSonic">ViewSonic</option>
-							<option value="">Option</option>
-							<option value="">Option</option>
+							<option value="Vodio">Vodio</option>
 							<option value="">Other</option>
 						</select></br>
 					</td>
@@ -83,6 +88,12 @@
 					<td>
 						<input type="text" name="model"><br>
 					</td>
+				</tr>
+				<tr>
+					<th colspan="2">
+						</br>
+						<h3>Location Info</h3>
+					</th>
 				</tr>
 				<tr style="text-align:left">
 					<td>
