@@ -22,6 +22,7 @@ if(ISSET($_GET['create-cpu'])){
 	$con = new mysqli($ip,$user,$pw,$db);
 	
 	
+	
 	####NOTICE. THIS IS FOR ME TO KNOW WHAT IM DOING LATER... READ BELOW####
 	/*
 	I will not be creating an error catching system right now. It will take a bit of time to make.
@@ -134,7 +135,7 @@ elseif(ISSET($_GET['cpu'])){
 <html>
 	<!-- Initalize Page -->
 	<head>
-		<title>SHU DoIT | Add An Asset</title>
+		<title>SHU DoIT | Add A CPU Asset</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	
@@ -155,7 +156,7 @@ elseif(ISSET($_GET['av'])){
 <html>
 	<!-- Initalize Page -->
 	<head>
-		<title>SHU DoIT | Add An Asset</title>
+		<title>SHU DoIT | Add An AV Asset</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	
