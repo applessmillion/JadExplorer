@@ -12,7 +12,7 @@ if(ISSET($_GET['a'])){
 	
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') ?>
+			<?php include('header.html') ?>
 			<br><br></br>
 			<?php include('asset-display-form.php'); ?>
 		</div>
@@ -33,7 +33,7 @@ elseif(ISSET($_GET['n'])){
 	
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') ?>
+			<?php include('header.html') ?>
 			<br><br></br>
 			<?php include('search-display.php'); ?>
 		</div>
@@ -53,7 +53,7 @@ elseif(ISSET($_GET['u'])){
 	
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') ?>
+			<?php include('header.html') ?>
 			<br><br></br>
 			<?php include('search-display.php'); ?>
 		</div>
@@ -72,7 +72,7 @@ else{
 	
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') ?>
+			<?php include('header.html') ?>
 			<br><br></br>
 			<?php include('search-form.htm'); ?>
 		</div>

@@ -20,17 +20,16 @@ $row=mysqli_fetch_array(mysqli_query($con, $assetsql), MYSQL_ASSOC);
 //Connects to the LOCATION table and makes data accessible under the row2 variable
 $row2=mysqli_fetch_array(mysqli_query($con, $locsql), MYSQL_ASSOC);
 
-
+//Grab the time entries from the db and allow them to be formatted down the line
 $dt1 = new DateTime($row['edited']);
 $dt2 = new DateTime($row['created']);
 
 //This will catch for searching for a nonexistant asset tag. Will handle accordingly
-if($row['asset'] == NULL){
-?>
-<table align="center" width="780" style="background:#D8D4D4">
-	<tr style="background:#D84B4B"><td><h1>Error</h1></td></tr>
-    <tr>
-		<td style="height:20px"></td>
+if($row['asset'] == NULL){ ?>
+	<table align="center" width="780" style="background:#D8D4D4">
+		<tr style="background:#D84B4B"><td><h1>Error</h1></td></tr>
+		<tr>
+			<td style="height:20px"></td>
 	</tr>
 	<?php
 	//Display error message
@@ -64,14 +63,18 @@ elseif($row['category'] == '1'){
 		<?php
 		//Let's check to see if this is still in use.
 		if($row['active'] == '1'){
-			//It's in use! Let's say so with some green text
+			
+			//It's in use! Let's say so with some green text,
+			//along with some useful information on the item.
 			echo '<h4 style="color:267F00">CURRENTLY IN USE</h4>';
 			echo '<b>Entry created ', $dt2->format('M j Y H:i') ,'.</b></br>';
 			echo '<a class="bolded-orange" href="http://spiceworks.sienaheights.edu/search?query=', $row['aname'] ,'">Search for on Spiceworks</a></br>';
 		}
 		else{
 			//Not in use! Let's say so with some dark red text.
+			//since it is not being used, it shouldn't be on Spiceworks.
 			echo '<h3 style="color:7F0000">NO LONGER IN USE</h3></br>';
+			echo '<b>Last edit was ', $dt1->format('M j Y H:i') ,'.</b></br>';
 		}
 		?>
 		</td>
@@ -80,7 +83,12 @@ elseif($row['category'] == '1'){
 		<td>
 			<table align="center" width="450" style="background:#fafafa">
 				<?php
-				//Let's do the main table here
+				/*Let's do the main table here. What will be included is
+				  the device info, along with the last edit date and the ability
+				  to edit any part of the entry. This will eventually require a user
+				  account that has access to edit the entry, cuz that could be bad to
+				  allow anyone to edit everything. 
+				*/
 				
 				//Heading for General Info
 				echo "<th colspan='2'><u><h2>General Info</h2></u></th>";
@@ -103,13 +111,15 @@ elseif($row['category'] == '1'){
 				//Asset location
 				echo "<tr style='text-align:left'><td><b>Location: </b>", $row2['building'] ," Rm. ", $row2['room'] ,"</td></tr>";
 				
-			echo '</table></br>';
-			echo '<b>Last edit to this entry was on ', $dt1->format('M j Y H:i') ,'.</b></br>';
-			echo '<br></br>';
+				echo '</table></br>';
+				
+				
+				echo '<b>Last edit to this entry was on ', $dt1->format('M j Y H:i') ,'.</b></br>';
+				echo '<br></br>';
 			
-			//This needs to be in the main PHP so it can pull the row data.
-			echo '<p><a class="bolded-green" href="edit/?edit=', $row['asset'] , '">Edit Entry</p>';
-			?>
+				//This needs to be in the main PHP so it can pull the row data.
+				echo '<p><a class="bolded-green" href="edit/?edit=', $row['asset'] , '">Edit Entry</p>';
+				?>
 		</td>
 	</tr>
 	

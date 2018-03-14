@@ -9,7 +9,7 @@ include_once('vars.php');
 	</head>
 	<body>
 		<?php
-		echo    file_get_contents('header.html') . "</br>";
+			include('header.html') . "</br>";
 		?>
 		<div class="main">
 		<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
