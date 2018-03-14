@@ -21,7 +21,27 @@ if(ISSET($_GET['create-cpu'])){
 	include_once('config.php');
 	$con = new mysqli($ip,$user,$pw,$db);
 	
+	/*So we need to create a thing to figure out if the optional fields are left blank or
+	  not. There is probably a more efficient way to do this, but for the time being, we're
+	  just going to make a lot of if statements for each of the optional fields.
+	*/
 	
+	//If's for the 5 optional fields for cpu form
+	if($stag == '' OR $stag == NULL){
+		$stag = 'N/A';
+	}
+	if($serial == '' OR $serial == NULL){
+		$serial = 'N/A';
+	}
+	if($model == '' OR $model == NULL){
+		$model = 'N/A';
+	}
+	if($build == '' OR $build == NULL){
+		$build = 'N/A';
+	}
+	if($room == '' OR $room == NULL){
+		$room = 'N/A';
+	}
 	
 	####NOTICE. THIS IS FOR ME TO KNOW WHAT IM DOING LATER... READ BELOW####
 	/*
@@ -37,7 +57,7 @@ if(ISSET($_GET['create-cpu'])){
 	
 	//Insert asset information
 	$sqlass = "INSERT INTO shutest.assets (category, aname, asset, service, serial, owner, type, model, manu)
-		    VALUES (1, '$name', '$atag', '$stag', '$serial', '$owner', '$type', '$model', $manufacturer)";	
+		    VALUES (1, '$name', '$atag', '$stag', '$serial', '$owner', '$type', '$model', '$manufacturer')";	
 
 	//Insert asset's location information
 	$sqlloc = "INSERT INTO shutest.locations (asset, room, building, campus)
@@ -46,6 +66,10 @@ if(ISSET($_GET['create-cpu'])){
 	//Connect and insert
 	$con->query($sqlass);
 	$con->query($sqlloc);
+	
+	echo $sqlass;
+	echo '</br></br>';
+	echo $sqlloc;
 ?>
 <html>
 	<!-- Initalize Page -->
@@ -57,9 +81,11 @@ if(ISSET($_GET['create-cpu'])){
 	
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html');?>
+			<?php include('header.html');?>
 			<br></br>
-			Redirecting you to the page for <?php echo $name; ?>
+			<p>
+				<h1>Redirecting you to the page for <?php echo $name; ?></h1>
+			</p>
 		</div>
 	</body>
 </html>
@@ -83,8 +109,23 @@ elseif(ISSET($_GET['create-av'])){
 	//Connects to mySQL database
 	include_once('config.php');
 	$con_av = new mysqli($ip,$user,$pw,$db);
+
+	/*So we need to create a thing to figure out if the optional fields are left blank or
+	  not. There is probably a more efficient way to do this, but for the time being, we're
+	  just going to make a lot of if statements for each of the optional fields.
+	*/
 	
-	
+	//If's for the 3 optional fields for cpu form
+	if($aname == '' OR $aname == NULL){
+		$amname	= 'N/A';
+	}
+	if($serial == '' OR $serial == NULL){
+		$serial = 'N/A';
+	}
+	if($model == '' OR $model == NULL){
+		$model = 'N/A';
+	}
+
 	####NOTICE. THIS IS FOR ME TO KNOW WHAT IM DOING LATER... READ BELOW####
 	/*
 	I will not be creating an error catching system right now. It will take a bit of time to make.
@@ -120,9 +161,11 @@ elseif(ISSET($_GET['create-av'])){
 	
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html');?>
+			<?php include('header.html');?>
 			<br></br>
-			Redirecting you to the page for <?php echo $name; ?>
+			<p>
+				<h1>Redirecting you to the page for <?php echo $name; ?></h1>
+			</p>
 		</div>
 	</body>
 </html>
@@ -141,7 +184,7 @@ elseif(ISSET($_GET['cpu'])){
 	
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') ?>
+			<?php include('header.html') ?>
 			<br><br></br>
 			<?php include('cpu-asset-form.htm'); ?>
 		</div>
@@ -162,7 +205,7 @@ elseif(ISSET($_GET['av'])){
 	
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') ?>
+			<?php include('header.html') ?>
 			<br><br></br>
 			<?php include('av-asset-form.htm'); ?>
 		</div>
@@ -183,7 +226,7 @@ else{
 	
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') ?>
+			<?php include('header.html') ?>
 			<br><br></br>
 			<?php include('cpu-asset-form.htm'); ?>
 		</div>
