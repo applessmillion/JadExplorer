@@ -40,7 +40,7 @@ if($row['asset'] == NULL){ ?>
 		 ";
 		 
 	//Allows user to go back to search page (or last visited page)
-	echo '<tr><td style="height:20px;"><a href="javascript:history.go(-1)">Back to Search</a></td></tr>';
+	echo '<tr><td style="height:20px;" align="center" class="bolded"><a class="bolded-dred" href="javascript:history.go(-1)">Go Back</a></td></tr>';
 	
 }
 

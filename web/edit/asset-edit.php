@@ -148,7 +148,7 @@ $room = $row['room'];
 				</tr>
 				</table></br>
 				<input type="submit" value="Edit Device">
-				<tr><td style="height:20px;"><a href="javascript:history.go(-1)">Go Back Without Saving</a></td></tr>
+				<tr ><td style="height:20px;" align="center" class="bolded"><a class="bolded-dred" href="../search.php?a='.$asset.'">Go Back Without Saving</a></td></tr>
 			</form>
 		</th>
 	</tr>
