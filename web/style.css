@@ -1,11 +1,11 @@
 html,body{margin:0;padding:0;min-width:780px;letter-spacing:1px;font-family:'Roboto', sans-serif;background:url(img/bggradiant.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%}
 
 /* h1 and h4 will both act as large headings, but h4 will be without the normal font type for headings */
-h1{font-size:14pt;color:#0;text-align:center;font-family:'Roboto Condensed', sans-serif;}
-h4{font-size:14pt;color:#0;text-align:center}
-h2{font-size:11pt;color:#0;text-align:center;font-family:'Roboto Condensed', sans-serif;}
-h3{font-size:9pt;color:#0;text-align:center;font-family:'Roboto Condensed', sans-serif;}
-p{font-size:8pt;text-align:left;margin-right:12px!important;margin-left:12px!important}
+h1{font-size:15pt;color:#0;text-align:center;font-family:'Roboto Condensed', sans-serif;}
+h4{font-size:15pt;color:#0;text-align:center}
+h2{font-size:12pt;color:#0;text-align:center;font-family:'Roboto Condensed', sans-serif;}
+h3{font-size:10pt;color:#0;text-align:center;font-family:'Roboto Condensed', sans-serif;}
+p{font-size:9pt;text-align:left;margin-right:12px!important;margin-left:12px!important}
 a{text-decoration:none;font-size:initial;}
 table{font-size:8pt;text-align:center}
 table,th,td{r;font-weight:400}

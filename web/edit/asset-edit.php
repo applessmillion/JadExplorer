@@ -45,7 +45,7 @@ $room = $row['room'];
 	</tr>
     <tr>
 		<th>
-			<form action="index.php?update" method="post">
+			<form action="?update" method="post">
 			<table width="500" align="center" style="background:#f5f5f5">
 				<tr>
 					<th colspan="2">
