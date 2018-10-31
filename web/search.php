@@ -1,6 +1,6 @@
 <?php
-include_once 'config.php';
-include_once 'vars_common.php';
+require 'config.php';
+require 'vars_common.php';
 
 //Create instance for MySQL connection
 $con = new mysqli($ip,$user,$pw,$db);
@@ -18,7 +18,7 @@ if(ISSET($_GET['a'])){
 		<html>
 			<!-- Initalize Page -->
 			<head>
-				<?php echo '<title>', $cv_webpage_title ,' | Asset# ', $_GET['a'] ,'</title>'; ?>
+				<?php echo '<title>' . $cv_webpage_title . ' | Asset# ' . $_GET['a'] . '</title>'; ?>
 				<link rel="stylesheet" type="text/css" href="style.css">
 			</head>
 	
@@ -37,7 +37,7 @@ if(ISSET($_GET['a'])){
 		<html>
 			<!-- Initalize Page -->
 			<head>
-				<?php echo '<title>', $cv_webpage_title ,' | Search  #', $_GET['a'] ,'</title>'; ?>
+				<?php echo '<title>' . $cv_webpage_title . ' | Search  #' . $_GET['a'] . '</title>'; ?>
 				<link rel="stylesheet" type="text/css" href="style.css">
 			</head>
 	
@@ -56,7 +56,7 @@ if(ISSET($_GET['a'])){
 		<html>
 			<!-- Initalize Page -->
 			<head>
-				<?php echo '<title>', $cv_webpage_title ,' | Search  #', $_GET['a'] ,'</title>'; ?>
+				<?php echo '<title>' . $cv_webpage_title . ' | Search  #' . $_GET['a'] . '</title>'; ?>
 				<link rel="stylesheet" type="text/css" href="style.css">
 			</head>
 	
@@ -78,7 +78,7 @@ elseif(ISSET($_GET['n'])){
 <html>
 	<!-- Initalize Page -->
 	<head>
-		<?php echo '<title>', $cv_webpage_title ,' | Search ', $_GET['n'] ,'</title>'; ?>
+		<?php echo '<title>' . $cv_webpage_title . ' | Search ' . $_GET['n'] . '</title>'; ?>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	
@@ -98,7 +98,7 @@ elseif(ISSET($_GET['u'])){
 <html>
 	<!-- Initalize Page -->
 	<head>
-		<?php echo '<title>', $cv_webpage_title ,' | Search ', $_GET['u'] ,'</title>'; ?>
+		<?php echo '<title>' . $cv_webpage_title . ' | Search ' . $_GET['u'] . '</title>'; ?>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	

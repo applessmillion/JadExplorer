@@ -1,15 +1,16 @@
 <?php
-include_once('vars.php');
+require_once "vars.php";
+require_once "vars_common.php";
 //for future use
 ?>
 <html>
 	<head>
-		<title>SHU DoIT | Asset Catalog</title>
+		<title><?php $cv_webpage_title_index ?></title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 		<?php
-			include('header.html');
+			include 'header.html';
 		?>
 		<div class="main">
 		<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
