@@ -1,4 +1,5 @@
 <?php
+//Default title
 $cv_webpage_title = 'Siena Heights Inventory';
 
 //Page titles
