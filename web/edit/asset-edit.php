@@ -17,7 +17,7 @@ $con = new mysqli($ip,$user,$pw,$db);
 $asset = $_GET["edit"];
 
 //SQL statement to pull data from the ASSET table
-$assetsql = "SELECT * from shutest.assets WHERE asset='$asset';";
+$assetsql = "SELECT * from assets WHERE asset='$asset';";
 
 $row=mysqli_fetch_array(mysqli_query($con, $assetsql), MYSQL_ASSOC);
 
@@ -30,7 +30,7 @@ $owner = $row['owner'];
 $manufacturer = $row['manu'];
 
 //SQL statement to pull data from the LOCATION table
-$locsql = "SELECT * from shutest.locations WHERE asset='$asset';";
+$locsql = "SELECT * from asset_locations WHERE asset='$asset';";
 
 $row=mysqli_fetch_array(mysqli_query($con, $locsql), MYSQL_ASSOC);
 
