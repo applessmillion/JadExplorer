@@ -21,3 +21,5 @@ th,td{padding:2px}
 .bolded-orange{font-weight:700;color:#D8844B!important;font-size:12pt!important}
 .bolded-head{font-weight:700;color:#f0f0f0!important;font-size:12pt!important}
 .bolded-green{font-weight:700;color:#2B9100!important;font-size:12pt!important}
+
+div.formicon{width:64px; height:64px; padding:4px;position: relative; top: 0; left: 0;}
