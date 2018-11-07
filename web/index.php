@@ -17,9 +17,9 @@ require_once "vars_common.php";
 		<table align="center" width="710">
 			<tr>
 				<td style="background:#eee"></br>
-					<h2>Siena Heights University Asset Catalog</h2>
+					<h2><?php $page_index_heading; ?></h2>
 					<p>
-					<?php $index_desc; ?>
+						<?php $page_index_desc; ?>
 					</p>
 					</br>
 				</td>
