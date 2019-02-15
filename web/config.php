@@ -1,7 +1,9 @@
 <?php
-// For testing purposes, this user has FULL db permissions
-    $ip   = "localhost";
-    $user = "applessmillion"; //User for db
-    $pw   = "appless9009"; //User's password
-    $db   = "shuit"; //Database to connect to
+/* This page is used as the holder of mySQL connection info.
+It is simply here now to show the variables and such.
+*/
+$ip   = ""; //MySQL Server IP
+$user = ""; //MySQL user
+$pw   = ""; //MySQL password
+$db   = ""; //Database
 ?>

@@ -19,7 +19,11 @@ if(isset($_GET["min"])) {
 	</head>
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') . "</br>"; ?>
+			<?php echo file_get_contents('header.html') . "</br>"; 
+			if($alert_text != ""){
+				echo $widget_webpage_alert;
+			}
+			?>
 			<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
 			<table align="center" width="710">
 	<!-- End Init -->
@@ -27,7 +31,7 @@ if(isset($_GET["min"])) {
 <?php
 
 	//Variables needed for searching.
-    $srch = $_GET["min"];
+    $searchparam_assettag = $_GET["at"];
     $srch2 = $_GET["max"];
     $name = $_GET["search"];
 
@@ -37,7 +41,7 @@ if(isset($_GET["min"])) {
         $srch2 = 5000000;
     }
 	//Kicks in if no input for the minimum field.
-    if($srch < 0 OR $srch == NULL)
+    if($searchparam_assettag < 0 OR $srch == NULL)
     {
         $srch = 1;
     }
@@ -46,8 +50,13 @@ if(isset($_GET["min"])) {
         $name = ' ';
     }
     
+	###########Redo whole section once database is complete.
+	
     #GET NAME FROM SEARCH TERMS#
-    $search_query = mysqli_query($con, "SELECT * FROM Names WHERE LastPrice>='$srch' AND LastPrice<='$srch2' AND ItemName LIKE '%$name%' ORDER BY LastPrice ASC LIMIT 50");
+	if($searchparam_assettag != NULL){
+		$search_query = mysqli_query($con, "SELECT * FROM Names WHERE LastPrice>='$searchparam_assettag' ORDER BY LastPrice ASC LIMIT 50");
+	}
+    
     $search_nums = mysqli_num_rows($search_query);
     
     echo '<tr><th><a href="index.php"><img src="img/search.png"></a></th></tr>';
@@ -112,20 +121,24 @@ else { ?>
 	</head>
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') . "</br>"; ?>
+			<?php echo file_get_contents('header.html') . "</br>"; 
+			if($alert_text != ""){
+				echo $widget_webpage_alert;
+			}
+			?>
 			<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
 			<table align="center" width="710">
 	<!-- End Init -->
 				<tr>
 					<th>
 						<a href="index.php">
-							<img src="img/search.png">
+							<img src="img/search-advanced.png">
 						</a>
 					</th>
 				</tr>
 				<tr>
 					<th>
-						<img src="img/titles/search.png">
+						<img src="img/titles/advancedsearch.png">
 					</th>
 				</tr>
 				<tr>
@@ -133,7 +146,7 @@ else { ?>
 				</tr>
 				<tr>
 					<th>
-					<?php echo '<p>' , $price_desc , '</p></br></br>'; ?>
+					<?php echo "<p>" .$advsearch_desc. "</p></br>"; ?>
 					</th>
 				</tr>
 				<tr>
