@@ -6,18 +6,28 @@
 #   USEFUL VARIABLES    #
 #########################
 
-$alert_text = "Notice: This is the alert widget. Whenever you specify something in alert_text, you'll see this message appear. P.S. This website is still a major WIP.";
+$alert_text = "Notice: This is the beautiful alert widget. Pretty cool PHP magic.</br>Notice: Some HTML elements are being converted to PHP vars. Chaos may occur.";
 
 $contact_email = "contact@jadefury.com";
 $link_github = "https://github.com/applessmillion/";
 
-$webpage_border_color = "#00137F";
-$webpage_border_length = "65%";
+###Variables for the elemets on each webpage
+$webpage_contenttable_width = 710; //table width
+$webpage_contentborder_width = ($webpage_contenttable_width-18); //border width
+$webpage_border_color = "#00137F"; //line break color
+$webpage_border_length = "65%";	   //line break width
 
+##Widget-like HTML that contains the corners and border for the content box
+$webpage_topcontentbox = '<img src="img/corner.png" width="9"><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner2.png" width="9"><table align="center" width="'.$webpage_contenttable_width.'">';
+$webpage_bottomcontentbox = '</table><img src="img/corner3.png" width="9" ><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner4.png" width="9">';
+
+### News and stuff
 $text_recentnews_first_date = "February 13, 2018";
 $text_recentnews_first_text = "Variables are being updated. If you find an odd paragraph, I'm working on it!";
 $text_recentnews_second_date = "February 12, 2018";
 $text_recentnews_second_text = "Website has been uploaded. <strong>Work in progress!</strong>";
+
+##Other text stuff
 $text_goback = "Go Back";
 
 $text_search_noresults_title = "Nothing Found!";
@@ -126,7 +136,7 @@ $widget_webpage_border_large = "<hr style='border-color:$webpage_border_color; w
 
 ### For alerts at the top of the page
 $widget_webpage_alert = '
-<table align="center" width="760" height="48" style="background-color:#540000;"><tr>
+<table align="center" width="860" height="48" style="background-color:#540000;"><tr>
 <th align="left" style="background-color:#F26060;"><strong>'.$alert_text.'</strong></th>
 </tr></table></br></br>';
 
@@ -137,7 +147,8 @@ $widget_webpage_alert = '
 $statuser = file_get_contents("stats.php?total-users");
 $statlog =  file_get_contents("stats.php?total-logs&format");
 
-### DEPRECATED VARIABLES
+###### DEPRECATED VARIABLES
+# Pending deletion
 $var_item_updatetxt = "<strong>var_item_updatetxt - use widget_updates</strong>";
 $mainpage_notice = "mainpage_notice. Use alert_text";
 $about_madeby = "about_madeby. Use widget_aboutinfo.";

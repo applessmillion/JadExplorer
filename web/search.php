@@ -9,7 +9,7 @@ $con = new mysqli($ip,$user,$pw,$db);
 ########################STARTING CONTENT#########################
 
 #CODE FOR SEARCHING DATABASE AND PRINTING RESULTS#
-if(isset($_GET["asstag"])) {
+if(isset($_GET["assettag"])) {
 ?>    
 <html>
 <!-- Initalize Page -->
@@ -28,10 +28,10 @@ if(isset($_GET["asstag"])) {
 		<table align="center" width="710">
 <!-- End Init -->
 <?php
-    $name = $_GET["asstag"];
+    $id = $_GET["assettag"];
     #GET NAME FROM SEARCH TERMS#
-    $search_query = mysqli_query($con, "SELECT * FROM Names WHERE ItemName like '%$name%' OR SecondaryName like '%$name%' ORDER BY ItemName ASC LIMIT 50");
-    $search_nums = mysqli_num_rows($search_query);
+	$search_query = mysqli_query($con, "SELECT * FROM asset_information WHERE tagno='$id' OR name like '%$id' ORDER BY Entity_ID ASC LIMIT 50");
+	$search_nums = mysqli_num_rows($search_query);
 	
     echo '<tr><th><a href="search.php"><img src="img/search-item.png"></a></th></tr>';
 	
@@ -47,7 +47,7 @@ if(isset($_GET["asstag"])) {
 		echo '<tr><th><h2>Found '. $search_nums .' results for "'. $name . '"...</h2></th></tr>';
 		echo '<tr><th>'.$widget_webpage_border.'</th></tr>';
 		while ($obj = mysqli_fetch_object($search_query)) {
-			echo "<tr><th><a class='reg' href='?info=" . urlencode($obj->ItemName) . "'> " . $obj->ItemName;  
+			echo "<tr><th><a class='reg' href='?info=" . urlencode($obj->tagno) . "'> " . $obj->tagno;  
 		} 
 	}
 	
@@ -80,9 +80,8 @@ elseif(isset($_GET["info"])) {
 			if($alert_text != ""){
 				echo $widget_webpage_alert;
 			}
+			echo $webpage_topcontentbox;
 			?>
-		<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
-		<table align="center" width="710">
 <!-- End Init -->
 <?php
         if($iid == NULL) {
@@ -227,9 +226,8 @@ elseif(isset($_GET["random"])) {
 			if($alert_text != ""){
 				echo $widget_webpage_alert;
 			}
+			echo $webpage_topcontentbox;
 			?>
-		<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
-		<table align="center" width="710">
 <!-- End Init -->
 
 <?php
@@ -339,9 +337,8 @@ else {
 			if($alert_text != ""){
 				echo $widget_webpage_alert;
 			}
+			echo $webpage_topcontentbox;
 			?>
-				<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
-				<table align="center" width="710">
 <!-- End Init -->
 					<tr>
 						<th>
@@ -374,7 +371,7 @@ else {
 					<tr>
 						<th>
 							<form action="search.php" method="get">
-								<strong>Search by Asset Tag #:</strong> <input type="text" name="asstag">
+								<strong>Search by Asset Tag #:</strong> <input type="text" name="assettag" maxlength="5" size="6"></br></br>
 								<input type="submit" value="Search">
 							</form>
         

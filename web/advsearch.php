@@ -2,7 +2,6 @@
 #INCLUDE THE FOLLOWING TO MAKE THE REST WORK#
 include_once 'config.php';
 include_once 'vars.php';
-include_once('simple_html_dom.php');
 
 ##########CONNECTION INFO FOR DATABASE###########
 $con = new mysqli($ip,$user,$pw,$db);
@@ -23,27 +22,28 @@ if(isset($_GET["min"])) {
 			if($alert_text != ""){
 				echo $widget_webpage_alert;
 			}
+			
+			echo $webpage_topcontentbox;
 			?>
-			<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
-			<table align="center" width="710">
+			
 	<!-- End Init -->
 
 <?php
 
 	//Variables needed for searching.
-    $searchparam_assettag = $_GET["at"];
-    $srch2 = $_GET["max"];
-    $name = $_GET["search"];
+    $searchparam_assettag = $_GET["at"]; //Asset Tag
+    $searchparam_owner = $_GET["user"];				//
+    $searchparam_name = $_GET["name"];
 
 	//Kicks in if no input for the maximum field. 500k is the max. price for MP.
-    if($srch2 < 0 OR $srch2 == NULL)
+    if($searchparam_owner < 0 OR $searchparam_owner == NULL)
     {
-        $srch2 = 5000000;
+        $searchparam_owner = 5000000;
     }
 	//Kicks in if no input for the minimum field.
-    if($searchparam_assettag < 0 OR $srch == NULL)
+    if($searchparam_assettag < 0 OR $searchparam_assettag == NULL)
     {
-        $srch = 1;
+        $searchparam_assettag = 1;
     }
     if($name == NULL)
     {
@@ -76,7 +76,7 @@ if(isset($_GET["min"])) {
     }
 	
     //If the user has an amount higher than 500k, let them know why it won't work.
-    elseif($srch > 500000)
+    elseif($searchparam_assettag > 500000)
     { ?>
 		<tr>
 			<th>
@@ -125,9 +125,8 @@ else { ?>
 			if($alert_text != ""){
 				echo $widget_webpage_alert;
 			}
+			echo $webpage_topcontentbox;
 			?>
-			<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
-			<table align="center" width="710">
 	<!-- End Init -->
 				<tr>
 					<th>
@@ -165,8 +164,7 @@ else { ?>
 <tr>
 	<td style="height:10px"></td>
 </tr>
-</table>
-<img src="img/corner3.png" width="9" ><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner4.png" width="9">
+<?php echo $webpage_bottomcontentbox; ?>
 </div>
 </body>
 </html>
