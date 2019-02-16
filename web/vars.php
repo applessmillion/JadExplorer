@@ -6,7 +6,7 @@
 #   USEFUL VARIABLES    #
 #########################
 
-$alert_text = "Notice: This is the beautiful alert widget. Pretty cool PHP magic.</br>Notice: Some HTML elements are being converted to PHP vars. Chaos may occur.";
+$alert_text = "Notice: Advanced Search is still a WIP. Basic Search should work with limited results.";
 
 $contact_email = "contact@jadefury.com";
 $link_github = "https://github.com/applessmillion/";
@@ -22,13 +22,15 @@ $webpage_topcontentbox = '<img src="img/corner.png" width="9"><img src="img/bord
 $webpage_bottomcontentbox = '</table><img src="img/corner3.png" width="9" ><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner4.png" width="9">';
 
 ### News and stuff
-$text_recentnews_first_date = "February 13, 2018";
-$text_recentnews_first_text = "Variables are being updated. If you find an odd paragraph, I'm working on it!";
-$text_recentnews_second_date = "February 12, 2018";
-$text_recentnews_second_text = "Website has been uploaded. <strong>Work in progress!</strong>";
+$text_recentnews_first_date = "February 16, 2018";
+$text_recentnews_first_text = "Advanced search is a WIP.";
+$text_recentnews_second_date = "February 13, 2018";
+$text_recentnews_second_text = "Variables are being updated. If you find an odd paragraph, I'm working on it!";
 
 ##Other text stuff
 $text_goback = "Go Back";
+
+$text_search_displayinfo_title = "Showing info for Asset #";
 
 $text_search_noresults_title = "Nothing Found!";
 $text_search_noresults_desc = "Try going back and refining your search.";
@@ -53,10 +55,13 @@ $error_record_updated = '<h2 style="color:red;">Just Updated!</h2></br>The asset
 #  WEBPAGE TEXT BLOCKS  #
 #########################
 
+### QuickSearch Title
+$quicksearch_title = "Quick Search";
+
 ### QuickSearch Main Description
 $quicksearch_desc = "
-Search for an asset using it's Asset Tag. The asset tag should be composed of 6 numbers, usually starting with 13, 14, or 15.
-If your search is broad, up to 50 results will show.
+Search for a device using it's Asset Tag number. </br>The asset tag should be composed of 5 numbers, usually starting with 13, 14, or 15.
+If your search is too broad, it will be limited to 50 results.
 ";
 
 ### Advanced Search Main Description
@@ -75,9 +80,7 @@ location, name, device owner, along with other details.
 ";
 
 #About - Paragraph title
-$about_title = "
-What is SHU-Explorer?
-";
+$about_title = "What is SHU-Explorer?";
 
 #About - Main Descritpion
 $about_desc = "
@@ -86,6 +89,16 @@ Do the about for SHU Explorer.
 Need to contact us about anything? Send an email to <b>$contact_email</b></br>
 SHU-Explorer's source code is also available. <a class='head' href='$link_github'>Find me on GitHub</a>.</br>
 ";
+
+#Advsearch - Paragraph title
+$advsearch_title = "Advanced Search";
+
+#AdvancedSearch - Main Descritpion
+$advsearch_desc = "
+Search for a device using a selection of options. </br>Select which search you would like to use by filling out the needed info.
+If your search is too broad, it will be limited to 50 results.
+";
+
 
 #Copyright notice for MaraPets. Required. Change only when needed/requested.
 $copyright_notice = "Copyright 2019. JADEFURY/Benjamin Robert. All Rights Reserved.";
@@ -103,8 +116,21 @@ $stats_desc
 $page_index = "
 <h3>$index_title</h3>
 $index_desc
-<h4>$quicksearch_title</h4>
+</br></br>
+<h3>$quicksearch_title</h3>
 $quicksearch_desc
+";
+
+$page_quicksearch = "
+<h3>$quicksearch_title</h3>
+$quicksearch_desc
+</br>
+";
+
+$page_advsearch = "
+<h3>$advsearch_title</h3>
+$advsearch_desc
+</br>
 ";
 
 
@@ -118,7 +144,7 @@ $widget_updates = "
 <h3>Recent Updates</h3>
 <p><strong>$text_recentnews_first_date</strong> - $text_recentnews_first_text</a></p>
 <p><strong>$text_recentnews_second_date</strong> - $text_recentnews_second_text</p>
-</br></br>
+</br>
 ";
 
 ### About Widget
@@ -147,14 +173,9 @@ $widget_webpage_alert = '
 $statuser = file_get_contents("stats.php?total-users");
 $statlog =  file_get_contents("stats.php?total-logs&format");
 
+
 ###### DEPRECATED VARIABLES
 # Pending deletion
-$var_item_updatetxt = "<strong>var_item_updatetxt - use widget_updates</strong>";
-$mainpage_notice = "mainpage_notice. Use alert_text";
-$about_madeby = "about_madeby. Use widget_aboutinfo.";
-$about_use = "about_use. Use widget_aboutinfo.";
-$price_desc = "price_desc";
-$item_desc = "item_desc";
 $var_users_title = "var_users_title";
 $var_users_desc = "var_users_desc";
 $var_logging_cooldown = 29000;

@@ -135,14 +135,22 @@ else { ?>
 						<img src="img/titles/advancedsearch.png">
 					</th>
 				</tr>
-				<tr>
-					<td style="height:8px" ></td>
-				</tr>
-				<tr>
-					<th>
-					<?php echo "<p>" .$advsearch_desc. "</p></br>"; ?>
-					</th>
-				</tr>
+					<tr>
+						<td style="height:8px"></td>
+					</tr>
+					<tr>
+						<th>
+							<p>
+								<?php 
+								echo $widget_webpage_border;
+								echo $page_advsearch; 
+								?> 
+							</p>
+						</th>
+					</tr>
+					<tr>
+						<td style="height:10px" ></td>
+					</tr>
 				<tr>
 					<th>
 						<form action="advsearch.php" method="get"></br>
@@ -151,15 +159,13 @@ else { ?>
 							<strong>Device Name: </strong><input type="text" name="dname" maxlength="16" size="18"></br></br>
 							<strong>Owner Username: </strong><input type="text" name="duser" maxlength="9" size="10"></br></br>
 							<input type="submit" value="Search">
-						</form></br></br></br>
+						</form>
+					<?php echo '<tr><td style="height:10px"><br>'.$widget_updates.'</td></tr>'; ?> 
 					</th>
 				</tr>
 			</table>
-<?php }  ?>
-<tr>
-	<td style="height:10px"></td>
-</tr>
-<?php echo $webpage_bottomcontentbox; ?>
+<?php }
+echo $webpage_bottomcontentbox; ?>
 </div>
 </body>
 </html>

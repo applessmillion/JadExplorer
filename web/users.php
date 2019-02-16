@@ -78,9 +78,8 @@ $data_connect;
 							</form>
 						</th>
 					</tr>
-		<?php } ?>
-			</table>
-		<img src="img/corner3.png" width="9" ><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner4.png" width="9">
+		<?php } 
+		echo $webpage_bottomcontentbox; ?>
 		</div>
 	</body>
 </html>

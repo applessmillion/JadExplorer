@@ -19,7 +19,12 @@ if(isset($_GET["assettag"])) {
 	</head>
 	<body>
 		<div id="main">
-			<?php
+			<?php 
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html") . "</br>"; 
+				if($alert_text != ""){ echo $widget_webpage_alert;}
+				echo $webpage_topcontentbox;
+			?>
 <!-- End Init -->
 <?php
     $id = $_GET["assettag"];
@@ -44,8 +49,6 @@ if(isset($_GET["assettag"])) {
 			echo "<tr><th><a class='reg' href='?info=" . urlencode($obj->tagno) . "'> " . $obj->tagno;  
 		} 
 	}
-	
-  
     echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
 }
 
@@ -54,10 +57,11 @@ elseif(isset($_GET["info"])) {
         
         $info = urldecode($_GET["info"]);
         $search = mysqli_escape_string($con, $info);
-        $query = mysqli_query($con, "SELECT * FROM Names WHERE ItemName='$info'");
+        $query = mysqli_query($con, "SELECT * FROM asset_information WHERE tagno='$info'");
         $obj = mysqli_fetch_object($query);
-        $iid = $obj->ItemID;
+        $iid = $obj->tagno;
         
+		##Deprecated
         $pricehistory = mysqli_query($con, "SELECT * FROM Pricelog WHERE ItemID='$iid' ORDER BY Timestamp DESC LIMIT 16");
         $pricehistory2 = mysqli_query($con, "SELECT * FROM Pricelog WHERE ItemID='$iid' ORDER BY Timestamp DESC LIMIT 500");
         $price_nums = mysqli_num_rows($pricehistory);		
@@ -65,14 +69,18 @@ elseif(isset($_GET["info"])) {
 <html>
 <!-- Initalize Page -->
 	<head>
-		<?php echo '<title>SHU-Explorer Info - ' . urldecode($_GET["info"]) . '</title>'; ?>
+		<?php echo '<title>SHU-Explorer - Asset #' . $info . '</title>'; ?>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 		<div id="main">
-			<?php
-<!-- End Init -->
-<?php
+			<?php 
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html") . "</br>"; 
+				if($alert_text != ""){ echo $widget_webpage_alert;}
+				echo $webpage_topcontentbox;
+
+				
         if($iid == NULL) {
         $marapage = $error_record_nullid;
                 #BACK BUTTON TEXT - BACK TO RESULTS#
@@ -80,7 +88,7 @@ elseif(isset($_GET["info"])) {
         echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
         }
         else {
-            echo "<tr><th><h2>Displaying info for ". $info.".</h2></th></tr>"; 
+            echo "<tr><th><h2>". $text_search_displayinfo_title . $info.".</h2></th></tr>"; 
             
             $pid = pcntl_fork();
             if ($pid == 0) {
@@ -112,16 +120,6 @@ elseif(isset($_GET["info"])) {
                         $con->query($sql2);
                         echo '<tr><th style="font-size: 95%; color: #009900">'.$error_record_updated.'</th></tr>';
                     
-                        if(isset($_COOKIE['ml_user'])){
-                            $username = $_COOKIE['ml_user'];
-                            $sql3 = "UPDATE Userboard SET Submissions=Submissions+1 WHERE Username='$username'";
-                            $con->query($sql3);
-                        }
-                        else{
-                            $username = "Anonymous";
-                            $sql3 = "UPDATE Userboard SET Submissions=Submissions+1 WHERE Username='$username'";
-                            $con->query($sql3);
-                        }
                     }
                 } catch (Exception $e) {
                     $marapage = $error_record_timeout;
@@ -191,123 +189,9 @@ elseif(isset($_GET["info"])) {
         }
         if(isset($_GET["id"])) {
         echo '<tr><td style="height:20px;"></br><h3>Item ID:'. $iid  .'</h3></td></tr>';
-        }
-        
-}
-elseif(isset($_GET["random"])) {
-        
-        $iid = mt_rand(1, 47400);
-        
-        $pricehistory = mysqli_query($con, "SELECT * FROM Pricelog WHERE ItemID like $iid ORDER BY Timestamp DESC LIMIT 15");
-        $pricehistory2 = mysqli_query($con, "SELECT * FROM Pricelog WHERE ItemID like $iid ORDER BY Timestamp DESC LIMIT 500");
-        $price_nums = mysqli_num_rows($pricehistory);
-
-?>    
-<html>
-<!-- Initalize Page -->
-	<head>
-		<title>SHU-Explorer - Search</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-	</head>
-	<body>
-		<div id="main">
-			<?php
-<!-- End Init -->
-
-<?php
-        
-        if($iid == NULL) {
-        $marapage = $error_record_nullid ;
-                #BACK BUTTON TEXT - BACK TO RESULTS#
-        echo "<th>" . $marapage . "</br></br></th>"; 
-        echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
-        }
-        else {
-            echo "<tr><th><h2>Displaying information for ". $info.".</h2></th></tr>"; 
-            
-            $pid = pcntl_fork();
-            if ($pid == 0) {
-                try {
-                $marapage = file_get_html('pricecopier.php?id=' . $iid);
-                echo '<tr><th>' . file_get_html("pricecopier.php?id=$iid") . '</th></tr>';
-                }
-                catch(Exception $e3){
-                echo 'Error: Could not fetch item info. Refresh and try again';
-                }
-                try{
-                    foreach($marapage->find('a font[color="#5F148D"]') as $pprice); 
-                    $pprice = preg_replace("/[^0-9.]/", "", $pprice->plaintext);
-                
-                    $sql = "INSERT INTO Pricelog (ItemID, PlayerPrice) VALUES ('$iid', '$pprice');";
-                    $sql2 = "UPDATE Names SET LastPrice='$pprice' WHERE ItemID=$iid";
-                    $sqlcheck = "SELECT * FROM Pricelog WHERE ItemID='$iid' ORDER BY Timestamp DESC LIMIT 1;";
-
-                    $row=mysqli_fetch_array(mysqli_query($con, $sqlcheck), MYSQL_ASSOC);
-                    $timest = $row['Timestamp'];
-                    $time = strtotime($timest);
-                    $curprice = $row['PlayerPrice'];
-                    $curtime = time();
-                    if($pprice == 0)
-                    {
-                        echo '<tr><th style="font-size: 90%; color:red">'.$error_record_notfound.'</th></tr>';
-
-                    }
-                    elseif(($curtime-$time) >= 29251 AND $pprice != $curprice) {
-                        $con->query($sql);
-                        $con->query($sql2);
-                        echo '<tr><th style="font-size: 95%; color: #009900">'.$error_record_updated.'</th></tr>';
-                    
-                        if(isset($_COOKIE['ml_user'])){
-                            $username = $_COOKIE['ml_user'];
-                            $sql3 = "UPDATE Userboard SET Submissions=Submissions+1 WHERE Username='$username'";
-                            $con->query($sql3);
-                        }
-                        else{
-                            $username = "Anonymous";
-                            $sql3 = "UPDATE Userboard SET Submissions=Submissions+1 WHERE Username='$username'";
-                            $con->query($sql3);
-                        }
-                    }
-                } catch (Exception $e) {
-                    $marapage = $error_record_timeout;
-                    echo "<th>" . $marapage . "</br></br></th>"; 
-                }
-            
-            } else {
-                // this is the parent process, and we know the child process id is in $pid
-                sleep(6); // wait 4 seconds
-                posix_kill($pid, SIGKILL); // then kill the child
-                $marapage = $error_record_timeout;
-                echo "<th>" . $marapage . "</br></br></th>"; 
-            }
-            try{
-            $avgsql = "SELECT AVG(PlayerPrice) from Pricelog WHERE ItemID='$iid' LIMIT 500;"; 
-            $row=mysqli_fetch_array(mysqli_query($con, $avgsql), MYSQL_ASSOC);             
-            $avgp = $row['AVG(PlayerPrice)'];
-            }
-            catch(Exception $e){
-                echo 'Error loading average. Please refresh the page to try again.';
-                echo $e;
-            }
-
-            echo '<tr><th>'.$widget_webpage_border.'</th></tr>';
-            echo "<tr><th><h3>Deprecated average price</h3>";
-            echo '<tr><th>'.$widget_webpage_border.'</th></tr>';
-            echo "<tr><th><h2>Price History</h2></th></tr>";
-
-			echo '<tr><td style="height:30px"></td></tr>';
-			
-			#BACK BUTTON TEXT - BACK TO RESULTS#
-			echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
-			}
-        if(isset($_GET["id"])) {
-        echo '<tr><td style="height:20px;"></br><h3>Asset #'. $iid  .'</h3></td></tr>';
-        }
-        
+        }      
 }
 else {
-    
-        #STARTING HTML BEGIN#
 ?>    
 <html>
 <!-- Initalize Page -->
@@ -317,7 +201,12 @@ else {
 	</head>
 	<body>
 		<div id="main">
-			<?php
+			<?php 
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html") . "</br>"; 
+				if($alert_text != ""){ echo $widget_webpage_alert;}
+				echo $webpage_topcontentbox;
+			?>
 <!-- End Init -->
 					<tr>
 						<th>
@@ -339,7 +228,7 @@ else {
 							<p>
 								<?php 
 								echo $widget_webpage_border;
-								echo $quicksearch_desc; 
+								echo $page_quicksearch; 
 								?> 
 							</p>
 						</th>
@@ -355,19 +244,11 @@ else {
 							</form>
         
         <?php
-        echo '<tr><td style="height:26px" ></td></tr>';
-
-		echo '<tr><th><table align="center"><tr>'; 
-    
-    echo '</tr></table></th></tr>';
-
-    ##    
-echo '<tr><td style="height:10px"><br>'.$widget_updates.'</td></tr>';    
+		echo '</th></tr>';  
+		echo '<tr><td style="height:10px"><br>'.$widget_updates.'</td></tr>';    
 }    
-?>
-<tr><td style="height:10px"></td></tr>
-			</table>
-		<img src="img/corner3.png" width="9" ><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner4.png" width="9"></div>
+		echo $webpage_bottomcontentbox; ?>
+		</div>
 	</body>
 </html>
 

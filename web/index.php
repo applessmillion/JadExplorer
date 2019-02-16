@@ -32,9 +32,7 @@ require_once 'vars.php';
 							<p>
 								<?php 
 								echo $widget_webpage_border_large;
-								echo $index_title;
-								echo $index_desc; 
-								echo "</br></br>";
+								echo $page_index;
 								echo $widget_webpage_border;
 								?> 
 							</p>
