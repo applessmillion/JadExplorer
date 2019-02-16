@@ -18,17 +18,12 @@ if(isset($_GET["min"])) {
 	</head>
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') . "</br>"; 
-			if($alert_text != ""){
-				echo $widget_webpage_alert;
-			}
-			
-			echo $webpage_topcontentbox;
-			?>
-			
-	<!-- End Init -->
+	<?php
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html") . "</br>"; 
+				if($alert_text != ""){ echo $widget_webpage_alert;}
+				echo $webpage_topcontentbox;
 
-<?php
 
 	//Variables needed for searching.
     $searchparam_assettag = $_GET["at"]; //Asset Tag
@@ -121,11 +116,11 @@ else { ?>
 	</head>
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') . "</br>"; 
-			if($alert_text != ""){
-				echo $widget_webpage_alert;
-			}
-			echo $webpage_topcontentbox;
+			<?php 
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html") . "</br>"; 
+				if($alert_text != ""){ echo $widget_webpage_alert;}
+				echo $webpage_topcontentbox;
 			?>
 	<!-- End Init -->
 				<tr>

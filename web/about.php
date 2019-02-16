@@ -13,11 +13,12 @@ include_once 'vars.php';
 	</head>
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html')?>
-			</br>
-<!-- End Init -->
-			<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
-			<table align="center" width="710">
+			<?php 
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html") . "</br>"; 
+				if($alert_text != ""){ echo $widget_webpage_alert;}
+				echo $webpage_topcontentbox;
+			?>
 				<tr>
 					<th>
 						<img src="img/about_image.png">

@@ -19,13 +19,7 @@ if(isset($_GET["assettag"])) {
 	</head>
 	<body>
 		<div id="main">
-					<?php echo file_get_contents('header.html') . "</br>"; 
-			if($alert_text != ""){
-				echo $widget_webpage_alert;
-			}
-			?>
-			<img src="img/corner.png" width="9"><img src="img/border.png" width="692" height="9" border="0"><img src="img/corner2.png" width="9">
-		<table align="center" width="710">
+			<?php
 <!-- End Init -->
 <?php
     $id = $_GET["assettag"];
@@ -76,12 +70,7 @@ elseif(isset($_GET["info"])) {
 	</head>
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') . "</br>"; 
-			if($alert_text != ""){
-				echo $widget_webpage_alert;
-			}
-			echo $webpage_topcontentbox;
-			?>
+			<?php
 <!-- End Init -->
 <?php
         if($iid == NULL) {
@@ -222,12 +211,7 @@ elseif(isset($_GET["random"])) {
 	</head>
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') . "</br>"; 
-			if($alert_text != ""){
-				echo $widget_webpage_alert;
-			}
-			echo $webpage_topcontentbox;
-			?>
+			<?php
 <!-- End Init -->
 
 <?php
@@ -333,12 +317,7 @@ else {
 	</head>
 	<body>
 		<div id="main">
-			<?php echo file_get_contents('header.html') . "</br>"; 
-			if($alert_text != ""){
-				echo $widget_webpage_alert;
-			}
-			echo $webpage_topcontentbox;
-			?>
+			<?php
 <!-- End Init -->
 					<tr>
 						<th>
