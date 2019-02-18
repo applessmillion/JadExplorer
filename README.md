@@ -1,3 +1,5 @@
+![logo](https://raw.githubusercontent.com/applessmillion/SHU-Explorer/master/web/img/logo.png)
+
 # SHU-Explorer
 ## About
 SHU-Explorer is a project developed per requirement of graduating with a Computer Information Systems major at Siena Heights University.
