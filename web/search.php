@@ -88,12 +88,8 @@ elseif(isset($_GET["info"])) {
         }
         else {
             echo "<tr><th><h2>". $text_search_displayinfo_title . $info.".</h2></th></tr>"; 
-            
-
 			echo '<tr><th style="height:'.$webpage_device_iframe_height.'"><iframe src="iteminfo.php?assettag='.$iid.'" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe></br></th></tr>';
-			
-			echo '<tr><td><a href="https://spiceworks.sienaheights.edu/search?query=15746" style="font-size:12"><b>Spiceworks Search</b> (Must be logged in)</a></br></br></td></tr>';
-            echo "<tr><th><h2>History</h2></th></tr>";
+			echo "<tr><th><h2>History</h2></th></tr>";
 
             echo '<tr><th style="color: #E01200">Error: No Logs</th></tr>';
             echo "<tr><th style='font-size: 100%;'>:(</th></tr>";

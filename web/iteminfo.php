@@ -47,22 +47,55 @@ if(isset($_GET['assettag'])){
 	
 	/* Finally, echo it all into HTML. Not worrying about formatting as
 	it is handled by the page it is inserted into. */
-	echo '<link rel="stylesheet" type="text/css" href="iframestyle.css">';
+	echo $tech_css_js_styleimports;
 	
 	
-	echo '<table align="center" width="675">';
-	echo '<tr><th><img src="http://www.junklands.com/web/img/logo.png" align="center"></th>';
-	echo '<td><b style="line-height:1.15; font-size:12pt">' . $assetname . '</b></td><td style="font-size:11pt">'. $astatus .'</td>';
-	echo '<tr><td colspan="3">Entry Created at '. $assetcreate .'</td></tr>';
-	echo '<tr><td colspan="3">'.$widget_webpage_border_large .'</td></tr>';
-	echo '<tr><th colspan="3"></br><b style="font-size:13pt;"><u>ASSET INFORMATION</u></b></th></tr>';
-	echo '<tr><td><b style="color:darkorange;font-size:11pt">Asset #' . $assettag . ' </b></td>';
-	echo '<td><b style="color:darkgreen;font-size:11pt">Service #' . $assetservice . ' </b></td>';
-	echo '<td><b style="color:darkblue;font-size:11pt">Serial #' . $assetserial . ' </b></td></tr>';
-	echo '<tr style="height:28px"><th colspan="3"></br><b style="font-size:13pt"><u>DEVICE INFORMATION</u></b></th></tr>';
-	echo '<tr><td><b style="font-size:10pt">' . $devicemanu . " " . $devicemodel . " " . $devicemodelno . ' </b></td>';
-	echo '<td><b style="font-size:10pt">Cost: $' . $deviceprice . ' </b></td></tr>';
-	echo '</table>';
+	echo '
+	<table class="table" width="655">
+		<thead>
+			<tr>
+				<th scope="col"><img src="http://www.junklands.com/web/img/logo.png" align="center"></th>
+				<th scope="col"><b style="line-height:1.15;font-size:14pt;text-align:left;">' . $assetname . '</b></th>
+				<th scope="col" style="text-align: right;">'. $astatus .'</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th colspan="3">
+					<b style="font-size:12pt;">ASSET INFORMATION</b>
+				</th>
+			</tr>
+			<tr>
+				<td style="font-size:10pt">
+					<b style="color:'. $webpage_table_text_labelcolor .';">Asset ID: </b>' . $assettag . ' 
+				</td>
+				<td style="font-size:10pt">
+					<b style="color:'. $webpage_table_text_labelcolor .';">Service Number: </b>' . $assetservice . ' 
+				</td>
+				<td style="font-size:10pt">
+					<b style="color:'. $webpage_table_text_labelcolor .';">Serial Number: </b>' . $assetserial . '
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="font-size:11px">Entry Created at '. $assetcreate .'</td>
+			</tr>
+			<tr>
+				<th colspan="3">
+					<b style="font-size:12pt">DEVICE INFORMATION</b>
+				</th>
+			</tr>
+			<tr>
+				<td style="font-size:10pt">
+					<b style="color:'. $webpage_table_text_labelcolor .';">Model: </b>' . $devicemanu . " " . $devicemodel . " " . $devicemodelno . ' 
+				</td>
+				<td style="font-size:10pt">
+					<b style="color:'. $webpage_table_text_labelcolor .';">Cost: </b>$' . $deviceprice . ' 
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<p style="text-align:center"><a href="https://spiceworks.sienaheights.edu/search?query=15746" target="_blank"><b>Spiceworks Search</b> (Must be logged into Spiceworks)</a></p>
+	';
 }
 
 //If for some reason ID is not set, handle it here.
