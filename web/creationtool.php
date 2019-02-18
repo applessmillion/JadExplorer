@@ -10,10 +10,12 @@ include_once 'vars.php';
 ##########CONNECTION INFO FOR DATABASE###########
 $con = new mysqli($ip,$user,$pw,$db);
 
-if(isset($_GET['assettag'])){
-	$id 	= $_GET['assettag'];
-	$sql 	= mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno='$id'");
-	$obj 	= mysqli_fetch_object($sql);
+if(isset($_GET['cname'])){
+	$sql_a 	= mysqli_query($con, "INSERT INTO asset_information (tagno, name, servicetag) VALUES ($assettag, $assetname, $assetservice)");
+
+	$sql_d 	= mysqli_query($con, "INSERT INTO device_information (,) VALUES (,)");
+	$obj_a 	= mysqli_fetch_object($sql_a);
+	$obj_d 	= mysqli_fetch_object($sql_d);
 	/////////////////////////////////////////
 
 	$assetname 		= $_GET['cname'];
@@ -22,8 +24,6 @@ if(isset($_GET['assettag'])){
 	$assetservice 	= $obj->serviceno;
 	$assetserial 	= $obj->serialno;
 	$assetcat 		= $obj->assetcategory;
-	//$assetstatus 	= $obj->status;
-	//$assetcreate	= $obj->createdate;
 	
 	$devicemanu		= $obj->manufacturer;
 	$devicemodel	= $obj->model;
