@@ -20,7 +20,7 @@ $webpage_device_iframe_height = 220;
 
 ##Widget-like HTML that contains the corners and border for the content box
 $webpage_topcontentbox = '<img src="img/corner.png" width="9"><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner2.png" width="9"><table align="center" width="'.$webpage_contenttable_width.'">';
-$webpage_bottomcontentbox = '</table><img src="img/corner3.png" width="9" ><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner4.png" width="9">';
+$webpage_bottomcontentbox = '</table><img src="img/corner3.png" width="9" ><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner4.png" width="9"></br></br></br></br>';
 
 ### News and stuff
 $text_recentnews_first_date = "February 16, 2018";
@@ -29,7 +29,7 @@ $text_recentnews_second_date = "February 13, 2018";
 $text_recentnews_second_text = "Variables are being updated. If you find an odd paragraph, I'm working on it!";
 
 ##Other text stuff
-$text_goback = "Go Back";
+$text_goback = "Go Back</br>";
 
 $text_search_displayinfo_title = "Showing info for Asset #";
 

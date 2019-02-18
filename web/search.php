@@ -29,10 +29,9 @@ if(isset($_GET["assettag"])) {
 <?php
     $id = $_GET["assettag"];
     #GET NAME FROM SEARCH TERMS#
-	$search_query = mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno like '%$id%' ORDER BY tagno DESC LIMIT 50");
+	$search_query = mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno like '%$id%' ORDER BY tagno DESC LIMIT 30");
 	
 	$search_nums = mysqli_num_rows($search_query);
-	
     echo '<tr><th><a href="search.php"><img src="img/search-item.png"></a></th></tr>';
 	
 	if($search_nums == NULL){$search_nums = 0;}
@@ -43,15 +42,18 @@ if(isset($_GET["assettag"])) {
 		echo '<tr><th>'.$text_search_noresults_desc.'</th></tr>';
 	}
 	else{
-		
-		echo '<tr><th><h2>Found '. $search_nums .' results for "'. $id . '"...</h2></th></tr>';
-		echo '<tr><th>'.$widget_webpage_border.'</th></tr>';
+		echo '<tr><td><h2>Found '. $search_nums .' results for "'. $id . '"...</h2></td></tr>';
+		echo '<tr><td>'.$widget_webpage_border.'</td></tr>';
+		echo '<tr><td><table width="500" align="center">';
+		echo '<tr><th><b style="font-size:13">Asset Tag#</b></th><th><b style="font-size:13">Device Name</b></th><th><b style="font-size:13">Device Type</b></th></tr>';
 		while ($obj = mysqli_fetch_object($search_query)) {
-			echo "<tr><th>";
-			echo "<a class='reg' href='?info=" . urlencode($obj->tagno) . "' style='font-size:14'>" . $obj->name . " (Asset Tag #".$obj->tagno.")";  
+			echo "<tr><td colspan='3'><hr></td></tr>";
+			echo "<tr><td>";
+			echo "<a class='reg' href='?info=" . urlencode($obj->tagno) . "' style='font-size:12'>". $obj->tagno . "</a></td><td>". $obj->name ."</td><td>". $obj->model ." ". $obj->model_number ."</td></tr>"; 
 		} 
+		echo '</table></td></tr>';
 	}
-    echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
+    echo '<tr><td colspan="2" style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
 }
 
 #CODE FOR RETRIEVING DATA OF ITEM AND PRINTING RESULTS#
