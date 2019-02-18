@@ -16,7 +16,7 @@ $webpage_contenttable_width = 710; //table width
 $webpage_contentborder_width = ($webpage_contenttable_width-18); //border width
 $webpage_border_color = "#00137F"; //line break color
 $webpage_border_length = "65%";	   //line break width
-$webpage_device_iframe_height = 200;
+$webpage_device_iframe_height = 220;
 
 ##Widget-like HTML that contains the corners and border for the content box
 $webpage_topcontentbox = '<img src="img/corner.png" width="9"><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner2.png" width="9"><table align="center" width="'.$webpage_contenttable_width.'">';
@@ -164,10 +164,10 @@ By using our service, you acknowledge that we use cookies to customize your expe
 $widget_webpage_border = "<hr style='border-color:$webpage_border_color; width:$webpage_border_length;'></br>";
 
 ### Webpage border - longer
-$widget_webpage_border_large = "<hr style='border-color:$webpage_border_color; width:80%;'></br>";
+$widget_webpage_border_large = "<hr style='border-color:$webpage_border_color; width:80%;'>";
 
 ### Webpage border - medium adaptive
-$widget_webpage_border_medium = "<hr style='border-color:$webpage_border_color; width:45%;'></br>";
+$widget_webpage_border_medium = "<hr style='border-color:$webpage_border_color; width:55%;'>";
 
 ### For alerts at the top of the page
 $widget_webpage_alert = '

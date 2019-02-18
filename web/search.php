@@ -29,7 +29,8 @@ if(isset($_GET["assettag"])) {
 <?php
     $id = $_GET["assettag"];
     #GET NAME FROM SEARCH TERMS#
-	$search_query = mysqli_query($con, "SELECT * FROM asset_information WHERE tagno='$id' OR name like '%$id' ORDER BY Entity_ID ASC LIMIT 50");
+	$search_query = mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno like '%$id%' ORDER BY tagno DESC LIMIT 50");
+	
 	$search_nums = mysqli_num_rows($search_query);
 	
     echo '<tr><th><a href="search.php"><img src="img/search-item.png"></a></th></tr>';
@@ -43,10 +44,11 @@ if(isset($_GET["assettag"])) {
 	}
 	else{
 		
-		echo '<tr><th><h2>Found '. $search_nums .' results for "'. $name . '"...</h2></th></tr>';
+		echo '<tr><th><h2>Found '. $search_nums .' results for "'. $id . '"...</h2></th></tr>';
 		echo '<tr><th>'.$widget_webpage_border.'</th></tr>';
 		while ($obj = mysqli_fetch_object($search_query)) {
-			echo "<tr><th><a class='reg' href='?info=" . urlencode($obj->tagno) . "'> " . $obj->tagno;  
+			echo "<tr><th>";
+			echo "<a class='reg' href='?info=" . urlencode($obj->tagno) . "' style='font-size:14'>" . $obj->name . " (Asset Tag #".$obj->tagno.")";  
 		} 
 	}
     echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
@@ -77,18 +79,18 @@ elseif(isset($_GET["info"])) {
 				echo $webpage_topcontentbox;
 
         if($iid == NULL) {
-        $marapage = $error_record_nullid;
+        $errorpage = $error_record_nullid;
                 #BACK BUTTON TEXT - BACK TO RESULTS#
-        echo "<th>" . $marapage . "</br></br></th>"; 
+        echo "<th>" . $errorpage . "</br></br></th>"; 
         echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
         }
         else {
             echo "<tr><th><h2>". $text_search_displayinfo_title . $info.".</h2></th></tr>"; 
             
 
-			echo '<tr><th style="height:'.$webpage_device_iframe_height.'"><iframe src="iteminfo.php?assettag=$iid" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe></th></tr>';
-
-            echo '<tr><th>'.$widget_webpage_border.'</th></tr>';
+			echo '<tr><th style="height:'.$webpage_device_iframe_height.'"><iframe src="iteminfo.php?assettag='.$iid.'" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe></br></th></tr>';
+			
+			echo '<tr><td><a href="https://spiceworks.sienaheights.edu/search?query=15746" style="font-size:12"><b>Spiceworks Search</b> (Must be logged in)</a></br></br></td></tr>';
             echo "<tr><th><h2>History</h2></th></tr>";
 
             echo '<tr><th style="color: #E01200">Error: No Logs</th></tr>';
