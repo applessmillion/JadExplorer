@@ -15,13 +15,15 @@ if(isset($_GET["assettag"])) {
 <!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Search</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<?php echo $tech_css_js_styleimports; ?>
 	</head>
-	<body>
-		<div id="main">
+	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+		<div>
+			<?php echo file_get_contents("gtag.html");
+			echo file_get_contents("header.html") . "</br>"; ?>
+		</div>
+		<div class="container-fluid">
 			<?php 
-				echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html") . "</br>"; 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
@@ -69,14 +71,15 @@ elseif(isset($_GET["info"])) {
 <html>
 <!-- Initalize Page -->
 	<head>
-		<?php echo '<title>SHU-Explorer - Asset #' . $info . '</title>'; ?>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<?php echo '<title>SHU-Explorer - Asset #' . $info . '</title>' . $tech_css_js_styleimports; ?>
 	</head>
-	<body>
-		<div id="main">
+	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+		<div>
+			<?php echo file_get_contents("gtag.html");
+			echo file_get_contents("header.html") . "</br>"; ?>
+		</div>
+		<div class="container-fluid">
 			<?php 
-				echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html") . "</br>"; 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 
@@ -106,13 +109,15 @@ else {
 <!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Search</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<?php echo $tech_css_js_styleimports; ?>
 	</head>
-	<body>
-		<div id="main">
+	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+		<div>
+			<?php echo file_get_contents("gtag.html");
+			echo file_get_contents("header.html") . "</br>"; ?>
+		</div>
+		<div class="container-fluid">
 			<?php 
-				echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html") . "</br>"; 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>

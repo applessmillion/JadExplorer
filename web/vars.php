@@ -6,7 +6,8 @@
 #   USEFUL VARIABLES    #
 #########################
 
-$alert_text = "";
+$alert_text = "Yay! Alerts now display properly in our little CSS conversion! This is simply testing how the text wraps to a 2nd line. I've made the box a bit bigger, so we gotta type more text.
+ By converting it to the special table class, it takes up the entire width of the webpage.";
 
 $contact_email = "contact@jadefury.com";
 $link_github = "https://github.com/applessmillion/";
@@ -172,8 +173,8 @@ $widget_webpage_border_medium = "<hr style='border-color:$webpage_border_color; 
 
 ### For alerts at the top of the page
 $widget_webpage_alert = '
-<table align="center" width="860" height="48" style="background-color:#540000;"><tr>
-<th align="left" style="background-color:#F26060;"><strong>'.$alert_text.'</strong></th>
+<table class="table" align="center" width="860" height="48" style="background-color:#540000;text-align:center;border:4px solid #7F0000"><tr>
+<th align="center" style="background-color:#F26060;border:4px solid #7F0000"><strong>'.$alert_text.'</strong></th>
 </tr></table></br></br>';
 
 #########################

@@ -6,13 +6,14 @@ require_once 'vars.php';
 		<title>SHU-Explorer - Search</title>
 		<?php echo $tech_css_js_styleimports; ?>
 	</head>
-	<body>
-		<div class="container-fluid" style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
-			<?php
-				echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html") . "</br>"; 
+	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+		<div>
+			<?php echo file_get_contents("gtag.html");
+			echo file_get_contents("header.html") . "</br>"; ?>
+		</div>
+		<div class="container-fluid">
+			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
-				echo '<div class="container">';
 				echo $webpage_topcontentbox;
 			?>
 			<tr>

@@ -14,16 +14,17 @@ if(isset($_GET["min"])) {
 	<!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Advanced Search</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<?php echo $tech_css_js_styleimports; ?>
 	</head>
-	<body>
-		<div id="main">
-	<?php
-				echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html") . "</br>"; 
+	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+		<div>
+			<?php echo file_get_contents("gtag.html");
+			echo file_get_contents("header.html") . "</br>"; ?>
+		</div>
+		<div class="container-fluid">
+			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
-
 
 	//Variables needed for searching.
     $searchparam_assettag = $_GET["at"]; //Asset Tag
@@ -112,13 +113,15 @@ else { ?>
 	<!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Search Assets</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<?php echo $tech_css_js_styleimports; ?>
 	</head>
-	<body>
-		<div id="main">
+	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+		<div>
+			<?php echo file_get_contents("gtag.html");
+			echo file_get_contents("header.html") . "</br>"; ?>
+		</div>
+		<div class="container-fluid">
 			<?php 
-				echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html") . "</br>"; 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
