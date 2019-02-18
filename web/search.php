@@ -61,10 +61,6 @@ elseif(isset($_GET["info"])) {
         $obj = mysqli_fetch_object($query);
         $iid = $obj->tagno;
         
-		##Deprecated
-        $pricehistory = mysqli_query($con, "SELECT * FROM Pricelog WHERE ItemID='$iid' ORDER BY Timestamp DESC LIMIT 16");
-        $pricehistory2 = mysqli_query($con, "SELECT * FROM Pricelog WHERE ItemID='$iid' ORDER BY Timestamp DESC LIMIT 500");
-        $price_nums = mysqli_num_rows($pricehistory);		
 ?>    
 <html>
 <!-- Initalize Page -->
@@ -80,7 +76,6 @@ elseif(isset($_GET["info"])) {
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 
-				
         if($iid == NULL) {
         $marapage = $error_record_nullid;
                 #BACK BUTTON TEXT - BACK TO RESULTS#
@@ -90,106 +85,20 @@ elseif(isset($_GET["info"])) {
         else {
             echo "<tr><th><h2>". $text_search_displayinfo_title . $info.".</h2></th></tr>"; 
             
-            $pid = pcntl_fork();
-            if ($pid == 0) {
-                try {
-                $marapage = file_get_html('pricecopier.php?id=' . $iid);
-                echo '<tr><th>' . file_get_html("pricecopier.php?id=$iid") . '</th></tr>';
-                }
-                catch(Exception $e3){
-                echo $error_record_page;
-                }
-                try{
-                    foreach($marapage->find('a font[color="#5F148D"]') as $pprice); 
-                    $pprice = preg_replace("/[^0-9.]/", "", $pprice->plaintext);
-                
-                    $sql = "INSERT INTO Pricelog (ItemID, PlayerPrice) VALUES ('$iid', '$pprice');";
-                    $sql2 = "UPDATE Names SET LastPrice='$pprice' WHERE ItemID=$iid";
-                    $sqlcheck = "SELECT * FROM Pricelog WHERE ItemID='$iid' ORDER BY Timestamp DESC LIMIT 1;";
 
-                    $row=mysqli_fetch_array(mysqli_query($con, $sqlcheck), MYSQL_ASSOC);
-                    $timest = $row['Timestamp'];
-                    $time = strtotime($timest);
-                    $curprice = $row['PlayerPrice'];
-                    $curtime = time();
-                    if($pprice == 0){
-                        echo '<tr><th style="font-size: 90%; color:red">'.$error_record_notfound.'</th></tr>';
-                    }
-                    elseif(($curtime-$time) >= 29251 AND $pprice != $curprice) {
-                        $con->query($sql);
-                        $con->query($sql2);
-                        echo '<tr><th style="font-size: 95%; color: #009900">'.$error_record_updated.'</th></tr>';
-                    
-                    }
-                } catch (Exception $e) {
-                    $marapage = $error_record_timeout;
-                    echo "<th>" . $marapage . "</br></br></th>"; 
-                }
-            
-            } else {
-                // this is the parent process, and we know the child process id is in $pid
-                sleep(5); // wait 4 seconds
-                posix_kill($pid, SIGKILL); // then kill the child
-                $marapage = $error_record_timeout;
-                echo "<th>" . $marapage . "</br></br></th>"; 
-            }
-			
-			//SQL statement for all-time average.
-            $avgsql = "SELECT AVG(PlayerPrice) from Pricelog WHERE ItemID='$iid';"; 
-			
-			//SQL statement for recent average. Averages recent 15 prices.
-			$avg2sql = "SELECT AVG(PlayerPrice) from ( SELECT PlayerPrice FROM Pricelog WHERE ItemID='$iid' ORDER BY Timestamp DESC LIMIT 15) AS QRY;"; 
-			
-			//SQL statement for all-time highest price.
-			$hisql = "SELECT * from Pricelog WHERE ItemID='$iid' ORDER BY PlayerPrice DESC LIMIT 1;"; 
-			
-			//SQL statement for all-time lowest price.
-			$losql = "SELECT * from Pricelog WHERE ItemID='$iid' ORDER BY PlayerPrice ASC LIMIT 1;"; 
-            
-			//Connect and execute recent average SQL, save result as $avg2p
-			$recentavg= mysqli_fetch_array(mysqli_query($con, $avg2sql), MYSQL_ASSOC);             
-            
-			//Connect and execute all-time average SQL, save result as $avgp
-			$allavg= mysqli_fetch_array(mysqli_query($con, $avgsql), MYSQL_ASSOC);             
-            
-			//Connect and execute all-time highest price SQL, save result as $hisql
-			$highs= mysqli_fetch_array(mysqli_query($con, $hisql), MYSQL_ASSOC);
+			echo '<tr><th style="height:'.$webpage_device_iframe_height.'"><iframe src="pricecopier.php?assettag=$iid" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe></th></tr>';
 
-			//Connect and execute all-time lowest price SQL, save result as $losql
-			$lows= mysqli_fetch_array(mysqli_query($con, $losql), MYSQL_ASSOC);        
-			
-			//This stuff is a bit buggy. Needs testing later on.
-			#$datehi = $highs['Timestamp'];
-			#$datelo = $highs['Timestamp'];
-			
-			
-			//Saving the results of the above SQL queries.
-			$highp = $highs['PlayerPrice'];
-			$lowp = $lows['PlayerPrice'];
-			$avgp = $allavg['AVG(PlayerPrice)'];
-			$avg2p = $recentavg['AVG(PlayerPrice)'];
-
-			
-            echo '<tr><th>'.$widget_webpage_border.'</th></tr>';
-            echo "Deprecated statistics block";
             echo '<tr><th>'.$widget_webpage_border.'</th></tr>';
             echo "<tr><th><h2>History</h2></th></tr>";
-            if(mysqli_num_rows($pricehistory)==0) {
-            echo '<tr><th style="color: #E01200">deprecated error_nologs</th></tr>';
-            }
-            
-            #PRINT PRICE HISTORY#
-            while ($objph = mysqli_fetch_object($pricehistory)) {
-                $dt = new DateTime($objph->Timestamp);
-                echo "<tr><th style='font-size: 100%;'>Priced at <strong>" . number_format($objph->PlayerPrice) . "MP</strong> on " . $dt->format('M j Y H:i') . "</th></tr>";
-            }
+
+            echo '<tr><th style="color: #E01200">Error: No Logs</th></tr>';
+            echo "<tr><th style='font-size: 100%;'>:(</th></tr>";
+
         echo '<tr><td style="height:30px"></td></tr>';
+		
         #BACK BUTTON TEXT - BACK TO RESULTS#
         echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
-        }
-        if(isset($_GET["id"])) {
-        echo '<tr><td style="height:20px;"></br><h3>Item ID:'. $iid  .'</h3></td></tr>';
-        }      
+        }  
 }
 else {
 ?>    

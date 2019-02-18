@@ -16,6 +16,7 @@ $webpage_contenttable_width = 710; //table width
 $webpage_contentborder_width = ($webpage_contenttable_width-18); //border width
 $webpage_border_color = "#00137F"; //line break color
 $webpage_border_length = "65%";	   //line break width
+$webpage_device_iframe_height = 200;
 
 ##Widget-like HTML that contains the corners and border for the content box
 $webpage_topcontentbox = '<img src="img/corner.png" width="9"><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner2.png" width="9"><table align="center" width="'.$webpage_contenttable_width.'">';
@@ -54,6 +55,11 @@ $error_record_updated = '<h2 style="color:red;">Just Updated!</h2></br>The asset
 #########################
 #  WEBPAGE TEXT BLOCKS  #
 #########################
+
+###Stats Title
+$stats_title = "";
+
+$stats_desc = "";
 
 ### QuickSearch Title
 $quicksearch_title = "Quick Search";
@@ -160,6 +166,9 @@ $widget_webpage_border = "<hr style='border-color:$webpage_border_color; width:$
 ### Webpage border - longer
 $widget_webpage_border_large = "<hr style='border-color:$webpage_border_color; width:80%;'></br>";
 
+### Webpage border - medium adaptive
+$widget_webpage_border_medium = "<hr style='border-color:$webpage_border_color; width:45%;'></br>";
+
 ### For alerts at the top of the page
 $widget_webpage_alert = '
 <table align="center" width="860" height="48" style="background-color:#540000;"><tr>
@@ -169,9 +178,7 @@ $widget_webpage_alert = '
 #########################
 #    STAT VARIABLES     #
 #########################
-# Deprecated as of 2/13/19. Needs redone.
-$statuser = file_get_contents("stats.php?total-users");
-$statlog =  file_get_contents("stats.php?total-logs&format");
+///
 
 
 ###### DEPRECATED VARIABLES
