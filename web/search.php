@@ -86,7 +86,7 @@ elseif(isset($_GET["info"])) {
             echo "<tr><th><h2>". $text_search_displayinfo_title . $info.".</h2></th></tr>"; 
             
 
-			echo '<tr><th style="height:'.$webpage_device_iframe_height.'"><iframe src="pricecopier.php?assettag=$iid" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe></th></tr>';
+			echo '<tr><th style="height:'.$webpage_device_iframe_height.'"><iframe src="iteminfo.php?assettag=$iid" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe></th></tr>';
 
             echo '<tr><th>'.$widget_webpage_border.'</th></tr>';
             echo "<tr><th><h2>History</h2></th></tr>";
