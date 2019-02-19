@@ -7,6 +7,14 @@ require_once 'setuser.php';
 ##################CONNECTION INFO FOR DATABASE###################
 $data_connect;
 ########################STARTING CONTENT#########################
+$sql 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY Entity_ID DESC LIMIT 1");
+$obj 	= mysqli_fetch_object($sql);
+
+$sql2 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY tagno DESC LIMIT 1");
+$obj2 	= mysqli_fetch_object($sql2);
+
+$sql3 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY createdate DESC LIMIT 1");
+$obj3 	= mysqli_fetch_object($sql3);
 
 ?>    
 <html>
@@ -20,43 +28,40 @@ $data_connect;
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid" style="max-width:1200px">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
+		</div>
+		<div class="container-fluid" style="max-width:1000px">
 <!-- End Init -->
 				<?php
-				//Finds the total number of logs. Lots more efficient, and formats!
-				$statalllog = file_get_contents("stats.php?total-logs&format");
+				$statalllog = $obj->Entity_ID;
+				$highesttag = $obj2->tagno;
+				$recentaddN = $obj3->name;
+				$recentaddA = $obj3->tagno;
 
-				//Finds the number of logs made by users. Much more efficient doing this on stats.php!
-				$statuserlog = file_get_contents("stats.php?user-logs&format");
-
-				//Find top 20 contributors.
-				$sql_top20 = mysqli_query($con, "SELECT * FROM Userboard ORDER BY Submissions DESC LIMIT 20");
-				$sql_top20_num = mysqli_num_rows($sql_top20);
 				?>
-				<tr>
+				<tr class="text-center">
 					<th>
-						<a href="users.php"><img src="img/contrib.gif"></a>
-					</th>
-				</tr>
-				<tr>
-					<th>
-						<h2>Statistical Stats</h2>
+						<a href="stat.php"><img src="img/statistics.png" width="18%" style="min-width:156px;max-width:256px;"></a>
+						<h1>Statistical Stats</h1>
+						<?php echo $widget_webpage_border; ?>
 					</th>
 				</tr>
 				<?php 
-				echo '<tr><th>'. $var_users .'</br></th></tr>';
-				echo '<tr><th>There are currently <strong>',$statalllog,'</strong> prices logged by SHU-Explorer!</br>';
-				echo 'Of those, <strong>',$statuserlog,'</strong> have been made by contributors!</th></tr>';
-				?>
+				echo '
 				<tr>
-					<th>
-						<hr style="border-color:#46C61F; width:45%;">
+					<td>
+						<p>
+							There are currently <strong>',$statalllog,'</strong> devices logged by SHU-Explorer!</br>
+							The highest asset tag is <strong>',$highesttag,'</strong> </br>
+							The most recent device to be added to SHU-Explorer was <strong>',$recentaddN,'</strong> (Tag No. '.$recentaddA.')</br>
+						</p>
 					</th>
-				</tr>
+				</tr>';
+				?>
 				<?php
 				
 				$rank = 1;
@@ -66,7 +71,11 @@ $data_connect;
 				}
 					//If the user is signed in, show them the username they have entered previously.
 					if(isset($_COOKIE[$cookiename])){
-						echo "<tr><th></br></br>Currently browsing as <strong>" , $_COOKIE['ml_user'] , "</strong>.</tr></th>";
+						echo "<tr>
+								<td>
+									<p>Currently browsing as <strong>" , $_COOKIE['ml_user'] , "</strong>.</p>
+								</td>
+							</tr>";
 					}
         
 					//If they are not signed in, allow them to. 
@@ -74,7 +83,7 @@ $data_connect;
 					<tr>
 						<th>
 							<br><br>
-							<form action="users.php" method="get">
+							<form action="stat.php" method="get">
 								Set Username: <input type="text" name="username" maxlength="20">
 								<input type="submit" value="Submit">
 							</form>

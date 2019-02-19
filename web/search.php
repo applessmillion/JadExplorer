@@ -22,11 +22,13 @@ if(isset($_GET["assettag"])) {
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid" style="max-width:1200px">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
+		</div>
+		<div class="container-fluid" style="max-width:1000px;margin 0px auto;text-align=center">
 <!-- End Init -->
 <?php
     $id = $_GET["assettag"];
@@ -34,28 +36,48 @@ if(isset($_GET["assettag"])) {
 	$search_query = mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno like '%$id%' ORDER BY tagno DESC LIMIT 30");
 	
 	$search_nums = mysqli_num_rows($search_query);
-    echo '<tr><th><a href="search.php"><img src="img/search-item.png"></a></th></tr>';
-	
 	if($search_nums == NULL){$search_nums = 0;}
 	
+?>
+			<tr class="text-center">
+				<th>
+					<a href="search.php"><img src="img/search-item.png" width="18%" style="min-width:156px;max-width:256px;"></a>
+<?php				
+	##This is what happens when we have no results.
 	if($search_nums == 0){
 		
 		echo '<tr><th><h2>'.$text_search_noresults_title.'</h2></th></tr>';
 		echo '<tr><th>'.$text_search_noresults_desc.'</th></tr>';
 	}
+					
+	##This is what happens when we have results.
 	else{
-		echo '<tr><td><h2>Found '. $search_nums .' results for "'. $id . '"...</h2></td></tr>';
-		echo '<tr><td>'.$widget_webpage_border.'</td></tr>';
-		echo '<tr><td><table width="500" align="center">';
-		echo '<tr><th><b style="font-size:13">Asset Tag#</b></th><th><b style="font-size:13">Device Name</b></th><th><b style="font-size:13">Device Type</b></th></tr>';
+			echo '<h2>Found '. $search_nums .' results for "'. $id . '"...</h2>'.$widget_webpage_border; ?>
+					<table width="85%" align="center">
+						<tr>
+							<th>
+								<b style="font-size:13">Asset Tag#</b>
+							</th>
+							<th>
+								<b style="font-size:13">Device Name</b>
+							</th>
+							<th>
+								<b style="font-size:13">Device Type</b>
+							</th>
+						</tr>
+<?php
 		while ($obj = mysqli_fetch_object($search_query)) {
-			echo "<tr><td colspan='3'><hr></td></tr>";
-			echo "<tr><td>";
-			echo "<a class='reg' href='?info=" . urlencode($obj->tagno) . "' style='font-size:12'>". $obj->tagno . "</a></td><td>". $obj->name ."</td><td>". $obj->model ." ". $obj->model_number ."</td></tr>"; 
+			echo "<tr>
+					<td>
+						<a class='reg' href='?info=" . urlencode($obj->tagno) . "' style='font-size:12'>". $obj->tagno . "</a>
+					</td>
+					<td>". $obj->name ."</td>
+					<td>". $obj->model ." ". $obj->model_number ."</td>
+				</tr>"; 
 		} 
-		echo '</table></td></tr>';
+		echo '</table></td>';
 	}
-    echo '<tr><td colspan="2" style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
+    echo ''.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></tr>';
 }
 
 #CODE FOR RETRIEVING DATA OF ITEM AND PRINTING RESULTS#
@@ -78,11 +100,15 @@ elseif(isset($_GET["info"])) {
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid" style="max-width:1200px">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
-
+			?>
+		</div>
+		<div class="card" style="max-width:1000px;margin 0px auto;text-align=center">
+			<div class="container-fluid" style="max-width:1000px;margin 0px auto;text-align=center">
+<?php
         if($iid == NULL) {
         $errorpage = $error_record_nullid;
                 #BACK BUTTON TEXT - BACK TO RESULTS#
@@ -116,29 +142,25 @@ else {
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid" style="max-width:1200px">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
+		</div>
+		<div class="card" style="max-width:1000px;margin 0px auto;text-align=center">
+			<div class="container-fluid" style="max-width:1000px;margin 0px auto;text-align=center">
 <!-- End Init -->
 					<tr>
 						<th>
 							<a href="search.php">
-								<img src="img/search-item.png">
+								<img src="img/search-item.png" width="18%" style="min-width:156px;max-width:256px;">
 							</a>
 						</th>
 					</tr>
 					<tr>
 						<th>
-							<img src="img/titles/basicsearch.png">
-						</th>
-					</tr>
-					<tr>
-						<td style="height:8px"></td>
-					</tr>
-					<tr>
-						<th>
+							<img src="img/titles/basicsearch.png"></br>
 							<p>
 								<?php 
 								echo $widget_webpage_border;
@@ -162,7 +184,7 @@ else {
 		echo '<tr><td style="height:10px"><br>'.$widget_updates.'</td></tr>';    
 }    
 		echo $webpage_bottomcontentbox; ?>
-		</div>
+		</div></div>
 	</body>
 </html>
 

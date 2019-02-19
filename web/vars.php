@@ -6,8 +6,7 @@
 #   USEFUL VARIABLES    #
 #########################
 
-$alert_text = "Yay! Alerts now display properly in our little CSS conversion! This is simply testing how the text wraps to a 2nd line. I've made the box a bit bigger, so we gotta type more text.
- By converting it to the special table class, it takes up the entire width of the webpage.";
+$alert_text = "Alert";
 
 $contact_email = "contact@jadefury.com";
 $link_github = "https://github.com/applessmillion/";
@@ -19,10 +18,11 @@ $webpage_border_color = "#00137F"; //line break color
 $webpage_border_length = "65%";	   //line break width
 $webpage_device_iframe_height = 370;
 $webpage_table_text_labelcolor = "blue";
+$webpage_head_image_css = 'width="18%" style="min-width:156px;max-width:256px;"';
 
 ##Widget-like HTML that contains the corners and border for the content box
-$webpage_topcontentbox = '<img src="img/corner.png" width="9"><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner2.png" width="9"><table align="center" width="'.$webpage_contenttable_width.'" style="background-color:white">';
-$webpage_bottomcontentbox = '</table><img src="img/corner3.png" width="9" ><img src="img/border.png" width="'.$webpage_contentborder_width.'" height="9" border="0"><img src="img/corner4.png" width="9"></br></br></br></br>';
+$webpage_topcontentbox = '<div class="card"><table align="center" width="'.$webpage_contenttable_width.'" style="background-color:white" class="table table-bordered"><tbody>';
+$webpage_bottomcontentbox = '</tbody></table></div></br></br></br>';
 
 ### News and stuff
 $text_recentnews_first_date = "February 16, 2018";
@@ -163,19 +163,21 @@ By using our service, you acknowledge that we use cookies to customize your expe
 ";
 
 ### Webpage border
-$widget_webpage_border = "<hr style='border-color:$webpage_border_color; width:$webpage_border_length;'></br>";
+$widget_webpage_border = "<hr style='border-color:$webpage_border_color; width:70%;'></br>";
 
 ### Webpage border - longer
-$widget_webpage_border_large = "<hr style='border-color:$webpage_border_color; width:80%;'>";
+$widget_webpage_border_large = "<hr style='border-color:$webpage_border_color; width:85%;'>";
 
 ### Webpage border - medium adaptive
 $widget_webpage_border_medium = "<hr style='border-color:$webpage_border_color; width:55%;'>";
 
 ### For alerts at the top of the page
 $widget_webpage_alert = '
-<table class="table" align="center" width="860" height="48" style="background-color:#540000;text-align:center;border:4px solid #7F0000"><tr>
-<th align="center" style="background-color:#F26060;border:4px solid #7F0000"><strong>'.$alert_text.'</strong></th>
-</tr></table></br></br>';
+<table class="table" align="center" style="background-color:#540000;text-align:center;border:4px solid #7F0000">
+	<tr>
+		<th align="center" style="background-color:#F26060;border:4px solid #7F0000"><strong>'.$alert_text.'</strong></th>
+	</tr>
+</table>';
 
 #########################
 #    TECH VARIABLES     #

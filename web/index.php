@@ -11,39 +11,40 @@ require_once 'vars.php';
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid" style="max-width:1200px">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
-			<tr>
+		</div>
+		<div class="container-fluid" style="max-width:1000px">
+			<tr class="text-center">
 				<th>
-					<img src="img/search.png">
+					<img src="img/search.png" class="rounded" alt="Search" width="18%" style="min-width:156px;max-width:256px;"></br>
+					<img src="img/titles/welcome.png" class="rounded" alt="Welcome">
 				</th>
 			</tr>
-					<tr>
-						<th>
-							<img src="img/titles/welcome.png">
-						</th>
-					</tr>
-					<tr>
-						<td style="height:8px"></td>
-					</tr>
-					<tr>
-						<th>
-							<p>
-								<?php 
-								echo $widget_webpage_border_large;
-								echo $page_index;
-								echo $widget_webpage_border;
-								?> 
-							</p>
-							<?php
-							echo    $widget_updates;
-							echo	$copyright_notice;
-							?>
-						</th>
-					</tr>
+			<tr>
+				<td>
+					<p>
+						<?php 
+						echo $widget_webpage_border_large;
+						echo $page_index;
+						echo $widget_webpage_border;
+						?> 
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?php echo $widget_updates; ?>
+				</td>
+			</tr>
+			<tr class="text-center">
+				<td>
+					<?php echo $copyright_notice; ?>
+				</td>
+			</tr>
 		<?php echo $webpage_bottomcontentbox; ?>
 		</div></div>
 	</body>

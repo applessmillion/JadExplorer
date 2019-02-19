@@ -21,10 +21,14 @@ if(isset($_GET["min"])) {
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid" style="max-width:1200px">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
+			?>
+		</div>
+		<div class="container-fluid" style="max-width:1000px">
+<?php
 
 	//Variables needed for searching.
     $searchparam_assettag = $_GET["at"]; //Asset Tag
@@ -55,7 +59,7 @@ if(isset($_GET["min"])) {
     
     $search_nums = mysqli_num_rows($search_query);
     
-    echo '<tr><th><a href="index.php"><img src="img/search.png"></a></th></tr>';
+    echo '<tr><th><a href="index.php"><img src="img/search.png" class="rounded" alt="About_Image" width="18%" style="min-width:156px;max-width:256px;"></a></th></tr>';
     
     if($search_nums > 0)
     {
@@ -120,11 +124,13 @@ else { ?>
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid" style="max-width:1200px">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
+		</div>
+		<div class="container-fluid" style="max-width:1000px">
 	<!-- End Init -->
 				<tr>
 					<th>
