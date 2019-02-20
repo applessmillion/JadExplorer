@@ -10,11 +10,17 @@ include_once 'vars.php';
 ##########CONNECTION INFO FOR DATABASE###########
 $con = new mysqli($ip,$user,$pw,$db);
 
-if(isset($_GET['assettag'])){
-	$id 	= $_GET['assettag'];
-	$sql 	= mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno='$id'");
-	$obj 	= mysqli_fetch_object($sql);
-	/////////////////////////////////////////
+if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
+	if(isset($_GET['assettag'])){
+		$id 	= $_GET['assettag'];
+		$sql 	= mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno='$id'");
+		$obj 	= mysqli_fetch_object($sql);
+	}
+	else if(isset($_GET['assetname'])){
+		$id 	= $_GET['assetname'];
+		$sql 	= mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE name='$id'");
+		$obj 	= mysqli_fetch_object($sql);
+	}
 	
 	$dblisting 		= $obj->Entity_ID;
 	$dbdevice 		= $obj->Device_ID;
@@ -33,13 +39,13 @@ if(isset($_GET['assettag'])){
 	$deviceprice	= $obj->model_price;
 	
 	if($assetstatus == 0){
-		$astatus = "<strong style='color:darkgreen'>ACTIVE</strong>";
+		$astatus = "<strong style='color:lightgreen'>ACTIVE</strong>";
 	}
 	elseif($assetstatus == 1){
-		$astatus = "<strong style='color:darkred'>DECOMISSIONED</strong>";
+		$astatus = "<strong style='color:lightred'>DECOMISSIONED</strong>";
 	}
 	elseif($assetstatus == 2){
-		$astatus = "<strong style='color:orange'>UNKNOWN</strong>";
+		$astatus = "<strong style='color:lightorange'>UNKNOWN</strong>";
 	}
 	else{
 		$astatus = "Bad Data!";
@@ -48,56 +54,58 @@ if(isset($_GET['assettag'])){
 	/* Finally, echo it all into HTML. Not worrying about formatting as
 	it is handled by the page it is inserted into. */
 	echo $tech_css_js_styleimports;
-	
-	
-	echo '
-	<table class="table" width="655">
-		<thead>
+?>
+	<table class="table" style="max-width=80%">
+		<thead class="thead-dark">
 			<tr>
 				<th scope="col"><img src="http://www.junklands.com/web/img/logo.png" align="center"></th>
-				<th scope="col"><b style="line-height:1.15;font-size:14pt;text-align:left;">' . $assetname . '</b></th>
-				<th scope="col" style="text-align: right;">'. $astatus .'</th>
+				<th scope="col" style="text-align:center"><b style="font-size:22pt;"><?php echo $assetname;?></b></th>
+				<th scope="col" style="text-align:right;"><?php echo $astatus;?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<th colspan="3">
+				<th colspan="3" class="table-active">
 					<b style="font-size:12pt;">ASSET INFORMATION</b>
 				</th>
 			</tr>
 			<tr>
 				<td style="font-size:10pt">
-					<b style="color:'. $webpage_table_text_labelcolor .';">Asset ID: </b>' . $assettag . ' 
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Asset ID: </b><?php echo  $assettag;?>
 				</td>
 				<td style="font-size:10pt">
-					<b style="color:'. $webpage_table_text_labelcolor .';">Service Number: </b>' . $assetservice . ' 
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Service Number: </b><?php echo $assetservice?>
 				</td>
 				<td style="font-size:10pt">
-					<b style="color:'. $webpage_table_text_labelcolor .';">Serial Number: </b>' . $assetserial . '
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Serial Number: </b><?php echo $assetserial?>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3" style="font-size:11px">Entry Created at '. $assetcreate .'</td>
+				<td colspan="3" style="font-size:11px">Entry Created at <?php echo $assetcreate;?></td>
 			</tr>
 			<tr>
-				<th colspan="3">
+				<th colspan="3" class="table-active">
 					<b style="font-size:12pt">DEVICE INFORMATION</b>
 				</th>
 			</tr>
 			<tr>
 				<td style="font-size:10pt">
-					<b style="color:'. $webpage_table_text_labelcolor .';">Model: </b>' . $devicemanu . " " . $devicemodel . " " . $devicemodelno . ' 
+					<b style="color:'. $webpage_table_text_labelcolor .';">Model: </b> <?php echo $devicemanu . " " . $devicemodel . " " . $devicemodelno; ?> 
 				</td>
 				<td style="font-size:10pt">
-					<b style="color:'. $webpage_table_text_labelcolor .';">Cost: </b>$' . $deviceprice . ' 
+					<?php if($deviceprice > 0){ ?>
+						<b style="color:'. $webpage_table_text_labelcolor .';">Cost: </b>$<?php echo $deviceprice;?>
+					<?php } ?>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-	<p style="text-align:center"><a href="https://spiceworks.sienaheights.edu/search?query=15746" target="_blank"><b>Spiceworks Search</b> (Must be logged into Spiceworks)</a></p>
-	';
+	<a href="https://spiceworks.sienaheights.edu/search?query=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank" style='color:black;font-size:12pt'>
+		<button type="button" class="btn btn-secondary btn-sm"><b>Spiceworks Search</b></button>
+		<button type="button" class="btn btn-success btn-sm"><b>Edit Entry</b></button>
+	</a>
+<?php
 }
-
 //If for some reason ID is not set, handle it here.
 else{
 	echo "ERROR DISPLAYING ITEM CONTENT";

@@ -28,69 +28,33 @@ $obj3 	= mysqli_fetch_object($sql3);
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid" style="max-width:1200px">
+		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
-			?>
-		</div>
-		<div class="container-fluid" style="max-width:1000px">
-<!-- End Init -->
-				<?php
+				
 				$statalllog = $obj->Entity_ID;
-				$highesttag = $obj2->tagno;
+				$highesttagN = $obj2->name;
+				$highesttagA = $obj2->tagno;
 				$recentaddN = $obj3->name;
 				$recentaddA = $obj3->tagno;
-
 				?>
-				<tr class="text-center">
-					<th>
-						<a href="stat.php"><img src="img/statistics.png" width="18%" style="min-width:156px;max-width:256px;"></a>
-						<h1>Statistical Stats</h1>
-						<?php echo $widget_webpage_border; ?>
-					</th>
-				</tr>
-				<?php 
-				echo '
 				<tr>
 					<td>
-						<p>
-							There are currently <strong>',$statalllog,'</strong> devices logged by SHU-Explorer!</br>
-							The highest asset tag is <strong>',$highesttag,'</strong> </br>
-							The most recent device to be added to SHU-Explorer was <strong>',$recentaddN,'</strong> (Tag No. '.$recentaddA.')</br>
+						<div class="text-center">
+							<img src="img/statistics.png" alt="About_Image" <?php echo $webpage_head_image_css; ?>>
+							<h1><?php echo $stat_title; ?></h1>
+							<?php echo $widget_webpage_border; ?>
+						</div>
+						<p class="mx-5">
+							Below are some statistics! It's an ever-growing list, so check back regularly!</br></br>
+							There are currently <strong><?php echo $statalllog; ?></strong> devices logged by SHU-Explorer!</br>
+							The device with the highest asset tag is <strong><?php echo $highesttagN; ?></strong> (Tag No. <?php echo $highesttagA; ?>).</br>
+							The most recent device to be added to SHU-Explorer was <strong><?php echo $recentaddN; ?></strong> (Tag No. <?php echo $recentaddA; ?>).</br>
 						</p>
-					</th>
-				</tr>';
-				?>
-				<?php
-				
-				$rank = 1;
-				while ($obj = mysqli_fetch_object($sql_top20)) {
-					echo "<tr align='left' width='350'><th >". $rank . ". <strong>" . $obj->Username . "</strong>, with  <strong>" . $obj->Submissions ."</strong> Prices<br /></th></tr>";
-					$rank = $rank+1; 
-				}
-					//If the user is signed in, show them the username they have entered previously.
-					if(isset($_COOKIE[$cookiename])){
-						echo "<tr>
-								<td>
-									<p>Currently browsing as <strong>" , $_COOKIE['ml_user'] , "</strong>.</p>
-								</td>
-							</tr>";
-					}
-        
-					//If they are not signed in, allow them to. 
-					elseif(!isset($_COOKIE[$cookiename])){  ?>
-					<tr>
-						<th>
-							<br><br>
-							<form action="stat.php" method="get">
-								Set Username: <input type="text" name="username" maxlength="20">
-								<input type="submit" value="Submit">
-							</form>
-						</th>
-					</tr>
-		<?php } 
-		echo $webpage_bottomcontentbox; ?>
+					</td>
+				</tr>
+			<?php echo $webpage_bottomcontentbox; ?>
 		</div>
 	</body>
 </html>

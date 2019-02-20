@@ -21,14 +21,10 @@ if(isset($_GET["min"])) {
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid" style="max-width:1200px">
+		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
-			?>
-		</div>
-		<div class="container-fluid" style="max-width:1000px">
-<?php
 
 	//Variables needed for searching.
     $searchparam_assettag = $_GET["at"]; //Asset Tag
@@ -116,22 +112,17 @@ else { ?>
 <html>
 	<!-- Initalize Page -->
 	<head>
-		<title>SHU-Explorer - Search Assets</title>
-		<?php echo $tech_css_js_styleimports; ?>
-	</head>
-	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+		<title>SHU-Explorer - Search Devices</title>
+		<?php echo $tech_html_head_start_body; ?>
 		<div>
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid" style="max-width:1200px">
+		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
-		</div>
-		<div class="container-fluid" style="max-width:1000px">
-	<!-- End Init -->
 				<tr>
 					<th>
 						<a href="index.php">

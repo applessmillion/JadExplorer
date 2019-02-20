@@ -6,23 +6,11 @@
 #   USEFUL VARIABLES    #
 #########################
 
-$alert_text = "Alert";
+$alert_title = "NOTICE";
+$alert_text = "Test alert using the new alertbox";
 
 $contact_email = "contact@jadefury.com";
 $link_github = "https://github.com/applessmillion/";
-
-###Variables for the elemets on each webpage
-$webpage_contenttable_width = 710; //table width
-$webpage_contentborder_width = ($webpage_contenttable_width-18); //border width
-$webpage_border_color = "#00137F"; //line break color
-$webpage_border_length = "65%";	   //line break width
-$webpage_device_iframe_height = 370;
-$webpage_table_text_labelcolor = "blue";
-$webpage_head_image_css = 'width="18%" style="min-width:156px;max-width:256px;"';
-
-##Widget-like HTML that contains the corners and border for the content box
-$webpage_topcontentbox = '<div class="card"><table align="center" width="'.$webpage_contenttable_width.'" style="background-color:white" class="table table-bordered"><tbody>';
-$webpage_bottomcontentbox = '</tbody></table></div></br></br></br>';
 
 ### News and stuff
 $text_recentnews_first_date = "February 16, 2018";
@@ -30,11 +18,28 @@ $text_recentnews_first_text = "Advanced search is a WIP.";
 $text_recentnews_second_date = "February 13, 2018";
 $text_recentnews_second_text = "Variables are being updated. If you find an odd paragraph, I'm working on it!";
 
+###Variables for the elemets on each webpage
+$webpage_contenttable_width = 710; //table width
+$webpage_contentborder_width = ($webpage_contenttable_width-18); //border width
+$webpage_border_color = "#00137F"; //line break color
+$webpage_border_length = "65%";	   //line break width
+$webpage_device_iframe_height = 370;
+$webpage_maincontent_css = "max-width:1300px";	//100% size for alert, 80% of main content max size.
+$webpage_table_text_labelcolor = "blue";
+$webpage_head_image_css = 'width="18%" style="min-width:156px;max-width:256px;"';
+
+//Alert customization
+$webpage_alert_border_color = "#7F0000";
+$webpage_alert_bg_color = "#FF5E5E";
+
+##Widget-like HTML that contains the corners and border for the content box
+$webpage_topcontentbox = '<div class="card" style="margin: 0 auto;max-width:80%"><table align="center" width="'.$webpage_contenttable_width.'" style="background-color:white" class="table table-bordered"><tbody>';
+$webpage_bottomcontentbox = '</tbody></table></div></br>';
+
 ##Other text stuff
 $text_goback = "Go Back</br>";
-
-$text_search_displayinfo_title = "Showing info for Asset #";
-
+$text_search_displayasset_title = "Displaying information for Asset No. ";
+$text_search_displayname_title = "Showing information for ";
 $text_search_noresults_title = "Nothing Found!";
 $text_search_noresults_desc = "Try going back and refining your search.";
 
@@ -69,7 +74,7 @@ $quicksearch_title = "Quick Search";
 ### QuickSearch Main Description
 $quicksearch_desc = "
 Search for a device using it's Asset Tag number. </br>The asset tag should be composed of 5 numbers, usually starting with 13, 14, or 15.
-If your search is too broad, it will be limited to 50 results.
+If your search is too broad, it will be limited to 30 results.
 ";
 
 ### Advanced Search Main Description
@@ -92,7 +97,13 @@ $about_title = "What is SHU-Explorer?";
 
 #About - Main Descritpion
 $about_desc = "
-Do the about for SHU Explorer.
+SHU-Explorer contains records on various IT-related assets at Siena Heights University. 
+By using the various search tools, you can find information relating to any of these assets, such as
+location, name, device owner, along with other details.</br>
+SHU-Explorer is a project developed per requirement of graduating with a Computer Information Systems major at Siena Heights University.
+Project <i>overseen</i> by Professor Hong Chen at Siena Heights University. Project created, developed, and content overseen by Benjamin Robert.</br>
+Any and all work derived, copied, or based from this project to be used in any other work is to be attributed correctly per the BSD 3-Clause License. Visit the LICENSE file on GitHub (link below) for more information.</br>
+Project is based on Maralook (See GitHub). Major edits were introduced to accomodate for the different data structure and theme of the website.
 </br></br>
 Need to contact us about anything? Send an email to <b>$contact_email</b></br>
 SHU-Explorer's source code is also available. <a class='head' href='$link_github'>Find me on GitHub</a>.</br>
@@ -104,7 +115,15 @@ $advsearch_title = "Advanced Search";
 #AdvancedSearch - Main Descritpion
 $advsearch_desc = "
 Search for a device using a selection of options. </br>Select which search you would like to use by filling out the needed info.
-If your search is too broad, it will be limited to 50 results.
+If your search is too broad, it will be limited to 30 results.
+";
+
+#Stat - Paragraph title
+$stat_title = "Some Statistical Stats";
+
+#Stat - Main Descritpion
+$stat_desc = "
+See stats webpage to edit. Since it uses PHP snippets, I've gone ahead and just put the text in that file directly.
 ";
 
 
@@ -119,6 +138,7 @@ $copyright_notice = "Copyright 2019. JADEFURY/Benjamin Robert. All Rights Reserv
 $page_stats = "
 <h3>$stats_title</h3>
 $stats_desc
+</br>
 ";
 
 $page_index = "
@@ -127,6 +147,7 @@ $index_desc
 </br></br>
 <h3>$quicksearch_title</h3>
 $quicksearch_desc
+</br>
 ";
 
 $page_quicksearch = "
@@ -141,8 +162,6 @@ $advsearch_desc
 </br>
 ";
 
-
-
 #########################
 #    WEBPAGE WIDGETS    #
 #########################
@@ -150,8 +169,8 @@ $advsearch_desc
 ### Recent News Widget
 $widget_updates = "
 <h3>Recent Updates</h3>
-<p><strong>$text_recentnews_first_date</strong> - $text_recentnews_first_text</a></p>
-<p><strong>$text_recentnews_second_date</strong> - $text_recentnews_second_text</p>
+<p><strong>$text_recentnews_first_date</strong> - $text_recentnews_first_text</a></br>
+<strong>$text_recentnews_second_date</strong> - $text_recentnews_second_text</p>
 </br>
 ";
 
@@ -173,11 +192,11 @@ $widget_webpage_border_medium = "<hr style='border-color:$webpage_border_color; 
 
 ### For alerts at the top of the page
 $widget_webpage_alert = '
-<table class="table" align="center" style="background-color:#540000;text-align:center;border:4px solid #7F0000">
-	<tr>
-		<th align="center" style="background-color:#F26060;border:4px solid #7F0000"><strong>'.$alert_text.'</strong></th>
-	</tr>
-</table>';
+<div class="card" style="background-color:'.$webpage_alert_bg_color.';border:4px solid '.$webpage_alert_border_color.'">
+	<b class="mt-1" style="text-center;font-size:24px;">'.$alert_title.'</b>
+	<b class="my-1" "style="font-size:16px;">'.$alert_text.'</b>
+</div>
+</br></br>';
 
 #########################
 #    TECH VARIABLES     #
@@ -186,6 +205,7 @@ $tech_css_js_styleimports = '<link rel="stylesheet" href="https://stackpath.boot
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>';
+$tech_html_head_start_body = $tech_css_js_styleimports . '</head><body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">';
 
 
 ###### DEPRECATED VARIABLES

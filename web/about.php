@@ -12,32 +12,27 @@ include_once 'vars.php';
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid" style="max-width:1200px">
+		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
-		</div>
-		<div class="container-fluid" style="max-width:1000px">
-			<tr class="text-center">
-				<th>
-					<img src="img/about-image.png" class="rounded" alt="About_Image" width="18%" style="min-width:156px;max-width:256px;">
-					<h2>About SHU-Explorer</h2>
-					<?php echo $widget_webpage_border; ?>
-				</th>
-			</tr>
 			<tr>
 				<td>
-					<p>
+					<div class="text-center">
+						<img src="img/about-image.png" alt="About_Image" <?php echo $webpage_head_image_css; ?>>
+						<h1><?php echo $about_title; ?></h1>
+						<?php echo $widget_webpage_border; ?>
+					</div>
+					<p class="mx-5">
 						<?php echo $about_desc; ?>
 					</p>
 				</td>
 			</tr>
-			<?php echo '
 			<tr class="text-center">
-				<td style="font-size: 65%;">'.$widget_aboutinfo.'</td>
-			</tr>' .  
-			$webpage_bottomcontentbox; ?>
+				<td style="font-size: 65%;"><?php echo $widget_aboutinfo ?></td>
+			</tr>  
+			<?php echo $webpage_bottomcontentbox; ?>
 		</div>
 	</body>
 </html>

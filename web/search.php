@@ -22,13 +22,13 @@ if(isset($_GET["assettag"])) {
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid" style="max-width:1200px">
+		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
 		</div>
-		<div class="container-fluid" style="max-width:1000px;margin 0px auto;text-align=center">
+
 <!-- End Init -->
 <?php
     $id = $_GET["assettag"];
@@ -52,7 +52,7 @@ if(isset($_GET["assettag"])) {
 					
 	##This is what happens when we have results.
 	else{
-			echo '<h2>Found '. $search_nums .' results for "'. $id . '"...</h2>'.$widget_webpage_border; ?>
+			echo '<h2>Showing '. $search_nums .' results for "'. $id . '"...</h2>'.$widget_webpage_border; ?>
 					<table width="85%" align="center">
 						<tr>
 							<th>
@@ -66,28 +66,45 @@ if(isset($_GET["assettag"])) {
 							</th>
 						</tr>
 <?php
-		while ($obj = mysqli_fetch_object($search_query)) {
-			echo "<tr>
+		while ($obj = mysqli_fetch_object($search_query)) { ?>
+			<tr>
 					<td>
-						<a class='reg' href='?info=" . urlencode($obj->tagno) . "' style='font-size:12'>". $obj->tagno . "</a>
+						<a class='reg' 
+						<?php if($obj->tagno == 0){
+								echo "href='?infoname=" . urlencode($obj->name) . "' style='font-size:12'>N/A</a>";
+							}
+							else{
+								echo "href='?infotag=" . urlencode($obj->tagno) . "' style='font-size:12'>". $obj->tagno . "</a>";
+							} ?> 
 					</td>
-					<td>". $obj->name ."</td>
-					<td>". $obj->model ." ". $obj->model_number ."</td>
-				</tr>"; 
-		} 
-		echo '</table></td>';
-	}
+					<td><?php echo $obj->name; ?></td>
+					<td><?php echo $obj->model ." ". $obj->model_number;?></td>
+			</tr> 
+		<?php } ?>
+		</table>
+		</td>
+<?php	}
     echo ''.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></tr>';
 }
 
 #CODE FOR RETRIEVING DATA OF ITEM AND PRINTING RESULTS#
-elseif(isset($_GET["info"])) {
-        
-        $info = urldecode($_GET["info"]);
-        $search = mysqli_escape_string($con, $info);
-        $query = mysqli_query($con, "SELECT * FROM asset_information WHERE tagno='$info'");
-        $obj = mysqli_fetch_object($query);
-        $iid = $obj->tagno;
+elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
+    if(isset($_GET["infotag"])){
+		$info = urldecode($_GET["infotag"]);
+		$search = mysqli_escape_string($con, $info);
+		$query = mysqli_query($con, "SELECT * FROM asset_information WHERE tagno='$info'");
+		$obj = mysqli_fetch_object($query);
+		$iid = $obj->tagno;
+		$idtype = 0;
+	}
+	else if(isset($_GET["infoname"])){
+		$info = urldecode($_GET["infoname"]);
+		$search = mysqli_escape_string($con, $info);
+		$query = mysqli_query($con, "SELECT * FROM asset_information WHERE name='$info'");
+		$obj = mysqli_fetch_object($query);
+		$iid = $obj->name;
+		$idtype = 1;
+	}
         
 ?>    
 <html>
@@ -100,34 +117,40 @@ elseif(isset($_GET["info"])) {
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid" style="max-width:1200px">
+		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
-			?>
-		</div>
-		<div class="card" style="max-width:1000px;margin 0px auto;text-align=center">
-			<div class="container-fluid" style="max-width:1000px;margin 0px auto;text-align=center">
-<?php
+			
         if($iid == NULL) {
         $errorpage = $error_record_nullid;
                 #BACK BUTTON TEXT - BACK TO RESULTS#
         echo "<th>" . $errorpage . "</br></br></th>"; 
         echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
         }
-        else {
-            echo "<tr><th><h2>". $text_search_displayinfo_title . $info.".</h2></th></tr>"; 
-			echo '<tr><th style="height:'.$webpage_device_iframe_height.'"><iframe src="iteminfo.php?assettag='.$iid.'" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe></br></th></tr>';
-			echo "<tr><th><h2>History</h2></th></tr>";
-
-            echo '<tr><th style="color: #E01200">Error: No Logs</th></tr>';
-            echo "<tr><th style='font-size: 100%;'>:(</th></tr>";
-
-        echo '<tr><td style="height:30px"></td></tr>';
-		
-        #BACK BUTTON TEXT - BACK TO RESULTS#
-        echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
-        }  
+        else { ?>
+            <tr>
+				<th>
+					<h3 style="text-align:center"><?php echo $text_search_displayasset_title . $info; ?></h3>
+				</th>
+			</tr>
+			<tr>
+				<td style="height:<?php echo $webpage_device_iframe_height;?>">
+					<?php if($idtype == 0){echo '<iframe src="iteminfo.php?assettag='. $iid .'" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe>';}
+						else if($idtype == 1){echo '<iframe src="iteminfo.php?assetname='. $iid .'" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe>';}
+					?>
+					<div class="mx-3">
+						<h2>History</h2>
+						<p style="color: #E01200">Error: No Logs</p>
+						<p>:(</p>
+					</div>
+					<div class="text-center">
+						<?php echo $widget_webpage_border;?>
+						<b><a href="javascript:history.go(-1)"><?php echo $text_goback; ?></a></b>
+					</div>
+				</td>
+			</tr>
+        <?php }  
 }
 else {
 ?>    
@@ -142,47 +165,38 @@ else {
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
 		</div>
-		<div class="container-fluid" style="max-width:1200px">
+		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
-		</div>
-		<div class="card" style="max-width:1000px;margin 0px auto;text-align=center">
-			<div class="container-fluid" style="max-width:1000px;margin 0px auto;text-align=center">
 <!-- End Init -->
-					<tr>
-						<th>
+					<tr class="text-center">
+						<td>
 							<a href="search.php">
 								<img src="img/search-item.png" width="18%" style="min-width:156px;max-width:256px;">
 							</a>
-						</th>
-					</tr>
-					<tr>
-						<th>
-							<img src="img/titles/basicsearch.png"></br>
+						</br>
+							<img src="img/titles/basicsearch.png">
 							<p>
 								<?php 
 								echo $widget_webpage_border;
 								echo $page_quicksearch; 
 								?> 
 							</p>
-						</th>
+							<div class="mx-5">
+								<form action="search.php" method="get">
+									<strong>Search by Asset Tag #:</strong> <input type="text" name="assettag" maxlength="5" size="6"></br></br>
+									<input type="submit" value="Search">
+								</form>
+							</div>';  
+							<div class="mx-3">
+								<?php echo $widget_updates; ?>
+							</div>    
+						</td>
 					</tr>
-					<tr>
-						<td style="height:10px" ></td>
-					</tr>
-					<tr>
-						<th>
-							<form action="search.php" method="get">
-								<strong>Search by Asset Tag #:</strong> <input type="text" name="assettag" maxlength="5" size="6"></br></br>
-								<input type="submit" value="Search">
-							</form>
-        
-        <?php
-		echo '</th></tr>';  
-		echo '<tr><td style="height:10px"><br>'.$widget_updates.'</td></tr>';    
-}    
+
+<?php	}    
 		echo $webpage_bottomcontentbox; ?>
 		</div></div>
 	</body>
