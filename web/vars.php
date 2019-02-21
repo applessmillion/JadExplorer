@@ -7,7 +7,7 @@
 #########################
 
 $alert_title = "NOTICE";
-$alert_text = "Test alert using the new alertbox";
+$alert_text = "";
 
 $contact_email = "contact@jadefury.com";
 $link_github = "https://github.com/applessmillion/";
@@ -54,9 +54,14 @@ $error500_page_headtext = "Error - Page Not Found";
 $error500_page_description = "<center>Looks like our server is having some trouble. Try refreshing, and if the problem persists, feel free to contact us at ".$contact_email.".</center>";
 
 $error_record_page = 'Error: Could not fetch item info. Refresh and try again';
+
 $error_record_notfound = 'This item could not be found. Perhaps you clicked on a bad link?';
-$error_record_nullid = '<h2 style="color:red;">Item Not Found!</h2></br>We were unable to find a record matching your results. Try searching again.';
+
+$error_record_nullid_desc = 'We were unable to find a record matching your results. Try searching again.';
+$error_record_nullid_title = "Record Not Found!";
+
 $error_record_timeout = '<h2 style="color:red;">Page Timed Out!</h2></br>Something prevented us from getting a live look at this item. Please try again later.';
+
 $error_record_updated = '<h2 style="color:red;">Just Updated!</h2></br>The asset has just been updated! You can view the changes by refreshing the page.';
 
 #########################
