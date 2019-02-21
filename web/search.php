@@ -36,59 +36,66 @@ if(isset($_GET["assettag"])) {
 	
 	$search_nums = mysqli_num_rows($search_query);
 	if($search_nums == NULL){$search_nums = 0;}
-	
 ?>
 			<tr class="text-center">
 				<th>
 					<a href="search.php"><img src="img/search-item.png" width="18%" style="min-width:156px;max-width:256px;"></a>
 <?php				
-	##This is what happens when we have no results.
-	if($search_nums == 0){
+	## This is what happens when we have no results.
+	if($search_nums == 0){ ?>
 		
-		echo '<tr><th><h2>'.$text_search_noresults_title.'</h2></th></tr>';
-		echo '<tr><th>'.$text_search_noresults_desc.'</th></tr>';
-	}
-					
-	##This is what happens when we have results.
-	else{
-			echo '<h2>Showing '. $search_nums .' results for "'. $id . '"...</h2>'.$widget_webpage_border; ?>
+		<h1><?php echo $text_search_noresults_title; ?></h1>
+		<?php echo $text_search_noresults_desc; ?>
+	<?php }			
+	## This is what happens when we have results.
+	else{ ?>
+			<?php
+				## Doing a null search? We got special text for that!
+				if($id != "" OR $id != NULL){ ?>
+					<h1>Showing <?php echo $search_nums; ?> results for <i><?php echo $id ?></i></h1>
+				<?php }
+				else{ ?>
+					<h1><?php echo $text_search_results_null_title; ?></h1>
+					<div class="m-4" style="max-width=50%"><p><?php echo $text_search_results_null_desc; ?></p></div>
+			<?php	} ?>
+			<?php echo $widget_webpage_border; ?>
 					<table width="85%" align="center">
 						<thead class="thead-dark">
 							<tr class="text-center">
 								<th>
-									<b style="font-size:22"><?php echo $text_search_results_head1; ?></b>
+									<b style="font-size:<?php echo $table_tagcol_text_size . '">' . $text_search_results_head1; ?></b>
 								</th>
 								<th>
-									<b style="font-size:22"><?php echo $text_search_results_head2; ?></b>
+									<b style="font-size:<?php echo $table_tagcol_text_size . '">' . $text_search_results_head2; ?></b>
 								</th>
 								<th>
-									<b style="font-size:22"><?php echo $text_search_results_head2; ?></b>
+									<b style="font-size:<?php echo $table_tagcol_text_size . '">' . $text_search_results_head3; ?></b>
 								</th>
 							</tr>
 						</thead>
 <?php
 		while ($obj = mysqli_fetch_object($search_query)) { ?>
 			<tr>
-					<td>
-						<a class='reg' 
-						<?php if($obj->tagno == 0){
-								echo "href='?infoname=" . urlencode($obj->name) . "' style='font-size:20'>N/A</a>";
-							}
-							else{
-								echo "href='?infotag=" . urlencode($obj->tagno) . "' style='font-size:20'><b>". $obj->tagno . "</b></a>";
-							} ?> 
-					</td>
-					<td>
-						<?php if($obj->name != "Unknown"){
-								echo "<a class='reg' href='?infoname=" . urlencode($obj->name) . "' style='font-size:16'><b>" . $obj->name . "</b></a>";
-							} 
-							else {
-								echo "<i>".$obj->name."</i>";
-							}?>
-					</td>
-					<td style="font-size:16">
-						<?php echo $obj->model ." ". $obj->model_number;?>
-					</td>
+				<td>
+					<a class='reg' 
+					<?php if($obj->tagno == 0){
+							echo "href='?infoname=" . urlencode($obj->name) . "' style='font-size:18'>N/A</a>";
+						}
+						else{
+							echo "href='?infotag=" . urlencode($obj->tagno) . "' style='font-size:18'><b>". $obj->tagno . "</b></a>";
+						} ?> 
+				</td>
+				<td>
+					<?php if($obj->name != "Unknown"){
+							echo "<a class='reg' href='?infoname=" . urlencode($obj->name) . "' style='font-size:16'><b>" . $obj->name . "</b></a>";
+						} 
+						else {
+							echo "<i>".$obj->name."</i>";
+						}?>
+				</td>
+				<td style="font-size:16">
+					<?php echo $obj->model ." ". $obj->model_number;?>
+				</td>
 			</tr> 
 		<?php } ?>
 		</table>
@@ -136,18 +143,23 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
         if($iid == NULL) { ?>
             <tr class="table-warning">
 				<th>
-					<h3 style="text-align:center"><?php echo $error_record_nullid_title ?></h3>
+					<h1 style="text-align:center"><?php echo $error_record_nullid_title; ?></h1>
 				</th>
 			</tr>
 			<tr>
 				<td>
-					</br></br></br></br></br>
-					<div class="mx-3">
+					<div class="text-center">
+						<a href="search.php">
+							<img src="img/error.png" alt="Error" <?php echo $webpage_head_image_css; ?>>
+						</a>
+						<h1><?php echo $error_generic_title; ?></h1>
+					</div>
+					<div class="mx-5 my-2">
 						<p>
 							<?php echo $error_record_nullid_desc; ?>
 						</p>
 					</div>
-					</br></br></br></br></br></br></br></br></br>
+					</br></br></br>
 					<div class="text-center">
 						<?php echo $widget_webpage_border;?>
 						<b>
@@ -168,11 +180,11 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 					## Display the correct title for the type of $info we are showing.
 						## Displays the correct title for an asset-tag-type $info
 						if(isset($_GET["infotag"])){ ?>
-							<h3 style="text-align:center"><?php echo $text_search_displayasset_title . $info; ?></h3>
+							<h2 style="text-align:center"><?php echo $text_search_displayasset_title . $info; ?></h2>
 					<?php	}
 						## Displays the correct title for a name-type $info
 						else if(isset($_GET["infoname"])){ ?>
-							<h3 style="text-align:center"><?php echo $text_search_displayname_title ."<b>". $info . "</b>"; ?></h3>
+							<h2 style="text-align:center"><?php echo $text_search_displayname_title ."<b>". $info . "</b>"; ?></h2>
 					<?php } ?>
 				</th>
 			</tr>
@@ -182,17 +194,17 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 					<div class="text-center">
 						<?php 
 							if($idtype == 0){ ?>
-								<iframe src="iteminfo.php?assettag=<?php echo $iid; ?>" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>
+								<iframe src="iteminfo.php?assettag=<?php echo $iid; ?>&embedded" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>
 						<?php
 							}
 							else if($idtype == 1){ ?>
-								<iframe src="iteminfo.php?assetname=<?php echo $iid; ?>" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>
+								<iframe src="iteminfo.php?assetname=<?php echo $iid; ?>&embedded" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>
 						<?php } ?>
 					</div>
 					<div class="mx-3">
-						<h4>Title Text for content below results</h4>
+						<h4><?php echo $text_search_display_body_title; ?></h4>
 						<p>
-							Not sure what to put here yet..
+							<?php echo $text_search_display_body_desc; ?>
 						<p/>
 					</div>
 					<div class="text-center">

@@ -40,13 +40,12 @@ $obj3 	= mysqli_fetch_object($sql3);
 				$highesttagA = $obj2->tagno;
 				$recentaddN = $obj3->name;
 				$recentaddA = $obj3->tagno;
-				
 			?>
 			<tr>
 				<td>
 					<div class="text-center">
 						<img src="img/statistics.png" alt="About_Image" <?php echo $webpage_head_image_css; ?>>
-						<h1><?php echo $stat_title; ?></h1>
+						<h1><?php echo $text_stat_head_title; ?></h1>
 						<?php echo $widget_webpage_border; ?>
 					</div>
 					<p class="mx-5">

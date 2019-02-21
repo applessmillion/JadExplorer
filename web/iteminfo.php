@@ -51,16 +51,39 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 		$astatus = "Bad Data!";
 	}
 	
+	if($assetcat == 0){
+		$acat = "Windows Computer";
+	}
+	elseif($assetcat == 1){
+		$acat = "Server";
+	}
+	
 	/* Finally, echo it all into HTML. Not worrying about formatting as
 	it is handled by the page it is inserted into. */
 	echo $tech_css_js_styleimports;
-?>
-<div class="card" style="max-width=80%">
+	
+if(isset($_GET['embedded']) == false){ ?>
+	<head>
+		<title>SHU-Explorer Results</title>
+	</head>
+	<?php echo $tech_html_head_start_body; ?>
+		<div>
+			<?php 
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html");
+			?>
+			</br>
+		</div>
+		<div class="card" style="margin: 0 auto;max-width:50%;min-width:600px">
+		
+<?php } ?>
+
+<div class="card" style="max-width=80%;">
 	<table class="table">
 		<thead class="thead-dark">
 			<tr>
 				<th scope="col"><img src="http://www.junklands.com/web/img/logo.png" align="center"></th>
-				<th scope="col" style="text-align:center"><b style="font-size:22pt;"><?php echo $assetname;?></b></th>
+				<th scope="col" style="text-align:center"><b style="font-size:21pt;"><?php echo $assetname;?></b></th>
 				<th scope="col" style="text-align:right;"><?php echo $astatus;?></th>
 			</tr>
 		</thead>
@@ -90,24 +113,39 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 				</th>
 			</tr>
 			<tr>
-				<td style="font-size:10pt">
-					<b style="color:'. $webpage_table_text_labelcolor .';">Model: </b> <?php echo $devicemanu . " " . $devicemodel . " " . $devicemodelno; ?> 
-				</td>
-				<td style="font-size:10pt">
-					<?php if($deviceprice > 0){ ?>
-						<b style="color:'. $webpage_table_text_labelcolor .';">Cost: </b>$<?php echo $deviceprice;?>
-					<?php } ?>
-				</td>
+				<?php
+					if($assetcat == 1){ ?>
+					<td style="font-size:10pt">
+						<b><?php echo $text_iteminfo_devicetype_server; ?></b>
+					</td>
+				<?php } 
+					elseif($assetcat == 0){?>
+						<td style="font-size:10pt">
+							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Device Type: </b> <?php echo $acat; ?> 
+						</td>
+						<td style="font-size:10pt">
+							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Model: </b> <?php echo $devicemanu . " " . $devicemodel . " " . $devicemodelno; ?> 
+						</td>
+						<td style="font-size:10pt">
+							<?php if($deviceprice > 0){ ?>
+								<b style="<?php echo $webpage_table_text_labelcolor;?>">Cost: </b>$<?php echo $deviceprice;?>
+							<?php } ?>
+						</td>
+				<?php } ?>
 			</tr>
 		</tbody>
 	</table>
-	<div class="mx-5">
-		<a href="https://spiceworks.sienaheights.edu/search?query=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank" style='color:black;font-size:12pt'>
+	<div class="m-1">
+		<?php if(isset($_GET['embedded'])){ ?>
+			<a href="iteminfo.php?assettag=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank">
+				<button type="button" class="btn btn-secondary btn-sm"><b>Open in New Tab</b></button>
+			</a>
+		<?php } ?>
+		<a href="https://spiceworks.sienaheights.edu/search?query=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank">
 			<button type="button" class="btn btn-secondary btn-sm"><b>Spiceworks Search</b></button>
-			<button type="button" class="btn btn-success btn-sm"><b>Edit Entry</b></button>
 		</a>
+			<button type="button" class="btn btn-success btn-sm"><b>Edit Entry</b></button>
 	</div>
-	</br>
 </div>
 <?php
 }
