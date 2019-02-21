@@ -54,15 +54,15 @@ if(isset($_GET["assettag"])) {
 	else{
 			echo '<h2>Showing '. $search_nums .' results for "'. $id . '"...</h2>'.$widget_webpage_border; ?>
 					<table width="85%" align="center">
-						<tr>
+						<tr class="text-center">
 							<th>
-								<b style="font-size:13">Asset Tag#</b>
+								<b style="font-size:24">Asset Tag#</b>
 							</th>
 							<th>
-								<b style="font-size:13">Device Name</b>
+								<b style="font-size:24">Device Name</b>
 							</th>
 							<th>
-								<b style="font-size:13">Device Type</b>
+								<b style="font-size:24">Device Type</b>
 							</th>
 						</tr>
 <?php
@@ -71,14 +71,24 @@ if(isset($_GET["assettag"])) {
 					<td>
 						<a class='reg' 
 						<?php if($obj->tagno == 0){
-								echo "href='?infoname=" . urlencode($obj->name) . "' style='font-size:12'>N/A</a>";
+								echo "href='?infoname=" . urlencode($obj->name) . "' style='font-size:20'>N/A</a>";
 							}
 							else{
-								echo "href='?infotag=" . urlencode($obj->tagno) . "' style='font-size:12'>". $obj->tagno . "</a>";
+								echo "href='?infotag=" . urlencode($obj->tagno) . "' style='font-size:20'><b>". $obj->tagno . "</b></a>";
 							} ?> 
 					</td>
-					<td><?php echo $obj->name; ?></td>
-					<td><?php echo $obj->model ." ". $obj->model_number;?></td>
+					<td>
+						<a class='reg'
+						<?php if($obj->name != "Unknown"){
+								echo "href='?infoname=" . urlencode($obj->name) . "' style='font-size:16'>" . $obj->name . "</a>";
+							} 
+							else {
+								echo "<i>".$obj->name."</i>";
+							}?>
+					</td>
+					<td style="font-size:16">
+						<?php echo $obj->model ." ". $obj->model_number;?>
+					</td>
 			</tr> 
 		<?php } ?>
 		</table>
@@ -121,32 +131,67 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 			<?php 
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
-			
-        if($iid == NULL) {
-        $errorpage = $error_record_nullid;
-                #BACK BUTTON TEXT - BACK TO RESULTS#
-        echo "<th>" . $errorpage . "</br></br></th>"; 
-        echo '<tr><td style="height:20px;">'.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></td></tr>';
-        }
+		
+		##What happens when our $id is null? Bad URL? Bad copy&paste? Doesn't matter! We're going to give an error page!
+        if($iid == NULL) { ?>
+            <tr class="table-warning">
+				<th>
+					<h3 style="text-align:center"><?php echo $error_record_nullid_title ?></h3>
+				</th>
+			</tr>
+			<tr>
+				<td>
+					</br></br></br></br></br>
+					<div class="mx-3">
+						<p>
+							<?php echo $error_record_nullid_desc; ?>
+						</p>
+					</div>
+					</br></br></br></br></br></br></br></br></br>
+					<div class="text-center">
+						<?php echo $widget_webpage_border;?>
+						<b>
+							<?php ######## Bad practice. Need to look into giving a legit URL to go back on. What happens when someone shares the link and it does this? ?>
+							<a href="javascript:history.go(-1)"><?php echo $text_goback; ?></a>
+						</b>
+					</div>
+				</td>
+			</tr>
+		
+        <?php }
+		
+		##What happens when everything goes right? We'll show them the results!
         else { ?>
-            <tr>
+            <tr class="table-primary">
 				<th>
 					<h3 style="text-align:center"><?php echo $text_search_displayasset_title . $info; ?></h3>
 				</th>
 			</tr>
 			<tr>
-				<td style="height:<?php echo $webpage_device_iframe_height;?>">
-					<?php if($idtype == 0){echo '<iframe src="iteminfo.php?assettag='. $iid .'" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe>';}
-						else if($idtype == 1){echo '<iframe src="iteminfo.php?assetname='. $iid .'" style="border:none;height:'.$webpage_device_iframe_height.';width:100%;overflow:hidden"></iframe>';}
-					?>
+				<td style="height:<?php echo $webpage_device_iframe_height; ?>">
+					<!-- Load iFrame -->
+					<div class="text-center">
+						<?php 
+							if($idtype == 0){ ?>
+								<iframe src="iteminfo.php?assettag=<?php echo $iid; ?>" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>';}
+						<?php
+							}
+							else if($idtype == 1){ ?>
+								<iframe src="iteminfo.php?assetname=<?php echo $iid; ?>" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>';}
+						<?php } ?>
+					</div>
 					<div class="mx-3">
-						<h2>History</h2>
-						<p style="color: #E01200">Error: No Logs</p>
-						<p>:(</p>
+						<h4>Title Text for content below results</h4>
+						<p>
+							Not sure what to put here yet..
+						<p/>
 					</div>
 					<div class="text-center">
 						<?php echo $widget_webpage_border;?>
-						<b><a href="javascript:history.go(-1)"><?php echo $text_goback; ?></a></b>
+						<b>
+							<?php ######## Bad practice. Need to look into giving a legit URL to go back on. What happens when someone shares the link and it does this? ?>
+							<a href="javascript:history.go(-1)"><?php echo $text_goback; ?></a>
+						</b>
 					</div>
 				</td>
 			</tr>

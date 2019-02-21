@@ -9,8 +9,11 @@ include_once 'vars.php';
 	</head>
 	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
 		<div>
-			<?php echo file_get_contents("gtag.html");
-			echo file_get_contents("header.html") . "</br>"; ?>
+			<?php 
+			echo file_get_contents("gtag.html");
+			echo file_get_contents("header.html");
+			?>
+			</br>
 		</div>
 		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 

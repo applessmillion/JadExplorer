@@ -55,7 +55,8 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	it is handled by the page it is inserted into. */
 	echo $tech_css_js_styleimports;
 ?>
-	<table class="table" style="max-width=80%">
+<div class="card" style="max-width=80%">
+	<table class="table">
 		<thead class="thead-dark">
 			<tr>
 				<th scope="col"><img src="http://www.junklands.com/web/img/logo.png" align="center"></th>
@@ -100,10 +101,14 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 			</tr>
 		</tbody>
 	</table>
-	<a href="https://spiceworks.sienaheights.edu/search?query=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank" style='color:black;font-size:12pt'>
-		<button type="button" class="btn btn-secondary btn-sm"><b>Spiceworks Search</b></button>
-		<button type="button" class="btn btn-success btn-sm"><b>Edit Entry</b></button>
-	</a>
+	<div class="mx-5">
+		<a href="https://spiceworks.sienaheights.edu/search?query=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank" style='color:black;font-size:12pt'>
+			<button type="button" class="btn btn-secondary btn-sm"><b>Spiceworks Search</b></button>
+			<button type="button" class="btn btn-success btn-sm"><b>Edit Entry</b></button>
+		</a>
+	</div>
+	</br>
+</div>
 <?php
 }
 //If for some reason ID is not set, handle it here.
