@@ -21,12 +21,14 @@ $obj3 	= mysqli_fetch_object($sql3);
 <!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Stats</title>
-		<?php echo $tech_css_js_styleimports; ?>
 	</head>
-	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+		<?php echo $tech_html_head_start_body; ?>
 		<div>
-			<?php echo file_get_contents("gtag.html");
-			echo file_get_contents("header.html") . "</br>"; ?>
+			<?php 
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html");
+			?>
+			</br>
 		</div>
 		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 
@@ -38,22 +40,23 @@ $obj3 	= mysqli_fetch_object($sql3);
 				$highesttagA = $obj2->tagno;
 				$recentaddN = $obj3->name;
 				$recentaddA = $obj3->tagno;
-				?>
-				<tr>
-					<td>
-						<div class="text-center">
-							<img src="img/statistics.png" alt="About_Image" <?php echo $webpage_head_image_css; ?>>
-							<h1><?php echo $stat_title; ?></h1>
-							<?php echo $widget_webpage_border; ?>
-						</div>
-						<p class="mx-5">
-							Below are some statistics! It's an ever-growing list, so check back regularly!</br></br>
-							There are currently <strong><?php echo $statalllog; ?></strong> devices logged by SHU-Explorer!</br>
-							The device with the highest asset tag is <strong><?php echo $highesttagN; ?></strong> (Tag No. <?php echo $highesttagA; ?>).</br>
-							The most recent device to be added to SHU-Explorer was <strong><?php echo $recentaddN; ?></strong> (Tag No. <?php echo $recentaddA; ?>).</br>
-						</p>
-					</td>
-				</tr>
+				
+			?>
+			<tr>
+				<td>
+					<div class="text-center">
+						<img src="img/statistics.png" alt="About_Image" <?php echo $webpage_head_image_css; ?>>
+						<h1><?php echo $stat_title; ?></h1>
+						<?php echo $widget_webpage_border; ?>
+					</div>
+					<p class="mx-5">
+						Below are some statistics! It's an ever-growing list, so check back regularly!</br></br>
+						There are currently <strong><?php echo $statalllog; ?></strong> devices logged by SHU-Explorer!</br>
+						The device with the highest asset tag is <strong><?php echo $highesttagN; ?></strong> (Tag No. <?php echo $highesttagA; ?>).</br>
+						The most recent device to be added to SHU-Explorer was <strong><?php echo $recentaddN; ?></strong> (Tag No. <?php echo $recentaddA; ?>).</br>
+					</p>
+				</td>
+			</tr>
 			<?php echo $webpage_bottomcontentbox; ?>
 		</div>
 	</body>

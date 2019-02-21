@@ -5,13 +5,12 @@ include_once 'vars.php';
 <html>
 	<head>
 		<title>Maralook - Contributors</title>
-		<?php echo $tech_css_js_styleimports; ?>
 	</head>
-	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+	<?php echo $tech_html_head_start_body; ?>
 		<div>
 			<?php 
-			echo file_get_contents("gtag.html");
-			echo file_get_contents("header.html");
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html");
 			?>
 			</br>
 		</div>

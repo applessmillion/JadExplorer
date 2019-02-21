@@ -15,9 +15,8 @@ if(isset($_GET["assettag"])) {
 <!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Search</title>
-		<?php echo $tech_css_js_styleimports; ?>
 	</head>
-	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+	<?php echo $tech_html_head_start_body; ?>
 		<div>
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
@@ -120,9 +119,9 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 <html>
 <!-- Initalize Page -->
 	<head>
-		<?php echo '<title>SHU-Explorer - Asset #' . $info . '</title>' . $tech_css_js_styleimports; ?>
+		<title>SHU-Explorer - Asset <?php echo $info; ?></title>
 	</head>
-	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+	<?php echo $tech_html_head_start_body; ?>
 		<div>
 			<?php echo file_get_contents("gtag.html");
 			echo file_get_contents("header.html") . "</br>"; ?>
@@ -164,7 +163,16 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
         else { ?>
             <tr class="table-primary">
 				<th>
-					<h3 style="text-align:center"><?php echo $text_search_displayasset_title . $info; ?></h3>
+					<?php
+					## Display the correct title for the type of $info we are showing.
+						## Displays the correct title for an asset-tag-type $info
+						if(isset($_GET["infotag"])){ ?>
+							<h3 style="text-align:center"><?php echo $text_search_displayasset_title . $info; ?></h3>
+					<?php	}
+						## Displays the correct title for a name-type $info
+						else if(isset($_GET["infoname"])){ ?>
+							<h3 style="text-align:center"><?php echo $text_search_displayasset_title . $info; ?></h3>
+					<?php } ?>
 				</th>
 			</tr>
 			<tr>
@@ -173,11 +181,11 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 					<div class="text-center">
 						<?php 
 							if($idtype == 0){ ?>
-								<iframe src="iteminfo.php?assettag=<?php echo $iid; ?>" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>';}
+								<iframe src="iteminfo.php?assettag=<?php echo $iid; ?>" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>
 						<?php
 							}
 							else if($idtype == 1){ ?>
-								<iframe src="iteminfo.php?assetname=<?php echo $iid; ?>" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>';}
+								<iframe src="iteminfo.php?assetname=<?php echo $iid; ?>" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>
 						<?php } ?>
 					</div>
 					<div class="mx-3">
@@ -203,12 +211,12 @@ else {
 <!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Search</title>
-		<?php echo $tech_css_js_styleimports; ?>
 	</head>
-	<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">
+	<?php echo $tech_html_head_start_body; ?>
 		<div>
 			<?php echo file_get_contents("gtag.html");
-			echo file_get_contents("header.html") . "</br>"; ?>
+			echo file_get_contents("header.html") ?>
+			</br>
 		</div>
 		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 

@@ -4,10 +4,14 @@ require_once 'vars.php';
 <html>
 	<head>
 		<title>SHU-Explorer - Search</title>
-		<?php echo $tech_html_head_start_body; ?>
+	</head>
+	<?php echo $tech_html_head_start_body; ?>
 		<div>
-			<?php echo file_get_contents("gtag.html");
-			echo file_get_contents("header.html") . "</br>"; ?>
+			<?php 
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html");
+			?>
+			</br>
 		</div>
 		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 

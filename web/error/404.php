@@ -1,39 +1,32 @@
 <?php
-include_once '../vars.php';
+require_once '../vars.php';
 ?>
 <html>
 	<head>
 		<title><?php echo $error404_page_title; ?></title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-	</head>
-	<body>
-		<div class="main">
-		<br>
-		<img src="./img/corner.png" width="9"><img src="./img/border.png" width="692" height="9" border="0"><img src="./img/corner2.png" width="9">
-		<table align="center" width="710">
-			<tr>
-				<th>
-					<h1>
-						<?php echo $error404_page_headtext; ?>
-					</h1>
-					<br>
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<img src="./img/error.png" width="250" height="250">
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<p>
-					<?php echo $error404_page_description; ?>
-					</p>
-				</th>
-			</tr>
-		</table>
-		<img src="./img/corner3.png" width="9" ><img src="./img/border.png" width="692" height="9" border="0"><img src="./img/corner4.png" width="9">
+		<?php echo $tech_html_head_start_body; ?>
+		<div>
+			<?php echo file_get_contents("../gtag.html");
+			echo file_get_contents("../header.html") . "</br>"; ?>
 		</div>
-		</br></br>
+		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
+			<?php echo $webpage_topcontentbox; ?>
+			<tr>
+				<td>
+					<div class="text-center">
+						<img src="../img/error.png" alt="Error!" <?php echo $webpage_head_image_css; ?>>
+						<h1><?php echo $error404_page_headtext; ?></h1>
+						<?php echo $widget_webpage_border; ?>
+					</div>
+					<p class="mx-5">
+						<?php
+							echo $error404_page_description;
+							echo $widget_webpage_border;
+						?>
+					</p>
+				</td>
+			</tr>
+			<?php echo $webpage_bottomcontentbox; ?>
+		</div>
 	</body>
 </html> 
