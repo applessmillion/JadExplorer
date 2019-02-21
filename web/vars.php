@@ -40,23 +40,20 @@ include_once 'alert_vars.php';
 ### Variables displayed on 500 pages. 
 	$error500_page_title = "Internal Server Error (500)";
 	$error500_page_headtext = "500 Error - Internal Server Error";
-	$error500_page_description = "<center>The page you're looking for couldn't be found. Try <a href='../'>returning home</a>. If you think this is an error, feel free to contact us at ".$contact_email.".</center>";
+	$error500_page_description = "The page you're looking for couldn't be found. Try <a href='../'>returning home</a>. If you think this is an error, feel free to contact us at $contact_email";
 
 ### Variables displayed on 404 pages. 
 	$error404_page_title = "Page Not Found";
 	$error404_page_headtext = "404 Error - Page Not Found";
 	$error404_page_description = "Looks like our server is having some trouble. Try refreshing, and if the problem persists, feel free to contact us at $contact_email";
 
+### Need to revisit these... at least rename them.	
 $error_record_page = 'Error: Could not fetch item info. Refresh and try again';
-
 $error_record_notfound = 'This item could not be found. Perhaps you clicked on a bad link?';
 
 $error_record_nullid_desc = 'We were unable to find a record matching your results. Try searching again.';
 $error_record_nullid_title = "Record Not Found!";
 
-$error_record_timeout = '<h2 style="color:red;">Page Timed Out!</h2></br>Something prevented us from getting a live look at this item. Please try again later.';
-
-$error_record_updated = '<h2 style="color:red;">Just Updated!</h2></br>The asset has just been updated! You can view the changes by refreshing the page.';
 
 #########################
 #  WEBPAGE TEXT BLOCKS  #
@@ -64,19 +61,31 @@ $error_record_updated = '<h2 style="color:red;">Just Updated!</h2></br>The asset
 
 ##Other text stuff
 	$text_goback = "Go Back</br>";
+	
+### Text used in the quick search
+	$text_search_form_assetsearch_title = "Search by Asset Number";
+	$text_search_form_assetsearch_label = "Asset Tag Number:";
+	$text_search_head_title = "Quick Search";
+	$text_search_body_title = "Quickly Search by Asset Tag Number";
+	$text_search_body_desc = "
+		Search for a computer or device using the tag number. The asset tag should be composed of 5 numbers, usually starting with 13, 14, or 15.
+		If your search is too broad, it will be limited to 30 results. Asset tags can be found on all Siena Heights computers, and some other
+		devices found in classrooms and offices. Look for a silver sticker with the words SIENA HEIGHTS UNIVERSITY to find it's number.
+		";
+		
 	$text_search_displayasset_title = "Displaying information for Asset No. ";
 	$text_search_displayname_title = "Showing information for ";
 	$text_search_noresults_title = "Nothing Found!";
 	$text_search_noresults_desc = "Try going back and refining your search.";
+	$text_search_results_head1 = "Asset No.";
+	$text_search_results_head2 = "Device Name";
+	$text_search_results_head3 = "Device Type";
 
 ### QuickSearch Title
-$quicksearch_title = "Quick Search";
+$quick = "Quick Search";
 
 ### QuickSearch Main Description
-$quicksearch_desc = "
-Search for a device using it's Asset Tag number. </br>The asset tag should be composed of 5 numbers, usually starting with 13, 14, or 15.
-If your search is too broad, it will be limited to 30 results.
-";
+
 
 ### Advanced Search Main Description
 $advsearch_desc = "
@@ -119,33 +128,18 @@ Search for a device using a selection of options. </br>Select which search you w
 If your search is too broad, it will be limited to 30 results.
 ";
 
-#Stat - Paragraph title
-$stat_title = "Some Statistical Stats";
-
-#Stat - Main Descritpion
-$stat_desc = "
-See stats webpage to edit. Since it uses PHP snippets, I've gone ahead and just put the text in that file directly.
-";
+### Stat.php text variables
+	$stat_title = "Some Statistical Stats";
+	$stat_desc = "See stats webpage to edit. Since it uses PHP snippets, I've gone ahead and just put the text in that file directly.";
 
 #########################
 #  COMPLETE WEB TEXTS   #
 #########################
 
 #Users - user page description
-$page_stats = "
-<h3>$stats_title</h3>
-$stats_desc
-</br>
-";
+$page_stats = "page_stats. Use stat_title and stat_desc pls.";
 
-$page_index = "
-<h3>$index_title</h3>
-$index_desc
-</br></br>
-<h3>$quicksearch_title</h3>
-$quicksearch_desc
-</br>
-";
+$page_index = "dep page_index";
 
 $page_quicksearch = "
 <h3>$quicksearch_title</h3>
@@ -223,9 +217,11 @@ $tech_html_head_start_body =
 		$tech_css_js_styleimports . '<body style="background:url(img/bg.png) no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">';
 
 
-###### DEPRECATED VARIABLES
-# Pending deletion
-$var_users_title = "var_users_title";
-$var_users_desc = "var_users_desc";
-$var_logging_cooldown = 29000;
+#########################
+# DEPRECATED VARIABLES  #
+#########################
+### Pending deletion
+	$error_record_timeout = 'DEPRECTED error_record_timeout';
+	$error_record_updated = 'DEPRECTED error_record_updated';
+	$quicksearch_desc = 'renamed'
 ?>

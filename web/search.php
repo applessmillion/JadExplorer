@@ -53,17 +53,19 @@ if(isset($_GET["assettag"])) {
 	else{
 			echo '<h2>Showing '. $search_nums .' results for "'. $id . '"...</h2>'.$widget_webpage_border; ?>
 					<table width="85%" align="center">
-						<tr class="text-center">
-							<th>
-								<b style="font-size:24">Asset Tag#</b>
-							</th>
-							<th>
-								<b style="font-size:24">Device Name</b>
-							</th>
-							<th>
-								<b style="font-size:24">Device Type</b>
-							</th>
-						</tr>
+						<thead class="thead-dark">
+							<tr class="text-center">
+								<th>
+									<b style="font-size:22"><?php echo $text_search_results_head1; ?></b>
+								</th>
+								<th>
+									<b style="font-size:22"><?php echo $text_search_results_head2; ?></b>
+								</th>
+								<th>
+									<b style="font-size:22"><?php echo $text_search_results_head2; ?></b>
+								</th>
+							</tr>
+						</thead>
 <?php
 		while ($obj = mysqli_fetch_object($search_query)) { ?>
 			<tr>
@@ -77,9 +79,8 @@ if(isset($_GET["assettag"])) {
 							} ?> 
 					</td>
 					<td>
-						<a class='reg'
 						<?php if($obj->name != "Unknown"){
-								echo "href='?infoname=" . urlencode($obj->name) . "' style='font-size:16'>" . $obj->name . "</a>";
+								echo "<a class='reg' href='?infoname=" . urlencode($obj->name) . "' style='font-size:16'><b>" . $obj->name . "</b></a>";
 							} 
 							else {
 								echo "<i>".$obj->name."</i>";
@@ -93,7 +94,7 @@ if(isset($_GET["assettag"])) {
 		</table>
 		</td>
 <?php	}
-    echo ''.$widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></tr>';
+    echo $widget_webpage_border.'<a href="javascript:history.go(-1)">'.$text_goback.'</a></tr>';
 }
 
 #CODE FOR RETRIEVING DATA OF ITEM AND PRINTING RESULTS#
@@ -171,7 +172,7 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 					<?php	}
 						## Displays the correct title for a name-type $info
 						else if(isset($_GET["infoname"])){ ?>
-							<h3 style="text-align:center"><?php echo $text_search_displayasset_title . $info; ?></h3>
+							<h3 style="text-align:center"><?php echo $text_search_displayname_title ."<b>". $info . "</b>"; ?></h3>
 					<?php } ?>
 				</th>
 			</tr>
@@ -223,34 +224,56 @@ else {
 				if($alert_text != ""){ echo $widget_webpage_alert;}
 				echo $webpage_topcontentbox;
 			?>
-<!-- End Init -->
-					<tr class="text-center">
-						<td>
-							<a href="search.php">
-								<img src="img/search-item.png" width="18%" style="min-width:156px;max-width:256px;">
-							</a>
+			<tr>
+				<td>
+					<div class="text-center">
+						<a href="search.php">
+							<img src="img/search-item.png" alt="Quick_Search" <?php echo $webpage_head_image_css; ?>>
+						</a>
+						<h1><?php echo $text_search_head_title; ?></h1>
+						<?php echo $widget_webpage_border; ?>
+					</div>
+					<div class="mx-5">
+						<h3><?php echo $text_search_body_title; ?></h3>
+						<?php echo $text_search_body_desc; ?>
+						
+						<!-- Init table -->
 						</br>
-							<img src="img/titles/basicsearch.png">
-							<p>
-								<?php 
-								echo $widget_webpage_border;
-								echo $page_quicksearch; 
-								?> 
-							</p>
-							<div class="mx-5">
-								<form action="search.php" method="get">
-									<strong>Search by Asset Tag #:</strong> <input type="text" name="assettag" maxlength="5" size="6"></br></br>
-									<input type="submit" value="Search">
-								</form>
-							</div>';  
-							<div class="mx-3">
-								<?php echo $widget_updates; ?>
-							</div>    
-						</td>
-					</tr>
+						<table style="max-width:400px" align="center">
+							<thead class="thead-dark">
+								<tr>
+									<th>
+										<div style="font-size:22"><?php echo $text_search_form_assetsearch_title; ?></div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<td>
+									<form action="search.php" method="get" class="m-2">
+										<label><b><?php echo $text_search_form_assetsearch_label; ?></b></label>
+										<div class="form-row align-items-center">
+											<div class="col-auto">
+												<div class="input-group mb-2">
+													<div class="input-group-prepend">
+													  <div class="input-group-text">#</div>
+													</div>
+													<input type="text" class="form-control" id="Asset" placeholder="15746" name="assettag">
+												</div>
+											</div>
+											<div class="col-auto">
+												<button type="submit" class="btn btn-primary mb-2">Submit</button>
+											</div>
+										</div>
+									</form>
+								</td>
+							</tbody>
+						</table>
+					</div>
+				</td>
+			</tr>
 
 <?php	}    
-		echo $webpage_bottomcontentbox; ?>
+	echo $webpage_bottomcontentbox; ?>
 		</div></div>
 	</body>
 </html>
