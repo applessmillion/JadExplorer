@@ -1,6 +1,9 @@
 ![logo](https://raw.githubusercontent.com/applessmillion/SHU-Explorer/master/web/img/logo.png)
 
 # SHU-Explorer
+## Notice
+This project is under active development. Some files work as intended, while others do not. Once the front-end is finished, SQL statements will be provided to generate databases compatible with this project.
+
 ## About
 SHU-Explorer is a project developed per requirement of graduating with a Computer Information Systems major at Siena Heights University.
 
