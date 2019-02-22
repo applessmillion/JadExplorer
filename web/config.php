@@ -2,13 +2,13 @@
 /* This page is used as the holder of mySQL connection info.
 It is simply here now to show the variables and such.
 */
-$ip   = ""; //MySQL Server IP
-$db   = ""; //Database
+$ip   = "107.180.51.34"; //MySQL Server IP
+$db   = "shuexplorer"; //Database
 
 ### Standard account. Should have READ & basic access only.
 # This account will fetch info from our db.
-$user = ""; //MySQL user
-$pw   = ""; //MySQL password
+$user = "shu_navigator"; //MySQL user
+$pw   = "jadedfury"; //MySQL password
 
 ### Privileged account. Should have WRITE access and a bit more.
 # This account is used in the creationtool.php. 
