@@ -13,10 +13,6 @@ $pw   = "jadedfury"; //MySQL password
 ### Privileged account. Should have WRITE access and a bit more.
 # This account is used in the creationtool.php. 
 # Eventually it will also need to edit records.
-$user = ""; //MySQL PRIVILEGED user
-$pw   = ""; //MySQL PRIVILEGED password
-
-
-
-
+$p_user = ""; //MySQL PRIVILEGED user
+$p_pw   = ""; //MySQL PRIVILEGED password
 ?>

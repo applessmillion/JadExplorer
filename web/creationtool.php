@@ -1,7 +1,7 @@
 <?php
 ### Get database info and connect
 	include_once 'config.php';
-	$con = new mysqli($ip,$user,$pw,$db);
+	$con = new mysqli($ip,$p_user,$p_pw,$db);
 
 if(isset($_GET['cname'])){
 	### First, we want to convert our URL vars to php vars. This makes it easier to fix their problems.
