@@ -26,7 +26,7 @@ include_once 'vars_alert.php';
 	$webpage_border_color = "#00137F"; 									//line break color
 	$webpage_border_length = "65%";	   									//line break width
 	$webpage_device_iframe_height = 370;								//iframe height. Used on search for iteminfo.php
-	$webpage_maincontent_css = "max-width:1300px";						//100% size for alert, 80% of main content max size.
+	$webpage_maincontent_css = "max-width:1300px;";						//100% size for alert, 80% of main content max size.
 	$webpage_table_text_labelcolor = "blue";
 	$webpage_head_image_css = 'width="18%" style="min-width:156px;max-width:256px;"';
 	$table_tagcol_text_size = 20;
@@ -188,9 +188,9 @@ $advsearch_desc
 
 ### For alerts at the top of the page
 	$widget_webpage_alert = '
-		<div class="card" style="background-color:$webpage_alert_bg_color;border:4px solid $webpage_alert_border_color.">
-			<b class="mt-1" style="text-center;font-size:24px;">$alert_title</b>
-			<b class="my-1" "style="font-size:16px;">$alert_text</b>
+		<div class="card" style="background-color:'.$webpage_alert_bg_color.';border:2px solid '.$webpage_alert_border_color.'">
+			<b class="mt-1" style="text-center;font-size:24px;">'.$alert_title.'</b>
+			<b class="my-1" "style="font-size:16px;">'.$alert_text.'</b>
 		</div>
 		</br></br>';
 
