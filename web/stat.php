@@ -2,7 +2,6 @@
 #INCLUDE THE FOLLOWING TO MAKE THE REST WORK#
 require_once 'config.php';
 require_once 'vars.php';
-require_once 'setuser.php';
 
 ##################CONNECTION INFO FOR DATABASE###################
 $data_connect;

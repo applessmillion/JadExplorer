@@ -39,23 +39,23 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$deviceprice	= $obj->model_price;
 	
 	if($assetstatus == 0){
-		$astatus = "<strong style='color:lightgreen'>ACTIVE</strong>";
+		$astatus = "<strong style='color:lightgreen' class='mx-1'>ACTIVE</strong>";
 	}
 	elseif($assetstatus == 1){
-		$astatus = "<strong style='color:lightred'>DECOMISSIONED</strong>";
+		$astatus = "<strong style='color:lightred' class='mx-1'>DECOMISSIONED</strong>";
 	}
 	elseif($assetstatus == 2){
-		$astatus = "<strong style='color:lightorange'>UNKNOWN</strong>";
+		$astatus = "<strong style='color:lightorange' class='mx-1'>UNKNOWN</strong>";
 	}
 	else{
 		$astatus = "Bad Data!";
 	}
 	
-	if($assetcat == 0){
+	if($assetcat == 1){
 		$acat = "Windows Computer";
 	}
-	elseif($assetcat == 1){
-		$acat = "Server";
+	elseif($assetcat == 2){
+		$acat = "SHU Server";
 	}
 	
 	/* Finally, echo it all into HTML. Not worrying about formatting as
@@ -98,32 +98,27 @@ if(isset($_GET['embedded']) == false){ ?>
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Asset ID: </b><?php echo  $assettag;?>
 				</td>
 				<td style="font-size:10pt">
-					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Service Number: </b><?php echo $assetservice?>
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Service Number: </b><?php echo $assetservice; ?>
 				</td>
 				<td style="font-size:10pt">
-					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Serial Number: </b><?php echo $assetserial?>
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Serial Number: </b><?php echo $assetserial; ?>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="3" style="font-size:11px">Entry Created at <?php echo $assetcreate;?></td>
 			</tr>
 			<tr>
-				<th colspan="3" class="table-active">
+				<th colspan="2" class="table-active">
 					<b style="font-size:12pt">DEVICE INFORMATION</b>
+				</th>
+				<th colspan="1" class="table-active" style="text-align:right;">
+					<b class="mx-1" style="font-size:10pt;"><?php echo  $acat ?>
 				</th>
 			</tr>
 			<tr>
 				<?php
-					if($assetcat == 1){ ?>
-					<td style="font-size:10pt">
-						<b><?php echo $text_iteminfo_devicetype_server; ?></b>
-					</td>
-				<?php } 
-					elseif($assetcat == 0){?>
-						<td style="font-size:10pt">
-							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Device Type: </b> <?php echo $acat; ?> 
-						</td>
-						<td style="font-size:10pt">
+					if($assetcat == 1){?>
+						<td colspan="2" style="font-size:10pt">
 							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Model: </b> <?php echo $devicemanu . " " . $devicemodel . " " . $devicemodelno; ?> 
 						</td>
 						<td style="font-size:10pt">
@@ -131,7 +126,12 @@ if(isset($_GET['embedded']) == false){ ?>
 								<b style="<?php echo $webpage_table_text_labelcolor;?>">Cost: </b>$<?php echo $deviceprice;?>
 							<?php } ?>
 						</td>
-				<?php } ?>
+				<?php }
+					if($assetcat == 2){ ?>
+					<td style="font-size:10pt">
+						<b><?php echo $text_iteminfo_devicetype_server; ?></b>
+					</td>
+					<?php } ?>
 			</tr>
 		</tbody>
 	</table>

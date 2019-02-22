@@ -3,7 +3,7 @@
    To edit database values, check out config.php. */
 
 ### Include alert variables. Alert vars can be edited via vars_alert.php. 
-include_once 'alert_vars.php';
+include_once 'vars_alert.php';
 
 #########################
 #   USEFUL VARIABLES    #
@@ -149,9 +149,7 @@ $page_stats = "page_stats. Use stat_title and stat_desc pls.";
 $page_index = "dep page_index";
 
 $page_quicksearch = "
-<h3>$quicksearch_title</h3>
-$quicksearch_desc
-</br>
+no longer in use
 ";
 
 $page_advsearch = "
