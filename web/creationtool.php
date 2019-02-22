@@ -1,94 +1,87 @@
 <?php
-/*
-Nice page that gets embedded to show content.
-*/
+### Get database info and connect
+	include_once 'config.php';
+	$con = new mysqli($ip,$user,$pw,$db);
 
-#INCLUDE THE FOLLOWING TO MAKE THE REST WORK#
-include_once 'config.php';
-include_once 'vars.php';
+if(isset($_GET['cname'])){
+	### First, we want to convert our URL vars to php vars. This makes it easier to fix their problems.
+		$assetname 		= $_GET['cname'];
+		$assettag 		= $_GET['cname'];
+		
+		$assetservice 	= $_GET['cservice'];
 
-##########CONNECTION INFO FOR DATABASE###########
-$con = new mysqli($ip,$user,$pw,$db);
-
-if(isset($_GET['assettag'])){
-	$id 	= $_GET['assettag'];
-	$sql 	= mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno='$id'");
-	$obj 	= mysqli_fetch_object($sql);
-	/////////////////////////////////////////
-
-	$assetname 		= $_GET['cname'];
-	$assettag 		= $obj->tagno;
+		$devicemanu		= $_GET['cmanu'];
+		$devicemodel	= $_GET['cmodel'];
+		$devicemodelno	= $_GET['cmodel'];
+		
+		$deviceID		= NULL;
 	
-	$assetservice 	= $obj->serviceno;
-	$assetserial 	= $obj->serialno;
-	$assetcat 		= $obj->assetcategory;
-	//$assetstatus 	= $obj->status;
-	//$assetcreate	= $obj->createdate;
-	
-	$devicemanu		= $obj->manufacturer;
-	$devicemodel	= $obj->model;
-	$devicemodelno	= $obj->model_number;
-	$deviceprice	= $obj->model_price;
+	### Next, we need to get spaces and weird characters out of the way.
+	# This includes needing to seperate the asset tag# from the name in $assettag
+		$assetname; 	//Nothing needs to change
+		
+		$assettag = substr($assettag, -5, strpos($assettag, '-')); //Grabs the last 5 chars in the string. Hope people aren't dumb and input the name correctly.
+		$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //And when people don't do it right, we'll just remove any text found in the string.
+		
+		$devicemodelno = preg_replace('/[^0-9.]+/', '', $devicemodelno); //Strip away everything but numbers
+		
+		$devicemanu; 
+		$devicemodel = preg_replace('/[0-9]+/', '', $devicemodel); //Strip away all numbers
+		
+		//I know that dell servicetags are 7 chars long. So all we need are the last 7 chars in this messy string.
+		if($devicemanu == "Dell Inc."){
+			$assetservice = substr($assetservice, -7); //Grabs the last 7 chars in the string. Relies on Dell servicetags being 7 chars.
+		}
+		else{
+			$assetservice = '';
+		}
 
-
-
-
-
-
-
-
+	### Let's print this beauty.
+		echo "<b>COLLECTED DATA</b>:
+			</br>assetname:" . $assettag . 
+			"</br>assetname:" . $assetname . 
+			"</br>assetservice:" . $assetservice . 
+			"</br>devicemodel:" . $devicemodel . 
+			"</br>devicemodelno:" . $devicemodelno . 
+			"</br>devicemanu:" . $devicemanu . 
+			"</br></br><b>STATUS</b>:</br>";
+			
+	### SQL statements:
+		$sql_checkdevices = "SELECT * FROM device_information WHERE model_number='$devicemodelno' AND model='$devicemodel' LIMIT 1";
+		$sql_checkassets = "SELECT * FROM asset_information WHERE tagno='$assettag' AND serviceno='$assetservice' AND name='$assetname' LIMIT 1";
+		$sql_nodevices = "INSERT INTO device_information (manufacturer, model, model_number) VALUES ('$devicemanu', '$devicemodel', '$devicemodelno')";
+		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, device_ID) VALUES ('$assetname', '$assettag', '$assetservice', '$deviceID')";
 	
-	//$dblisting 		= $obj->Entity_ID;
-	//$dbdevice 		= $obj->Device_ID;
-	
-	$assetname 		= $obj->name;
-	$assettag 		= $obj->tagno;
-	$assetservice 	= $obj->serviceno;
-	$assetserial 	= $obj->serialno;
-	$assetcat 		= $obj->assetcategory;
-	//$assetstatus 	= $obj->status;
-	//$assetcreate	= $obj->createdate;
-	
-	$devicemanu		= $obj->manufacturer;
-	$devicemodel	= $obj->model;
-	$devicemodelno	= $obj->model_number;
-	$deviceprice	= $obj->model_price;
-	
-	if($assetstatus == 0){
-		$astatus = "<strong style='color:darkgreen'>ACTIVE</strong>";
-	}
-	elseif($assetstatus == 1){
-		$astatus = "<strong style='color:darkred'>DECOMISSIONED</strong>";
-	}
-	elseif($assetstatus == 2){
-		$astatus = "<strong style='color:orange'>UNKNOWN</strong>";
-	}
-	else{
-		$astatus = "Bad Data!";
-	}
-	
-	/* Finally, echo it all into HTML. Not worrying about formatting as
-	it is handled by the page it is inserted into. */
-	echo '<link rel="stylesheet" type="text/css" href="iframestyle.css">';
-	
-	
-	echo '<table align="center" width="675">';
-	echo '<tr><th><img src="http://www.junklands.com/web/img/logo.png" align="center"></th>';
-	echo '<td><b style="line-height:1.15; font-size:12pt">' . $assetname . '</b></td><td style="font-size:11pt">'. $astatus .'</td>';
-	echo '<tr><td colspan="3">Entry Created at '. $assetcreate .'</td></tr>';
-	echo '<tr><td colspan="3">'.$widget_webpage_border_large .'</td></tr>';
-	echo '<tr><th colspan="3"></br><b style="font-size:13pt;"><u>ASSET INFORMATION</u></b></th></tr>';
-	echo '<tr><td><b style="color:darkorange;font-size:11pt">Asset #' . $assettag . ' </b></td>';
-	echo '<td><b style="color:darkgreen;font-size:11pt">Service #' . $assetservice . ' </b></td>';
-	echo '<td><b style="color:darkblue;font-size:11pt">Serial #' . $assetserial . ' </b></td></tr>';
-	echo '<tr style="height:28px"><th colspan="3"></br><b style="font-size:13pt"><u>DEVICE INFORMATION</u></b></th></tr>';
-	echo '<tr><td><b style="font-size:10pt">' . $devicemanu . " " . $devicemodel . " " . $devicemodelno . ' </b></td>';
-	echo '<td><b style="font-size:10pt">Cost: $' . $deviceprice . ' </b></td></tr>';
-	echo '</table>';
+	### Are there results? If so, we don't have to add a new device!
+		$numresults = mysqli_num_rows(mysqli_query($con,$sql_checkdevices));
+		echo "Number of results: " . $numresults;
+		if($numresults == 0){
+			echo "</br>CONNECTED TO DB SUCCESSFULLY</br>ADDING DEVICE TYPE TO device_information...";
+			if(mysqli_query($con, $sql_nodevices)){
+				$relook = $con->query($sql_checkdevices);
+				$obj = mysqli_fetch_assoc($relook);
+				$deviceID = $obj["Device_ID"];
+				echo "</br>Success.</br>New device ID: " . $deviceID;
+			}
+		}
+		else{
+			$obj = mysqli_fetch_assoc(mysqli_query($con,$sql_checkdevices));
+			$deviceID = $obj["Device_ID"];
+			echo "</br>Connected.</br>Device ID: " . $deviceID;
+		}
+		
+	### Get the device ID for the asset
+		$assetresults = mysqli_num_rows(mysqli_query($con,$sql_checkassets));
+		if($assetresults == 0){
+			if(mysqli_query($con,$sql_addasset)){
+				echo "Added asset!";
+			}
+		}
+		else{
+				echo "</br><b>Asset has already been added.</b>";
+		}
 }
-
-//If for some reason ID is not set, handle it here.
 else{
-	echo "ERROR DISPLAYING ITEM CONTENT";
+	echo "ERROR problem inserting object";
 }
 ?> 
