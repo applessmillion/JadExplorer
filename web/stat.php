@@ -4,7 +4,7 @@ require_once 'config.php';
 require_once 'vars.php';
 
 ##################CONNECTION INFO FOR DATABASE###################
-$data_connect;
+$con = new mysqli($ip,$user,$pw,$db);
 ########################STARTING CONTENT#########################
 $sql 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY Entity_ID DESC LIMIT 1");
 $obj 	= mysqli_fetch_object($sql);
@@ -47,12 +47,16 @@ $obj3 	= mysqli_fetch_object($sql3);
 						<h1><?php echo $text_stat_head_title; ?></h1>
 						<?php echo $widget_webpage_border; ?>
 					</div>
-					<p class="mx-5">
-						Below are some statistics! It's an ever-growing list, so check back regularly!</br></br>
-						There are currently <strong><?php echo $statalllog; ?></strong> devices logged by SHU-Explorer!</br>
-						The device with the highest asset tag is <strong><?php echo $highesttagN; ?></strong> (Tag No. <?php echo $highesttagA; ?>).</br>
-						The most recent device to be added to SHU-Explorer was <strong><?php echo $recentaddN; ?></strong> (Tag No. <?php echo $recentaddA; ?>).</br>
-					</p>
+					<div class="table-responsive{-sm|-md|-lg|-xl}">
+						<table class="table">
+							<tbody>
+								<tr class="text-center">
+									<td><h1><b><?php echo $statalllog; ?></b></h1><b> devices on SHU-Explorer!</h4></b></td>
+								<td><h2><b><?php echo $highesttagN; ?></b></h2><b>Device with the newest asset tag!</b></td>
+								<td><h2><b><?php echo $recentaddN; ?></b></h2><b>Newest device to be added!</h4></b></td>
+							</tbody>
+						</table>
+					</div>
 				</td>
 			</tr>
 			<?php echo $webpage_bottomcontentbox; ?>
