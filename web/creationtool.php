@@ -50,7 +50,6 @@ if(isset($_GET['cname'])){
 		$sql_checkdevices = "SELECT * FROM device_information WHERE model_number='$devicemodelno' AND model='$devicemodel' LIMIT 1";
 		$sql_checkassets = "SELECT * FROM asset_information WHERE tagno='$assettag' AND serviceno='$assetservice' AND name='$assetname' LIMIT 1";
 		$sql_nodevices = "INSERT INTO device_information (manufacturer, model, model_number) VALUES ('$devicemanu', '$devicemodel', '$devicemodelno')";
-		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, device_ID) VALUES ('$assetname', '$assettag', '$assetservice', '$deviceID')";
 	
 	### Are there results? If so, we don't have to add a new device!
 		$numresults = mysqli_num_rows(mysqli_query($con,$sql_checkdevices));
@@ -71,6 +70,7 @@ if(isset($_GET['cname'])){
 		}
 		
 	### Get the device ID for the asset
+		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, device_ID) VALUES ('$assetname', '$assettag', '$assetservice', '$deviceID')";
 		$assetresults = mysqli_num_rows(mysqli_query($con,$sql_checkassets));
 		if($assetresults == 0){
 			if(mysqli_query($con,$sql_addasset)){
