@@ -122,17 +122,19 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 		$iid = $obj->name;
 		$idtype = 1;
 	}
-        
 ?>    
-<html>
-<!-- Initalize Page -->
+	<html>
+	<!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Asset <?php echo $info; ?></title>
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>
-			<?php echo file_get_contents("gtag.html");
-			echo file_get_contents("header.html") . "</br>"; ?>
+			<?php 
+				echo file_get_contents("gtag.html");
+				echo file_get_contents("header.html"); 
+			?>
+			</br>
 		</div>
 		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php 
