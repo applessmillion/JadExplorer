@@ -57,6 +57,13 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	elseif($assetcat == 2){
 		$acat = "SHU Server";
 	}
+	else{
+		$acat = "Bad Category!";
+	}
+	
+	### Visit the tracking page to log this visit.
+	$staturl = "http://junklands.com/web/tracker.php?visit=".$obj->Entity_ID;
+	file("$staturl");
 	
 	/* Finally, echo it all into HTML. Not worrying about formatting as
 	it is handled by the page it is inserted into. */
