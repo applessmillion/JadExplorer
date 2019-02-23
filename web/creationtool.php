@@ -38,7 +38,7 @@ if(isset($_GET['cname'])){
 
 	### Let's print this beauty.
 		echo "<b>COLLECTED DATA</b>:
-			</br>assetname:" . $assettag . 
+			</br>assettag:" . $assettag . 
 			"</br>assetname:" . $assetname . 
 			"</br>assetservice:" . $assetservice . 
 			"</br>devicemodel:" . $devicemodel . 
