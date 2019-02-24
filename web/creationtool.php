@@ -9,6 +9,7 @@ if(isset($_GET['cname'])){
 		$assettag 		= $_GET['cname'];
 		
 		$assetservice 	= $_GET['cservice'];
+		$assetcategory	= $_GET['cat'];
 
 		$devicemanu		= $_GET['cmanu'];
 		$devicemodel	= $_GET['cmodel'];
@@ -70,7 +71,7 @@ if(isset($_GET['cname'])){
 		}
 		
 	### Get the device ID for the asset
-		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, device_ID) VALUES ('$assetname', '$assettag', '$assetservice', '$deviceID')";
+		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, assetcategory, device_ID) VALUES ('$assetname', '$assettag', '$assetservice', '$assetcategory', '$deviceID')";
 		$assetresults = mysqli_num_rows(mysqli_query($con,$sql_checkassets));
 		if($assetresults == 0){
 			if(mysqli_query($con,$sql_addasset)){

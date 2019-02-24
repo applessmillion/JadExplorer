@@ -38,7 +38,21 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$devicemodelno	= $obj->model_number;
 	$deviceprice	= $obj->model_price;
 	
-	if($assetstatus == 0){
+	### No Asset Tag? Set the var to N/A
+		if($assettag == 0 OR NULL){
+			$assettag = "N/A";
+		}
+		
+	### No Serial Number? Set to N/A!
+		if($assetserial == 0 OR NULL){
+			$assetserial = "N/A";
+		}
+	
+	
+	if($assetcat == 0){
+		$astatus = "Unpublished Device";
+	}
+	elseif($assetstatus == 0){
 		$astatus = "<strong style='color:lightgreen' class='mx-1'>ACTIVE</strong>";
 	}
 	elseif($assetstatus == 1){
@@ -51,7 +65,10 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 		$astatus = "Bad Data!";
 	}
 	
-	if($assetcat == 1){
+	if($assetcat == 0){
+		$acat = "Unpublished Device";
+	}
+	elseif($assetcat == 1){
 		$acat = "Windows Computer";
 	}
 	elseif($assetcat == 2){
@@ -61,9 +78,12 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 		$acat = "Bad Category!";
 	}
 	
-	### Visit the tracking page to log this visit.
-	$staturl = "http://junklands.com/web/tracker.php?visit=".$obj->Entity_ID;
-	file("$staturl");
+	### We don't want visits to be logged on an unpublished device's page.
+	if($assetcat != 0){
+		### Visit the tracking page to log this visit.
+		$staturl = "http://junklands.com/web/tracker.php?visit=".$obj->Entity_ID;
+		file("$staturl");
+	}
 	
 	/* Finally, echo it all into HTML. Not worrying about formatting as
 	it is handled by the page it is inserted into. */
@@ -124,9 +144,12 @@ if(isset($_GET['embedded']) == false){ ?>
 			</tr>
 			<tr>
 				<?php
-					if($assetcat == 1){?>
-						<td colspan="2" style="font-size:10pt">
-							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Model: </b> <?php echo $devicemanu . " " . $devicemodel . " " . $devicemodelno; ?> 
+					if($assetcat != 2){?>
+						<td colspan="1" style="font-size:10pt">
+							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Manufacturer: </b> <?php echo $devicemanu; ?> 
+						</td>
+						<td colspan="1" style="font-size:10pt">
+							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Model: </b> <?php echo $devicemodel . " " . $devicemodelno; ?> 
 						</td>
 						<td style="font-size:10pt">
 							<?php if($deviceprice > 0){ ?>
