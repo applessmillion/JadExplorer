@@ -167,7 +167,7 @@ if(isset($_GET['embedded']) == false){ ?>
 	</table>
 	<div class="m-1">
 		<?php if(isset($_GET['embedded'])){ ?>
-			<a href="iteminfo.php?assettag=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank">
+			<a href="iteminfo.php?<?php if($assettag == 0 OR "N/A"){echo "assetname=".$assetname;}else{echo "assettag=".$assettag;}?>" target="_blank">
 				<button type="button" class="btn btn-secondary btn-sm"><b>Open in New Tab</b></button>
 			</a>
 		<?php } ?>
