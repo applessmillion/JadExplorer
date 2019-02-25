@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/applessmillion/SHU-Explorer/master/web/img/logo.png)
+![logo](https://raw.githubusercontent.com/applessmillion/SHU-Explorer/master/web/img/logo-lg.png)
 
 # SHU-Explorer
 ## Notice
