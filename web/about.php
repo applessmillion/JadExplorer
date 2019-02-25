@@ -23,11 +23,11 @@ include_once 'vars.php';
 				<td>
 					<div class="text-center">
 						<img src="img/about-image.png" alt="About_Image" <?php echo $webpage_head_image_css; ?>>
-						<h1><?php echo $about_title; ?></h1>
+						<h1><?php echo $text_about_body_title; ?></h1>
 						<?php echo $widget_webpage_border; ?>
 					</div>
 					<p class="mx-5">
-						<?php echo $about_desc; ?>
+						<?php echo $text_about_body_desc; ?>
 					</p>
 				</td>
 			</tr>
