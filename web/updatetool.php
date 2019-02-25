@@ -13,13 +13,13 @@ if(isset($_GET['method'])){
 	### Method #1 - Service Tag. These are fairly unique, and if it has one, that's great. They never change.
 	# Prefer this method as human error is next to none since it's added automatically.
 		if($_GET['method'] == "service"){
-			$sql_checkfordevice = "SELECT * FROM asset_information WHERE serviceno="" ORDER BY creation_date LIMIT 1";
+			$sql_checkfordevice = "SELECT * FROM asset_information WHERE serviceno='$search' ORDER BY creation_date LIMIT 1";
 			echo "Submitting update information based on <B>SERVICE TAG</B></br>";
 		}
 	### Method #2 - Asset tag. These should never change, but devices may change.
 	# In case we run into multiple entries, the SQL statement will fetch the most recently added asset.
 		elseif($_GET['method'] == "tag"){
-			$sql_checkfordevice = "SELECT * FROM asset_information WHERE tagno="" ORDER BY creation_date LIMIT 1";
+			$sql_checkfordevice = "SELECT * FROM asset_information WHERE tagno='$search' ORDER BY creation_date LIMIT 1";
 			echo "Submitting update information based on <B>ASSET NUMBER</B></br>";
 		}
 	### Method #3 - Undefined
@@ -28,6 +28,15 @@ if(isset($_GET['method'])){
 			echo "<B>ERROR</B> - Method '$search' undefined.";
 		}
 	
+	/*
+		General outline:
+		
+		Create array for UPDATE statement.
+		Create if's for if a value is NOT NULL
+		ex. if($_GET['serviceno'] != "" OR NULL){ $assetarray = $assetarray.push("serviceno")};
+		
+		Then make an SQL statement like:
+			UPDATE blah blah ($assetarray) VALUES ($_GET['serviceno'])
 }
 else{
 	echo "<B>ERROR</B> - Method not defined.";
