@@ -7,7 +7,7 @@
 $computer_name = Get-ChildItem Env:Computername;
 $computer_model = Get-CimInstance -ClassName Win32_ComputerSystem -Property Model | Select-Object -ExpandProperty Model;
 $computer_manufacturer = Get-CimInstance -ClassName Win32_ComputerSystem -Property Manufacturer | Select-Object -ExpandProperty Manufacturer;
-$computer_servicetag = wmic bios get serialnumber;
+$computer_servicetag = Get-WmiObject win32_bios -Property SerialNumber | Select-Object -ExpandProperty SerialNumber;
 
 ### URL to visit. As long as the above variables do not contain an &, we should be fine.
 $visit_url = "http://www.junklands.com/web/creationtool.php?cname="+$computer_name.Value+"&cmodel="+$computer_model+"&cmanu="+$computer_manufacturer+"&cservice="+$computer_servicetag+"$cat=1";

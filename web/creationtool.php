@@ -23,19 +23,12 @@ if(isset($_GET['cname'])){
 		
 		$assettag = substr($assettag, -5, strpos($assettag, '-')); //Grabs the last 5 chars in the string. Hope people aren't dumb and input the name correctly.
 		$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //And when people don't do it right, we'll just remove any text found in the string.
-		
 		$devicemodelno = preg_replace('/[^0-9.]+/', '', $devicemodelno); //Strip away everything but numbers
-		
-		$devicemanu; 
 		$devicemodel = preg_replace('/[0-9]+/', '', $devicemodel); //Strip away all numbers
 		
-		//I know that dell servicetags are 7 chars long. So all we need are the last 7 chars in this messy string.
-		if($devicemanu == "Dell Inc."){
-			$assetservice = substr($assetservice, -7); //Grabs the last 7 chars in the string. Relies on Dell servicetags being 7 chars.
-		}
-		else{
-			$assetservice = '';
-		}
+		# Good to go variables:
+		$assetservice;
+		$devicemanu;
 
 	### Let's print this beauty.
 		echo "<b>COLLECTED DATA</b>:
