@@ -22,11 +22,11 @@ require_once 'vars.php';
 				<td>
 					<div class="text-center">
 						<img src="img/search.png" alt="Index_image" <?php echo $webpage_head_image_css; ?>>
-						<h1><?php echo $index_title; ?></h1>
+						<h1><?php echo $text_index_body_title; ?></h1>
 						<?php echo $widget_webpage_border; ?>
 					</div>
 					<p class="mx-5">
-						<?php echo $index_desc; 
+						<?php echo $text_index_body_desc; 
 							echo "</br></br>";
 							echo $widget_webpage_border;
 							echo $widget_updates;

@@ -29,6 +29,7 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$assettag 		= $obj->tagno;
 	$assetservice 	= $obj->serviceno;
 	$assetserial 	= $obj->serialno;
+	$assetwinserial = "X-" . substr($obj->winserial, -5, strpos($obj->winserial, '-'));
 	$assetcat 		= $obj->assetcategory;
 	$assetstatus 	= $obj->status;
 	$assetcreate	= $obj->createdate;
@@ -117,7 +118,7 @@ if(isset($_GET['embedded']) == false){ ?>
 		<tbody>
 			<tr>
 				<th colspan="3" class="table-active">
-					<b style="font-size:12pt;">ASSET INFORMATION</b>
+					<b style="font-size:12pt;"><?php echo $text_iteminfo_assetinfo_title; ?></b>
 				</th>
 			</tr>
 			<tr>
@@ -132,11 +133,18 @@ if(isset($_GET['embedded']) == false){ ?>
 				</td>
 			</tr>
 			<tr>
+				<?php if($assetwinserial != "X-"){ ?>
+				<td style="font-size:10pt">
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Windows Serial: </b><?php echo  $assetwinserial;?>
+				</td>
+				<?php } ?>
+			</tr>
+			<tr>
 				<td colspan="3" style="font-size:11px">Entry Created at <?php echo $assetcreate;?></td>
 			</tr>
 			<tr>
 				<th colspan="2" class="table-active">
-					<b style="font-size:12pt">DEVICE INFORMATION</b>
+					<b style="font-size:12pt"><?php echo $text_iteminfo_deviceinfo_title; ?></b>
 				</th>
 				<th colspan="1" class="table-active" style="text-align:right;">
 					<b class="mx-1" style="font-size:10pt;"><?php echo  $acat ?>
@@ -168,19 +176,19 @@ if(isset($_GET['embedded']) == false){ ?>
 	<div class="m-1">
 		<?php if(isset($_GET['embedded'])){ ?>
 			<a href="iteminfo.php?<?php if($assettag == 0 OR "N/A"){echo "assetname=".$assetname;}else{echo "assettag=".$assettag;}?>" target="_blank">
-				<button type="button" class="btn btn-secondary btn-sm"><b>Open in New Tab</b></button>
+				<button type="button" class="btn btn-secondary btn-sm"><b><?php echo $text_iteminfo_btn_newtab; ?></b></button>
 			</a>
 		<?php } ?>
 		<a href="https://spiceworks.sienaheights.edu/search?query=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank">
-			<button type="button" class="btn btn-secondary btn-sm"><b>Spiceworks Search</b></button>
+			<button type="button" class="btn btn-secondary btn-sm"><b><?php echo $text_iteminfo_btn_spiceworks; ?></b></button>
 		</a>
-			<button type="button" class="btn btn-success btn-sm"><b>Edit Entry</b></button>
+			<button type="button" class="btn btn-success btn-sm"><b><?php echo $text_iteminfo_btn_edit; ?></b></button>
 	</div>
 </div>
 <?php
 }
-//If for some reason ID is not set, handle it here.
-else{
-	echo "ERROR DISPLAYING ITEM CONTENT";
+elseif(!isset($_GET['assettag']) OR !isset($_GET['assetname'])){
+	echo "Variables not set";
 }
+else{ echo $error_record_unknown; }
 ?> 

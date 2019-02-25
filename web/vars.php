@@ -25,7 +25,7 @@ include_once 'vars_alert.php';
 	$webpage_contentborder_width = ($webpage_contenttable_width-18); 	//border width
 	$webpage_border_color = "#00137F"; 									//line break color
 	$webpage_border_length = "65%";	   									//line break width
-	$webpage_device_iframe_height = 370;								//iframe height. Used on search for iteminfo.php
+	$webpage_device_iframe_height = 400;								//iframe height. Used on search for iteminfo.php
 	$webpage_maincontent_css = "max-width:1300px;";						//100% size for alert, 80% of main content max size.
 	$webpage_table_text_labelcolor = "blue";
 	$webpage_head_image_css = 'width="18%" style="min-width:156px;max-width:256px;"';
@@ -44,17 +44,14 @@ include_once 'vars_alert.php';
 	$error500_page_title = "Internal Server Error (500)";
 	$error500_page_headtext = "500 Error - Internal Server Error";
 	$error500_page_description = "The page you're looking for couldn't be found. Try <a href='../'>returning home</a>. If you think this is an error, feel free to contact us at $contact_email";
-
 ### Variables displayed on 404 pages. 
 	$error404_page_title = "Page Not Found";
 	$error404_page_headtext = "404 Error - Page Not Found";
 	$error404_page_description = "Looks like our server is having some trouble. Try refreshing, and if the problem persists, feel free to contact us at $contact_email";
-	
 ### Search page history errors.
 	$error_display_history_none = "Hmm.. No history found!";
 	$error_display_history_timeout = "Timed out! Try again later?";
 	$error_display_history_misc = "Unknown Error";
-	
 ### Search page result errors
 	$error_record_nullid_desc = "
 		It appears you have visited this page by accident.</br> Click the <b>Go Back</b> 
@@ -62,6 +59,8 @@ include_once 'vars_alert.php';
 		visiting a copied link, make sure you copied all of it! If you believe 
 		you're seeing this page in error, contact us at $contact_email!";
 	$error_record_nullid_title = "Record Not Found!";
+	$error_record_noid = "No record ID has been specified. Try again!";
+	$error_record_unknown = "An unknown error has ocurred.";
 
 ### Need to revisit these... at least rename them.	
 $error_record_page = 'Error: Could not fetch item info. Refresh and try again';
@@ -72,8 +71,7 @@ $error_record_notfound = 'This item could not be found. Perhaps you clicked on a
 #########################
 
 ### I made it into a button now. So it's not text, but it's everywhere, so...
-	$text_goback = '<button type="button" class="btn btn-lg btn-dark">Go Back</button>';
-	
+	$text_goback = '<button type="button" class="btn btn-lg btn-dark">Go Back</button>';	
 ### Text used in the quick search.
 	$text_search_form_assetsearch_title = "Search by Asset Number";
 	$text_search_form_assetsearch_label = "Asset Tag Number:";
@@ -84,10 +82,7 @@ $error_record_notfound = 'This item could not be found. Perhaps you clicked on a
 		If your search is too broad, it will be limited to 30 results. Asset tags can be found on all Siena Heights computers, and some other
 		devices found in classrooms and offices. Look for a silver sticker with the words SIENA HEIGHTS UNIVERSITY to find it's number.
 		";	
-	$text_search_display_body_title = "Edit History?";
-	$text_search_display_body_desc = "
-		Below is the editing history of the device.
-		";
+### Text displayed on the asset search page
 	$text_search_displayasset_title = "Displaying information for Asset No. ";
 	$text_search_displayname_title = "Showing information for ";
 	$text_search_noresults_title = "Nothing Found!";
@@ -97,27 +92,31 @@ $error_record_notfound = 'This item could not be found. Perhaps you clicked on a
 	$text_search_results_head3 = "Device Type";
 	$text_search_results_null_title = "Showing 30 Results";
 	$text_search_results_null_desc = "It appears you made a blank search. Go back and enter an asset tag number in the search box, or browse the random devices below.";
+### Text displayed on the asset's info page
+	$text_search_display_body_title = "Edit History?";
+	$text_search_display_body_desc = "
+		Below is the editing history of the device.
+		";
+### Text used in the infopage.php
 	$text_iteminfo_devicetype_server = "This Device is a SHU server";
-
-### Text used in stats page.
+	$text_iteminfo_assetinfo_title = "ASSET INFORMATION";
+	$text_iteminfo_deviceinfo_title = "DEVICE INFORMATION";
+	$text_iteminfo_btn_newtab = "Open in New Tab";
+	$text_iteminfo_btn_spiceworks = "Spiceworks Search";
+	$text_iteminfo_btn_edit = "Edit Info";
+### Text used in stats.php page
 	$text_stat_head_title = "Some Statistical Stats";
 	$text_stat_body_desc = "See stats webpage to edit. Since it uses PHP snippets, I've gone ahead and just put the text in that file directly.";
-
-### Index title - title of the paragraph
-$index_title = "SHU-Explorer - Asset Searching Tool";
-
-#Index - Main Description (kinda a combo of above)
-$index_desc = "
-SHU-Explorer contains records on various IT-related assets located at Siena Heights University. 
-By using the various search tools, you can find information relating to any of these assets, such as
-location, name, device owner, along with other details.
-";
-
-#About - Paragraph title
-	$about_title = "What is SHU-Explorer?";
-
-#About - Main Descritpion
-	$about_desc = "
+### Index texts
+	$text_index_body_title = "SHU-Explorer - Asset Searching Tool";
+	$text_index_body_desc = "
+		SHU-Explorer contains records on various IT-related assets located at Siena Heights University. 
+		By using the various search tools, you can find information relating to any of these assets, such as
+		location, name, device owner, along with other details.
+		";
+### About page texts
+	$text_about_body_title = "What is SHU-Explorer?";
+	$text_about_body_desc = "
 		SHU-Explorer contains records on various IT-related assets at Siena Heights University. 
 		By using the various search tools, you can find information relating to any of these assets, such as
 		location, name, device owner, along with other details.</br>
@@ -130,6 +129,7 @@ location, name, device owner, along with other details.
 		SHU-Explorer's source code is also available. <a class='head' href='$link_github'>Find me on GitHub</a>.</br>
 		";
 
+
 #Advsearch - Paragraph title
 $advsearch_title = "Advanced Search";
 
@@ -137,25 +137,6 @@ $advsearch_title = "Advanced Search";
 $advsearch_desc = "
 Search for a device using a selection of options. </br>Select which search you would like to use by filling out the needed info.
 If your search is too broad, it will be limited to 30 results.
-";
-
-#########################
-#  COMPLETE WEB TEXTS   #
-#########################
-
-#Users - user page description
-$page_stats = "page_stats. Use stat_title and stat_desc pls.";
-
-$page_index = "dep page_index";
-
-$page_quicksearch = "
-no longer in use
-";
-
-$page_advsearch = "
-<h3>$advsearch_title</h3>
-$advsearch_desc
-</br>
 ";
 
 #########################
@@ -228,5 +209,7 @@ $tech_html_head_start_body =
 ### Pending deletion
 	$error_record_timeout = 'DEPRECTED error_record_timeout';
 	$error_record_updated = 'DEPRECTED error_record_updated';
-	$quicksearch_desc = 'renamed'
+	$quicksearch_desc = 'renamed';
+	$about_desc = "deprecated - use text_about_body_desc";
+	$about_title = "deprecated - text_about_body_title";
 ?>
