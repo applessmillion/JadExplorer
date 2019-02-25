@@ -10,6 +10,7 @@ if(isset($_GET['cname'])){
 		
 		$assetservice 	= $_GET['cservice'];
 		$assetcategory	= $_GET['cat'];
+		$assetserial	= $_GET['cserial'];
 
 		$devicemanu		= $_GET['cmanu'];
 		$devicemodel	= $_GET['cmodel'];
@@ -28,6 +29,7 @@ if(isset($_GET['cname'])){
 		
 		# Good to go variables:
 		$assetservice;
+		$assetserial;
 		$devicemanu;
 
 	### Let's print this beauty.
@@ -35,6 +37,7 @@ if(isset($_GET['cname'])){
 			</br>assettag:" . $assettag . 
 			"</br>assetname:" . $assetname . 
 			"</br>assetservice:" . $assetservice . 
+			"</br>assetserial: xxxxx-xxxxx-xxxxx-" . substr($assetserial, -5, strpos($assetserial, '-')) . 
 			"</br>devicemodel:" . $devicemodel . 
 			"</br>devicemodelno:" . $devicemodelno . 
 			"</br>devicemanu:" . $devicemanu . 
@@ -42,7 +45,7 @@ if(isset($_GET['cname'])){
 			
 	### SQL statements:
 		$sql_checkdevices = "SELECT * FROM device_information WHERE model_number='$devicemodelno' AND model='$devicemodel' LIMIT 1";
-		$sql_checkassets = "SELECT * FROM asset_information WHERE tagno='$assettag' AND serviceno='$assetservice' AND name='$assetname' LIMIT 1";
+		$sql_checkassets = "SELECT * FROM asset_information WHERE tagno='$assettag' AND serviceno='$assetservice' LIMIT 1";
 		$sql_nodevices = "INSERT INTO device_information (manufacturer, model, model_number) VALUES ('$devicemanu', '$devicemodel', '$devicemodelno')";
 	
 	### Are there results? If so, we don't have to add a new device!
@@ -64,7 +67,8 @@ if(isset($_GET['cname'])){
 		}
 		
 	### Get the device ID for the asset
-		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, assetcategory, device_ID) VALUES ('$assetname', '$assettag', '$assetservice', '$assetcategory', '$deviceID')";
+		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, winserial, assetcategory, device_ID) 
+						VALUES ('$assetname', '$assettag', '$assetservice', '$assetserial', '$assetcategory', '$deviceID')";
 		$assetresults = mysqli_num_rows(mysqli_query($con,$sql_checkassets));
 		if($assetresults == 0){
 			if(mysqli_query($con,$sql_addasset)){
