@@ -8,19 +8,15 @@ $domain = Get-CimInstance -ClassName Win32_ComputerSystem -Property Domain | Sel
 
 ### Check if servicecode is defined. If not, we gotta update via tag number.
 if(!$computer_servicetag){ $method = "tag" }
-else{ $method = "service" }
+if($computer_servicetag){ $method = "service" }
 
 ### Let's define our update variables below.
-$curuser = Get-ChildItem Env:Username # Requires a .Value to pull value.
+$curuser = $env:USERNAME
 $computer_ip = Get-NetIPAddress -PrefixOrigin Dhcp | Select-Object -ExpandProperty IPAddress;
 
 ### URL to visit. As long as the above variables do not contain an &, we should be fine.
-$visit_url = "http://www.junklands.com/web/updatetool.php?method="+$method+"&cname="+$computer_name+"&ctag="$computer_servicetag+"&cip="+$computer_ip;
+$visit_url = "http://www.junklands.com/web/updatetool.php?method="+$method+"&cname="+$computer_name+"&ctag="+$computer_servicetag+"&cip="+$computer_ip+"&curuser="+$curuser;
 
-if($domain = "sienahts.edu"){
-	### Run the command to load the URL.
-	Invoke-WebRequest -Uri $visit_url;
-}
-else{
-	ECHO Device is not connected to the Siena Heights domain. The device could not be updated.
-}
+if($domain = "sienahts.edu"){ Invoke-WebRequest -Uri $visit_url; }
+
+exit
