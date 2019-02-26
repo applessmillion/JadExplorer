@@ -38,14 +38,35 @@ $con = new mysqli($ip,$user,$pw,$db);
 								?> 
 							</p>
 							<div class="mx-5">
-						<form action="advsearch.php" method="get"></br>
-							<strong>Note: This search does not currently work. Use the basic search for the time being.</strong></br>
-							<strong>Asset Tag #: </strong>
-							<input type="text" name="assettag" maxlength="5" size="6"></br></br>
-							<strong>Device Name: </strong><input type="text" name="dname" maxlength="16" size="18"></br></br>
-							<strong>Owner Username: </strong><input type="text" name="duser" maxlength="9" size="10"></br></br>
-							<input type="submit" value="Search">
-						</form>
+						<table style="max-width:400px" align="center" class="border">
+							<thead class="thead-dark">
+								<tr>
+									<th>
+										<div style="font-size:22"><?php echo $text_search_form_assetsearch_title; ?></div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<td>
+									<form action="search.php" method="get" class="m-2">
+										<label><b><?php echo $text_search_form_assetsearch_label; ?></b></label>
+										<div class="form-row align-items-center">
+											<div class="col-auto">
+												<div class="input-group mb-2">
+													<div class="input-group-prepend">
+													  <div class="input-group-text">#</div>
+													</div>
+													<input type="text" class="form-control" id="Asset" placeholder="15746" name="assettag">
+												</div>
+											</div>
+											<div class="col-auto">
+												<button type="submit" class="btn btn-primary mb-2">Submit</button>
+											</div>
+										</div>
+									</form>
+								</td>
+							</tbody>
+						</table>
 					<?php echo '<tr><td style="height:10px"><br>'.$widget_updates.'</td></tr>'; ?> 
 					</th>
 				</tr>
