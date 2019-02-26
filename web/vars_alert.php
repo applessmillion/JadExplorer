@@ -4,8 +4,8 @@
 #########################
 ### Alert text variables. 
 # Just define a value for alert_text and the alert will display.
-	$text_alert_title = "NOTICE";
-	$text_alert_desc = "Test Alert";
+	$alert_title = "";
+	$alert_text = "";
 
 ## Alert box customization. Colors yay!
 	$webpage_alert_border_color = "#7F0000";	//Alert border color. Prefer a darker color than the bg
@@ -14,8 +14,8 @@
 ### For alerts at the top of the page
 	$widget_webpage_alert = '
 		<div class="card" style="background-color:'.$webpage_alert_bg_color.';border:2px solid '.$webpage_alert_border_color.'">
-			<b class="mt-1 text-center" style="font-size:24px;">'.$text_alert_title.'</b>
-			<b class="my-1 text-left" "style="font-size:16px;">'.$text_alert_desc.'</b>
+			<b class="mt-1 text-center" style="font-size:24px;">'. $alert_title .'</b>
+			<b class="my-1 text-left" "style="font-size:16px;">'.$alert_text.'</b>
 		</div>
 		</br></br>';
 		
