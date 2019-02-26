@@ -6,10 +6,10 @@
 
 ### News and stuff. Displays in the $widget_updates.
 	$text_recentnews_title = "Recent Updates & Notices";
-	$text_recentnews_first_date = "February 21, 2018";
-	$text_recentnews_first_text = "Polishing up the basic search. Advanced search coming soon!";
-	$text_recentnews_second_date = "February 13, 2018";
-	$text_recentnews_second_text = "Variables are being updated. If you find an odd paragraph, I'm working on it!";
+	$text_recentnews_first_date = "February 26, 2018";
+	$text_recentnews_first_text = "More info is now displayed on asset pages.";
+	$text_recentnews_second_date = "February 26, 2018";
+	$text_recentnews_second_text = "Working on optimizing page backgrounds and load times.";
 	
 	
 ### Recent News Widget

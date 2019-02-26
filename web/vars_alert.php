@@ -5,7 +5,7 @@
 ### Alert text variables. 
 # Just define a value for alert_text and the alert will display.
 	$text_alert_title = "NOTICE";
-	$text_alert_desc = "";
+	$text_alert_desc = "Test Alert";
 
 ## Alert box customization. Colors yay!
 	$webpage_alert_border_color = "#7F0000";	//Alert border color. Prefer a darker color than the bg
