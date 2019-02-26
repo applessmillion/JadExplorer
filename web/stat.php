@@ -86,7 +86,7 @@ $obj5 	= mysqli_fetch_object($sql5);
 									</td>
 								</tr>
 								<tr>
-									<td><a href="search.php?infotag=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>Newest device to be added!</b></td>
+									<td><a href="search.php?infotag=<?php echo $recentaddA; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>Newest device to be added!</b></td>
 									<td>
 										<a href="search.php?
 											<?php if($mostviewedN == "Unknown" OR NULL){ echo "infotag=".$mostviewedA; }else{ echo "infoname=".$mostviewedN; } ?>
