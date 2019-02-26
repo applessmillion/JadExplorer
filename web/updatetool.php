@@ -9,9 +9,15 @@ if(isset($_GET['method'])){
 	$searchmethod 	= $_GET['method'];
 	$assetserial	= $_GET['ctag'];
 	$assetname 		= $_GET['cname'];
-	$assettag = substr($assetname, -5, strpos($assetname, '-')); //Grabs the last 5 chars in the string. Hope people aren't dumb and input the name correctly.
+	$assettag 		= $assetname;
+	$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //Remove all characters except for numbers. This prevents some oopsies.
+	$assettag = substr($assettag, -5, strpos($assettag, '-')); //Grabs the last 5 chars in the string. Hope people aren't dumb and input the name correctly.
 	$assetIP = $_GET['cip'];
 	$assetuser = $_GET['curuser'];
+	
+	### Devices can have multiple IPs. We will fix this by EXPLODING the string.
+		$assetIPsplit = explode(" ", $assetIP);
+		$assetIP = $assetIPsplit[0]; //Sets the IP to the first one in the list. We don't really care about which one is selected.
 	
 	### For updates, we should expect data to change a lot. This means we need to have multiple methods to find the device.
 	
@@ -45,7 +51,6 @@ if(isset($_GET['method'])){
 			echo $assetserial . "</br>";
 			echo $assetname . "</br>";
 			echo $assettag . "</br>";
-			echo $assetIP . "</br>";
 			echo $assetuser . "</br>";
 			echo $entID . "</br>";
 			echo $assetIP . "</br>";

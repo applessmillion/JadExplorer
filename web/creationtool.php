@@ -22,8 +22,8 @@ if(isset($_GET['cname'])){
 	# This includes needing to seperate the asset tag# from the name in $assettag
 		$assetname; 	//Nothing needs to change
 		
+		$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //Remove all characters except for numbers. This prevents some oopsies.
 		$assettag = substr($assettag, -5, strpos($assettag, '-')); //Grabs the last 5 chars in the string. Hope people aren't dumb and input the name correctly.
-		$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //And when people don't do it right, we'll just remove any text found in the string.
 		$devicemodelno = preg_replace('/[^0-9.]+/', '', $devicemodelno); //Strip away everything but numbers
 		$devicemodel = preg_replace('/[0-9]+/', '', $devicemodel); //Strip away all numbers
 		
