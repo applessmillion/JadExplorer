@@ -200,7 +200,7 @@ $tech_css_js_styleimports = '
 
 ### Starts the page. Includes the var above and the body tag to include a few needed variables.
 $randbg = rand(1,2);
-if($randbg == 1){$page_bg = "img/bg.png";}
+if($randbg == 1){$page_bg = "img/bg.jpg";}
 else{$page_bg = "img/bg2.png";}
 
 $tech_html_head_start_body = 
