@@ -4,6 +4,7 @@
 
 ### Include alert variables. Alert vars can be edited via vars_alert.php. 
 include_once 'vars_alert.php';
+include_once 'vars_news.php';
 
 #########################
 #   USEFUL VARIABLES    #
@@ -12,13 +13,6 @@ include_once 'vars_alert.php';
 ### Contact details. Used on the about page mainly.
 	$contact_email = "contact@jadefury.com";
 	$link_github = "https://github.com/applessmillion/";
-
-### News and stuff. Displays in the $widget_updates.
-	$text_recentnews_title = "Recent Updates & Notices";
-	$text_recentnews_first_date = "February 21, 2018";
-	$text_recentnews_first_text = "Polishing up the basic search. Advanced search coming soon!";
-	$text_recentnews_second_date = "February 13, 2018";
-	$text_recentnews_second_text = "Variables are being updated. If you find an odd paragraph, I'm working on it!";
 
 ### Variables for the elemets on each webpage
 	$webpage_contenttable_width = 710; 								 	//table width
@@ -34,7 +28,6 @@ include_once 'vars_alert.php';
 ### Copyright notice for SHU-Explorer.
 	$copyright_notice = "Copyright 2019. JADEFURY/Benjamin Robert. All Rights Reserved.";
 	
-
 #########################
 # ERROR PAGE VARIABLES  #
 #########################
@@ -145,14 +138,8 @@ If your search is too broad, it will be limited to 30 results.
 #########################
 #    WEBPAGE WIDGETS    #
 #########################
-
-### Recent News Widget
-	$widget_updates = "
-		<h3>$text_recentnews_title</h3>
-		<p class='mx-5' style='text-align:left'><strong>$text_recentnews_first_date</strong> - $text_recentnews_first_text</a></br>
-		<strong>$text_recentnews_second_date</strong> - $text_recentnews_second_text</p>
-		</br>
-	";
+### Recent News widget moved to it's own php page.
+### Site-Wide Alert widget moved to it's own php page.
 
 ### About Widget
 	$widget_aboutinfo = 
@@ -169,14 +156,6 @@ If your search is too broad, it will be limited to 30 results.
 
 ### Webpage border - med
 	$widget_webpage_border_medium = "<hr style='border-color:$webpage_border_color; width:55%;'>";
-
-### For alerts at the top of the page
-	$widget_webpage_alert = '
-		<div class="card" style="background-color:'.$webpage_alert_bg_color.';border:2px solid '.$webpage_alert_border_color.'">
-			<b class="mt-1" style="text-center;font-size:24px;">'.$alert_title.'</b>
-			<b class="my-1" "style="font-size:16px;">'.$alert_text.'</b>
-		</div>
-		</br></br>';
 
 ### Content boxes that are used on almost every page. Sets up the layout for the main content.
 	$webpage_topcontentbox = 
