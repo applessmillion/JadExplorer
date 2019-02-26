@@ -59,9 +59,9 @@ if(isset($_GET["assettag"])) {
 					<div class="m-4" style="max-width=50%"><p><?php echo $text_search_results_null_desc; ?></p></div>
 			<?php	} ?>
 			<?php echo $widget_webpage_border; ?>
-					<table width="85%" align="center">
+					<table width="85%" align="center" class="table-bordered">
 						<thead class="thead-dark">
-							<tr class="text-center">
+							<tr class="text-center border">
 								<th>
 									<b style="font-size:<?php echo $table_tagcol_text_size . '">' . $text_search_results_head1; ?></b>
 								</th>
@@ -75,7 +75,7 @@ if(isset($_GET["assettag"])) {
 						</thead>
 <?php
 		while ($obj = mysqli_fetch_object($search_query)) { ?>
-			<tr>
+			<tr class="border">
 				<td>
 					<a class='reg' 
 					<?php if($obj->tagno == 0){
@@ -253,7 +253,7 @@ else {
 						
 						<!-- Init table -->
 						</br>
-						<table style="max-width:400px" align="center">
+						<table style="max-width:400px" align="center" class="border">
 							<thead class="thead-dark">
 								<tr>
 									<th>

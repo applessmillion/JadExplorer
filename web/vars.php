@@ -178,7 +178,7 @@ If your search is too broad, it will be limited to 30 results.
 ### Content boxes that are used on almost every page. Sets up the layout for the main content.
 	$webpage_topcontentbox = 
 		'<div class="card" style="margin: 0 auto;max-width:80%">
-			<table align="center" width="$webpage_contenttable_width" style="background-color:white" class="table table-bordered">
+			<table align="center" width="$webpage_contenttable_width" style="background-color:white" class="table table-borderless">
 				<tbody>';
 				
 	$webpage_bottomcontentbox = 
