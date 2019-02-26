@@ -1,26 +1,26 @@
 <?php
-/*
-Nice page that gets embedded to show content.
-*/
+### Webpage that displays mySQL data in a table. Has an embedded mode
+# and a full mode. Webpage is embedded in search results on search.php?info*
 
-#INCLUDE THE FOLLOWING TO MAKE THE REST WORK#
 include_once 'config.php';
 include_once 'vars.php';
 
-##########CONNECTION INFO FOR DATABASE###########
-$con = new mysqli($ip,$user,$pw,$db);
-
 if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
-	if(isset($_GET['assettag'])){
-		$id 	= $_GET['assettag'];
-		$sql 	= mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno='$id'");
-		$obj 	= mysqli_fetch_object($sql);
-	}
-	else if(isset($_GET['assetname'])){
-		$id 	= $_GET['assetname'];
-		$sql 	= mysqli_query($con, "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE name='$id'");
-		$obj 	= mysqli_fetch_object($sql);
-	}
+	### CONNECTION INFO FOR DATABASE
+	$con = new mysqli($ip,$user,$pw,$db);
+	
+	### Figure out how we'll limit our db results
+	if(isset($_GET['assettag'])){ $sqldiff = "tagno='".$_GET['assettag']."'";}
+	else if(isset($_GET['assetname'])){ $sqldiff = "name='".$_GET['assetname']."'";}
+	
+	$sql_statement = "
+		SELECT Entity_ID, tagno, name, serviceno, serialno, macaddress, winserial, assetcategory, status, createdate, manufacturer, model, model_number, model_price FROM asset_information 
+		INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID
+		WHERE $sqldiff LIMIT 1";
+	$sql 	= mysqli_query($con, $sql_statement);
+	$obj 	= mysqli_fetch_object($sql);
+	$sql_e 	= mysqli_query($con, "SELECT * FROM edit_log WHERE asset_id='$obj->Entity_ID' ORDER BY editdate DESC LIMIT 1");
+	$obj_e 	= mysqli_fetch_object($sql_e);
 	
 	$dblisting 		= $obj->Entity_ID;
 	$dbdevice 		= $obj->Device_ID;
@@ -33,6 +33,9 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$assetcat 		= $obj->assetcategory;
 	$assetstatus 	= $obj->status;
 	$assetcreate	= $obj->createdate;
+	$assetedited	= $obj_e->editdate;
+	$assetip		= $obj_e->recent_ip;
+	$assetuser		= $obj_e->recent_user;
 	
 	$devicemanu		= $obj->manufacturer;
 	$devicemodel	= $obj->model;
@@ -40,59 +43,35 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$deviceprice	= $obj->model_price;
 	
 	### No Asset Tag? Set the var to N/A
-		if($assettag == 0 OR NULL){
-			$assettag = "N/A";
-		}
-		
+		if($assettag == 0 OR NULL){ $assettag = "N/A";}
 	### No Serial Number? Set to N/A!
-		if($assetserial == 0 OR NULL){
-			$assetserial = "N/A";
-		}
+		if($assetserial == 0 OR NULL){ $assetserial = "N/A";}
 	
+	### Set status of the device
+	if($assetcat == 0){ $astatus = "Unpublished Device";}
+	elseif($assetstatus == 0){ $astatus = "<strong style='color:lightgreen' class='mx-1'>ACTIVE</strong>"; }
+	elseif($assetstatus == 1){ $astatus = "<strong style='color:red' class='mx-1'>DECOMISSIONED</strong>"; }
+	elseif($assetstatus == 2){ $astatus = "<strong style='color:orange' class='mx-1'>UNKNOWN</strong>"; }
+	else{ $astatus = "Bad Data!";}
 	
-	if($assetcat == 0){
-		$astatus = "Unpublished Device";
-	}
-	elseif($assetstatus == 0){
-		$astatus = "<strong style='color:lightgreen' class='mx-1'>ACTIVE</strong>";
-	}
-	elseif($assetstatus == 1){
-		$astatus = "<strong style='color:lightred' class='mx-1'>DECOMISSIONED</strong>";
-	}
-	elseif($assetstatus == 2){
-		$astatus = "<strong style='color:lightorange' class='mx-1'>UNKNOWN</strong>";
-	}
-	else{
-		$astatus = "Bad Data!";
-	}
+	### Set text category for the device
+	if($assetcat == 0){ $acat = "Unpublished Device"; }
+	elseif($assetcat == 1){ $acat = "Windows Computer"; }
+	elseif($assetcat == 2){ $acat = "SHU Server"; }
+	else{$acat = "Bad Category!";}
 	
-	if($assetcat == 0){
-		$acat = "Unpublished Device";
-	}
-	elseif($assetcat == 1){
-		$acat = "Windows Computer";
-	}
-	elseif($assetcat == 2){
-		$acat = "SHU Server";
-	}
-	else{
-		$acat = "Bad Category!";
-	}
-	
-	### We don't want visits to be logged on an unpublished device's page.
+	### Visit the tracking URL for *published* devices only.
 	if($assetcat != 0){
-		### Visit the tracking page to log this visit.
 		$staturl = "http://junklands.com/web/tracker.php?visit=".$obj->Entity_ID;
 		file("$staturl");
 	}
 	
-	/* Finally, echo it all into HTML. Not worrying about formatting as
-	it is handled by the page it is inserted into. */
+	### Echo variable containing Bootstrap stuff.
 	echo $tech_css_js_styleimports;
 	
 if(isset($_GET['embedded']) == false){ ?>
 	<head>
-		<title>SHU-Explorer Results</title>
+		<title><?php echo $text_iteminfo_page_title; ?></title>
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>
@@ -103,9 +82,7 @@ if(isset($_GET['embedded']) == false){ ?>
 			</br>
 		</div>
 		<div class="card" style="margin: 0 auto;max-width:50%;min-width:600px">
-		
 <?php } ?>
-
 <div class="card" style="max-width=80%;">
 	<table class="table">
 		<thead class="thead-dark">
@@ -138,9 +115,16 @@ if(isset($_GET['embedded']) == false){ ?>
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Windows Serial: </b><?php echo  $assetwinserial;?>
 				</td>
 				<?php } ?>
-			</tr>
-			<tr>
-				<td colspan="3" style="font-size:11px">Entry Created at <?php echo $assetcreate;?></td>
+				<?php if($assetip){ ?>
+				<td style="font-size:10pt">
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Recent IP: </b><?php echo  $assetip;?>
+				</td>
+				<?php } ?>
+				<?php if($assetuser){ ?>
+				<td style="font-size:10pt">
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Recent User: </b><?php echo  $assetuser;?>
+				</td>
+				<?php } ?>
 			</tr>
 			<tr>
 				<th colspan="2" class="table-active">
@@ -169,7 +153,11 @@ if(isset($_GET['embedded']) == false){ ?>
 					<td style="font-size:10pt">
 						<b><?php echo $text_iteminfo_devicetype_server; ?></b>
 					</td>
-					<?php } ?>
+				<?php } ?>
+			</tr>
+			<tr class="border-bottom">
+				<td colspan="1" style="font-size:11px"><?php echo $text_infobox_created.$assetcreate;?></td>
+				<td colspan="2" style="font-size:11px;text-align:right"><?php echo $text_infobox_lastedit.$assetedited;?></td>
 			</tr>
 		</tbody>
 	</table>
@@ -186,9 +174,7 @@ if(isset($_GET['embedded']) == false){ ?>
 	</div>
 </div>
 <?php
-}
-elseif(!isset($_GET['assettag']) OR !isset($_GET['assetname'])){
-	echo "Variables not set";
-}
-else{ echo $error_record_unknown; }
+	}
+	elseif(!isset($_GET['assettag']) OR !isset($_GET['assetname'])){ echo "Variables not set"; }
+	else{ echo $error_record_unknown; }
 ?> 
