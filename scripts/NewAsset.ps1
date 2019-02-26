@@ -13,5 +13,10 @@ $computer_winserial = Get-CIMInstance -ClassName Win32_OperatingSystem -Property
 ### URL to visit. As long as the above variables do not contain an &, we should be fine.
 $visit_url = "http://www.junklands.com/web/creationtool.php?cname="+$computer_name.Value+"&cmodel="+$computer_model+"&cserial="+$computer_winserial+"&cmanu="+$computer_manufacturer+"&cservice="+$computer_servicetag+"&cat=1";
 
-### Run the command to load the URL.
-Invoke-WebRequest -Uri $visit_url;
+if($domain = "sienahts.edu"){
+	### Run the command to load the URL.
+	Invoke-WebRequest -Uri $visit_url;
+}
+else{
+	ECHO Device is not connected to the Siena Heights domain. The device could not be added.
+}
