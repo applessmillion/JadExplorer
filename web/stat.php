@@ -9,11 +9,20 @@ $con = new mysqli($ip,$user,$pw,$db);
 $sql 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY Entity_ID DESC LIMIT 1");
 $obj 	= mysqli_fetch_object($sql);
 
-$sql2 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY tagno DESC LIMIT 1");
+$sql2 	= mysqli_query($con, "SELECT * FROM page_visits ORDER BY Log_ID DESC LIMIT 1");
 $obj2 	= mysqli_fetch_object($sql2);
 
 $sql3 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY createdate DESC LIMIT 1");
 $obj3 	= mysqli_fetch_object($sql3);
+
+$sql4 	= mysqli_query($con, "SELECT * FROM device_information ORDER BY Device_ID DESC LIMIT 1");
+$obj4 	= mysqli_fetch_object($sql4);
+
+$obj5sql = "SELECT page_visits.page_id, asset_information.name, asset_information.tagno, COUNT(page_visits.page_id) CNT
+			FROM page_visits INNER JOIN asset_information ON page_visits.page_id = asset_information.Entity_ID 
+			GROUP BY page_id ORDER BY COUNT(page_id) DESC LIMIT 1";
+$sql5 	= mysqli_query($con, $obj5sql);
+$obj5 	= mysqli_fetch_object($sql5);
 
 ?>    
 <html>
@@ -35,10 +44,15 @@ $obj3 	= mysqli_fetch_object($sql3);
 				echo $webpage_topcontentbox;
 				
 				$statalllog = $obj->Entity_ID;
-				$highesttagN = $obj2->name;
-				$highesttagA = $obj2->tagno;
+				$highesttagN = $obj->name;
+				$highesttagA = $obj->tagno;
+				$statpageviews = $obj2->Log_ID;
 				$recentaddN = $obj3->name;
 				$recentaddA = $obj3->tagno;
+				$statdevicetypes = $obj4->Device_ID;
+				$mostviewedA = $obj5->tagno;
+				$mostviewedN = $obj5->name;
+				$mostviewedV = $obj5->CNT;
 			?>
 			<tr>
 				<td>
@@ -47,13 +61,42 @@ $obj3 	= mysqli_fetch_object($sql3);
 						<h1><?php echo $text_stat_head_title; ?></h1>
 						<?php echo $widget_webpage_border; ?>
 					</div>
+					<div class="text-center table-borderless">
+						<p>
+							Stats are fun, so here's a few below!
+						</p>
 					<div class="table-responsive{-sm|-md|-lg|-xl}">
 						<table class="table">
-							<tbody>
-								<tr class="text-center">
-									<td><h1><b><?php echo $statalllog; ?></b></h1><b> devices on SHU-Explorer!</h4></b></td>
-								<td><h2><b><?php echo $highesttagN; ?></b></h2><b>Device with the newest asset tag!</b></td>
-								<td><h2><b><?php echo $recentaddN; ?></b></h2><b>Newest device to be added!</h4></b></td>
+							<tbody class="text-center">
+								<tr>
+									<td>
+										<b style="font-size:36pt"><?php echo $statpageviews; ?></b>
+										</br>
+										<b>total device pages views!</b>
+									</td>
+									<td>
+										<b style="font-size:36pt"><?php echo $statalllog; ?></b>
+										</br>
+										<b>unique assets added!</b>
+									</td>
+									<td>
+										<b style="font-size:36pt"><?php echo $statdevicetypes; ?></b>
+										</br>
+										<b>unique device types!</b>
+									</td>
+								</tr>
+								<tr>
+									<td><a href="search.php?infotag=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>Newest device to be added!</b></td>
+									<td>
+										<a href="search.php?
+											<?php if($mostviewedN == "Unknown" OR NULL){ echo "infotag=".$mostviewedA; }else{ echo "infoname=".$mostviewedN; } ?>
+										">
+										<h2><b>
+											<?php echo $mostviewedN; ?>
+										</h2></a>Most viewed asset! (<?php echo $mostviewedV; ?> views!)</b>
+									</td>
+									<td><a href="search.php?infotag=<?php echo $highesttagA; ?>"><h2><b><?php echo $highesttagA; ?></h2></a>Newest asset tag!</b></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
