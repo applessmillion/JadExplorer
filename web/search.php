@@ -191,16 +191,16 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 				</th>
 			</tr>
 			<tr>
-				<td style="height:<?php echo $webpage_device_iframe_height; ?>">
+				<td style="height:<?php echo $webpage_device_iframe_height; ?>px">
 					<!-- Load iFrame -->
 					<div class="text-center">
 						<?php 
 							if($idtype == 0){ ?>
-								<iframe src="iteminfo.php?assettag=<?php echo $iid; ?>&embedded" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>
+								<iframe src="iteminfo.php?assettag=<?php echo $iid; ?>&embedded" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>px;width:80%;overflow:hidden"></iframe>
 						<?php
 							}
 							else if($idtype == 1){ ?>
-								<iframe src="iteminfo.php?assetname=<?php echo $iid; ?>&embedded" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>;width:80%;overflow:hidden"></iframe>
+								<iframe src="iteminfo.php?assetname=<?php echo $iid; ?>&embedded" style="border:none;height:<?php echo $webpage_device_iframe_height; ?>px;width:80%;overflow:hidden"></iframe>
 						<?php } ?>
 					</div>
 					<div class="mx-3">
