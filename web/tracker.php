@@ -8,9 +8,10 @@ if(isset($_GET["visit"])){
 	
 	### Convert GET to php var.
 		$visitid = $_GET["visit"];
+		$visitip = $_SERVER['REMOTE_ADDR'];
 	
 	### SQL statement.
-		if(mysqli_query($con, "INSERT INTO page_visits (page_id) VALUES ('$visitid')")){
+		if(mysqli_query($con, "INSERT INTO page_visits (page_id, visitor_ip) VALUES ('$visitid', '$visitip')")){
 			echo 1;
 		}
 		else{
@@ -21,6 +22,7 @@ if(isset($_GET["visit"])){
 	### Short, sweet, and to the point. ###
 }
 else{
-	echo "Nothing to track.";
+	echo "Nothing to track.</br>";
+	echo "Tracking page visits to: ".$_SERVER['REMOTE_ADDR'];
 }
 ?>
