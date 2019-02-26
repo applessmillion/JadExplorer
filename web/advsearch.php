@@ -8,7 +8,7 @@ $con = new mysqli($ip,$user,$pw,$db);
 ############STARTING CONTENT#############
 
 ?>
-<html>
+<!DOCTYPE html>
 	<head>
 		<title>SHU-Explorer - Search</title>
 	</head>

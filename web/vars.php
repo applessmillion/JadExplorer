@@ -93,14 +93,17 @@ $error_record_notfound = 'This item could not be found. Perhaps you clicked on a
 	$text_search_results_null_title = "Showing 30 Results";
 	$text_search_results_null_desc = "It appears you made a blank search. Go back and enter an asset tag number in the search box, or browse the random devices below.";
 ### Text displayed on the asset's info page
-	$text_search_display_body_title = "Edit History?";
+	$text_search_display_body_title = "Edit History [WIP]";
 	$text_search_display_body_desc = "
 		Below is the editing history of the device.
 		";
 ### Text used in the infopage.php
+	$text_iteminfo_page_title = "Asset Info | SHU-Explorer";
 	$text_iteminfo_devicetype_server = "This Device is a SHU server";
 	$text_iteminfo_assetinfo_title = "ASSET INFORMATION";
 	$text_iteminfo_deviceinfo_title = "DEVICE INFORMATION";
+	$text_infobox_lastedit = "Last Edited: ";
+	$text_infobox_created = "Asset Added: ";
 	$text_iteminfo_btn_newtab = "Open in New Tab";
 	$text_iteminfo_btn_spiceworks = "Spiceworks Search";
 	$text_iteminfo_btn_edit = "Edit Info";
@@ -146,7 +149,7 @@ If your search is too broad, it will be limited to 30 results.
 ### Recent News Widget
 	$widget_updates = "
 		<h3>$text_recentnews_title</h3>
-		<p><strong>$text_recentnews_first_date</strong> - $text_recentnews_first_text</a></br>
+		<p class='mx-5' style='text-align:left'><strong>$text_recentnews_first_date</strong> - $text_recentnews_first_text</a></br>
 		<strong>$text_recentnews_second_date</strong> - $text_recentnews_second_text</p>
 		</br>
 	";

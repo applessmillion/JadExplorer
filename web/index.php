@@ -1,14 +1,13 @@
 <?php
 require_once 'vars.php';
 ?>
-<html>
+<!DOCTYPE html>
 	<head>
 		<title>SHU-Explorer - Search</title>
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>
-			<?php 
-				echo file_get_contents("gtag.html");
+			<?php echo file_get_contents("gtag.html");
 				echo file_get_contents("header.html");
 			?>
 			</br>

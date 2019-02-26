@@ -2,7 +2,7 @@
 //Include pages for variables for texts
 include_once 'vars.php';
 ?>
-<html>
+<!DOCTYPE html>
 	<head>
 		<title>Maralook - Contributors</title>
 	</head>

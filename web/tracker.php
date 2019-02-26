@@ -11,14 +11,9 @@ if(isset($_GET["visit"])){
 		$visitip = $_SERVER['REMOTE_ADDR'];
 	
 	### SQL statement.
-		if(mysqli_query($con, "INSERT INTO page_visits (page_id, visitor_ip) VALUES ('$visitid', '$visitip')")){
-			echo 1;
-		}
-		else{
-			echo 0;
-		}
+		if(mysqli_query($con, "INSERT INTO page_visits (page_id, visitor_ip) VALUES ('$visitid', '$visitip')")){ echo 1; }
+		else{ echo 0; }
 		
-	
 	### Short, sweet, and to the point. ###
 }
 else{

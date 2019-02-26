@@ -4,7 +4,6 @@
 ### Gather method info.
 $computer_name = Get-CimInstance -ClassName Win32_ComputerSystem -Property Name | Select-Object -ExpandProperty Name;
 $computer_servicetag = Get-CIMInstance -ClassName win32_bios -Property SerialNumber | Select-Object -ExpandProperty SerialNumber;
-$computer_ip = Get-NetIPAddress -PrefixOrigin Dhcp | Select-Object -ExpandProperty IPAddress;
 $domain = Get-CimInstance -ClassName Win32_ComputerSystem -Property Domain | Select-Object -ExpandProperty Domain;
 
 ### Check if servicecode is defined. If not, we gotta update via tag number.
@@ -13,6 +12,7 @@ else{ $method = "service" }
 
 ### Let's define our update variables below.
 $curuser = Get-ChildItem Env:Username # Requires a .Value to pull value.
+$computer_ip = Get-NetIPAddress -PrefixOrigin Dhcp | Select-Object -ExpandProperty IPAddress;
 
 ### URL to visit. As long as the above variables do not contain an &, we should be fine.
 $visit_url = "http://www.junklands.com/web/updatetool.php?method="+$method+"&cname="+$computer_name+"&ctag="$computer_servicetag+"&cip="+$computer_ip;

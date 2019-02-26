@@ -11,7 +11,7 @@ $con = new mysqli($ip,$user,$pw,$db);
 #CODE FOR SEARCHING DATABASE AND PRINTING RESULTS#
 if(isset($_GET["assettag"])) {
 ?>    
-<html>
+<!DOCTYPE html>
 <!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Search</title>
@@ -123,7 +123,7 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 		$idtype = 1;
 	}
 ?>    
-	<html>
+	<!DOCTYPE html>
 	<!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Asset <?php echo $info; ?></title>
@@ -222,7 +222,7 @@ elseif(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 }
 else {
 ?>    
-<html>
+<!DOCTYPE html>
 <!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Search</title>

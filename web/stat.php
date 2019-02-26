@@ -25,7 +25,7 @@ $sql5 	= mysqli_query($con, $obj5sql);
 $obj5 	= mysqli_fetch_object($sql5);
 
 ?>    
-<html>
+<!DOCTYPE html>
 <!-- Initalize Page -->
 	<head>
 		<title>SHU-Explorer - Stats</title>
@@ -95,7 +95,7 @@ $obj5 	= mysqli_fetch_object($sql5);
 											<?php echo $mostviewedN; ?>
 										</h2></a>Most viewed asset! (<?php echo $mostviewedV; ?> views!)</b>
 									</td>
-									<td><a href="search.php?infotag=<?php echo $highesttagA; ?>"><h2><b><?php echo $highesttagA; ?></h2></a>Newest asset tag!</b></td>
+									<td><a href="search.php?infotag=<?php echo $highesttagA; ?>"><h2><b>Asset #<?php echo $highesttagA; ?></h2></a>Newest asset tag!</b></td>
 								</tr>
 							</tbody>
 						</table>
