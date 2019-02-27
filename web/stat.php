@@ -24,6 +24,10 @@ $obj5sql = "SELECT page_visits.page_id, asset_information.name, asset_informatio
 $sql5 	= mysqli_query($con, $obj5sql);
 $obj5 	= mysqli_fetch_object($sql5);
 
+$sql6 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY tagno DESC LIMIT 1");
+$obj6 	= mysqli_fetch_object($sql);
+
+
 ?>    
 <!DOCTYPE html>
 <!-- Initalize Page -->
@@ -44,8 +48,8 @@ $obj5 	= mysqli_fetch_object($sql5);
 				echo $webpage_topcontentbox;
 				
 				$statalllog = $obj->Entity_ID;
-				$highesttagN = $obj->name;
-				$highesttagA = $obj->tagno;
+				$highesttagN = $obj6->name;
+				$highesttagA = $obj6->tagno;
 				$statpageviews = $obj2->Log_ID;
 				$recentaddN = $obj3->name;
 				$recentaddA = $obj3->tagno;
@@ -86,7 +90,7 @@ $obj5 	= mysqli_fetch_object($sql5);
 									</td>
 								</tr>
 								<tr>
-									<td><a href="search.php?infotag=<?php echo $recentaddA; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>Newest device to be added!</b></td>
+									<td><a href="search.php?infotag=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>Newest device to be added!</b></td>
 									<td>
 										<a href="search.php?
 											<?php if($mostviewedN == "Unknown" OR NULL){ echo "infotag=".$mostviewedA; }else{ echo "infoname=".$mostviewedN; } ?>
