@@ -25,7 +25,7 @@ $sql5 	= mysqli_query($con, $obj5sql);
 $obj5 	= mysqli_fetch_object($sql5);
 
 $sql6 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY tagno DESC LIMIT 1");
-$obj6 	= mysqli_fetch_object($sql);
+$obj6 	= mysqli_fetch_object($sql6);
 
 
 ?>    
