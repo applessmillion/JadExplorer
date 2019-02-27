@@ -34,6 +34,10 @@ if(isset($_GET['method'])){
 			$sql_checkfordevice = mysqli_query($con, "SELECT * FROM asset_information WHERE tagno='$assettag' ORDER BY createdate LIMIT 1");
 			echo "Submitting update information based on <B>ASSET NUMBER</B></br>";
 		}
+	### Method #4 - Checking up
+		elseif($searchmethod == "checkup"){
+			echo "Checking up!";
+		}
 	### Method #3 - Undefined
 	# Doesn't do anything. 
 		else{ echo "<B>ERROR</B> - Method '$search' undefined."; }
@@ -50,6 +54,18 @@ if(isset($_GET['method'])){
 				$logdesc = $logdesc." Asset name changed to $assetname";
 			}
 			$sqledit = "INSERT INTO edit_log (asset_id, descpt, recent_user, recent_ip) VALUES ('$entID', '$logdesc', '$assetuser', '$assetIP')";
+			mysqli_query($con, $sqledit);
+		}
+		elseif($searchmethod == "checkup"){ //A checkup is a special service. For this, we just wanna check the device name & log it.
+			$logdesc = "The device has been turned on.";
+		
+			### Let's check to see if the name has changed.
+			if($objsql->name != $assetname){
+				mysqli_query($con, "UPDATE asset_information SET name = '$assetname' WHERE Entity_ID = '$entID'");
+				$logdesc = $logdesc." Asset name changed to $assetname";
+			}
+			
+			$sqledit = "INSERT INTO edit_log (asset_id, descpt, recent_ip) VALUES ('$entID', '$logdesc', '$assetIP')";
 			mysqli_query($con, $sqledit);
 		}
 		else{
