@@ -39,17 +39,19 @@ if(isset($_GET['method'])){
 		else{ echo "<B>ERROR</B> - Method '$search' undefined."; }
 	
 	$objsql = mysqli_fetch_object($sql_checkfordevice);
-			
-	### Let's check to see if anything has changed.
-		if($objsql->name != $assetname){	//Check to see if the name of the asset has changed.
-			mysqli_query($con, "UPDATE asset_information SET name = '$assetname' WHERE Entity_ID = '$entID'");
-			$logdesc += " Asset name changed to $assetname";
-		}
 		
 	### Add a new log entry for the device.
 		$entID = $objsql->Entity_ID;
-		$sqledit = "INSERT INTO edit_log (asset_id, descpt, recent_user, recent_ip) VALUES ('$entID', '$logdesc', '$assetuser', '$assetIP')";
-		if(!isset($_GET['nosubmit'])){mysqli_query($con, $sqledit);}
+		
+		if(!isset($_GET['nosubmit'])){
+			### Let's check to see if anything has changed.
+			if($objsql->name != $assetname){	//Check to see if the name of the asset has changed.
+				mysqli_query($con, "UPDATE asset_information SET name = '$assetname' WHERE Entity_ID = '$entID'");
+				$logdesc = $logdesc." Asset name changed to $assetname";
+			}
+			$sqledit = "INSERT INTO edit_log (asset_id, descpt, recent_user, recent_ip) VALUES ('$entID', '$logdesc', '$assetuser', '$assetIP')";
+			mysqli_query($con, $sqledit);
+		}
 		else{
 			echo "Data not being submitted. Here's your variables:</br>";
 			### Echo all vars
