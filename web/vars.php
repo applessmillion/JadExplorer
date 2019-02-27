@@ -54,6 +54,12 @@ include_once 'vars_news.php';
 	$error_record_nullid_title = "Record Not Found!";
 	$error_record_noid = "No record ID has been specified. Try again!";
 	$error_record_unknown = "An unknown error has ocurred.";
+### Error vars for results.php
+	$error_results_badurl_title = "Error! Bad URL";
+	$error_results_badurl_desc = "
+		We had trouble searching with the information provided. Please go back and try again. If you believe this
+		 is an error, feel free to contact us at $contact_email.
+		";
 
 ### Need to revisit these... at least rename them.	
 $error_record_page = 'Error: Could not fetch item info. Refresh and try again';
@@ -63,17 +69,22 @@ $error_record_notfound = 'This item could not be found. Perhaps you clicked on a
 #  WEBPAGE TEXT BLOCKS  #
 #########################
 
+### Page browser titles
+	$text_unspecified_title = " | SHU-Explorer";
+	$text_iteminfo_page_title = "Asset Info | SHU-Explorer";
+	$text_results_page_title = "Search Results | SHU-Explorer";
+
 ### I made it into a button now. So it's not text, but it's everywhere, so...
 	$text_goback = '<button type="button" class="btn btn-lg btn-dark">Go Back</button>';	
-### Text used in the quick search.
+### Text used in the asset search.
 	$text_search_form_assetsearch_title = "Search by Asset Number";
 	$text_search_form_assetsearch_label = "Asset Tag Number:";
-	$text_search_head_title = "Quick Search";
-	$text_search_body_title = "Quickly Search by Asset Tag Number";
+	$text_search_form_namesearch_title = "Search by Computer Name";
+	$text_search_form_namesearch_label = "Computer Name:";
+	$text_search_head_title = "Asset Search";
+	$text_search_body_title = "Search for Devices";
 	$text_search_body_desc = "
-		Search for a computer or device using the tag number. The asset tag should be composed of 5 numbers, usually starting with 13, 14, or 15.
-		If your search is too broad, it will be limited to 30 results. Asset tags can be found on all Siena Heights computers, and some other
-		devices found in classrooms and offices. Look for a silver sticker with the words SIENA HEIGHTS UNIVERSITY to find it's number.
+		Redo the search description. Since we've merged the advanced search and this search, it'll need a new description.
 		";	
 ### Text displayed on the asset search page
 	$text_search_displayasset_title = "Displaying information for Asset No. ";
@@ -91,7 +102,6 @@ $error_record_notfound = 'This item could not be found. Perhaps you clicked on a
 		Below is the editing history of the device.
 		";
 ### Text used in the infopage.php
-	$text_iteminfo_page_title = "Asset Info | SHU-Explorer";
 	$text_iteminfo_devicetype_server = "This Device is a SHU server";
 	$text_iteminfo_assetinfo_title = "ASSET INFORMATION";
 	$text_iteminfo_deviceinfo_title = "DEVICE INFORMATION";
@@ -124,16 +134,6 @@ $error_record_notfound = 'This item could not be found. Perhaps you clicked on a
 		Need to contact us about anything? Send an email to <b>$contact_email</b></br>
 		SHU-Explorer's source code is also available. <a class='head' href='$link_github'>Find me on GitHub</a>.</br>
 		";
-
-
-#Advsearch - Paragraph title
-$advsearch_title = "Advanced Search";
-
-#AdvancedSearch - Main Descritpion
-$advsearch_desc = "
-Search for a device using a selection of options. </br>Select which search you would like to use by filling out the needed info.
-If your search is too broad, it will be limited to 30 results.
-";
 
 #########################
 #    WEBPAGE WIDGETS    #
@@ -184,17 +184,6 @@ $tech_css_js_styleimports = '
 $randbg = rand(1,4);
 $page_bg = "img/bg$randbg.jpg";
 
-$tech_html_head_start_body = 
-		$tech_css_js_styleimports . '<body style="background:url('.$page_bg.') no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">';
+$tech_html_head_start_body = $tech_css_js_styleimports . '<body style="background:url('.$page_bg.') no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">';
 
-
-#########################
-# DEPRECATED VARIABLES  #
-#########################
-### Pending deletion
-	$error_record_timeout = 'DEPRECTED error_record_timeout';
-	$error_record_updated = 'DEPRECTED error_record_updated';
-	$quicksearch_desc = 'renamed';
-	$about_desc = "deprecated - use text_about_body_desc";
-	$about_title = "deprecated - text_about_body_title";
 ?>
