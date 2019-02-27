@@ -27,6 +27,10 @@ $obj5 	= mysqli_fetch_object($sql5);
 $sql6 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY tagno DESC LIMIT 1");
 $obj6 	= mysqli_fetch_object($sql6);
 
+$sql7 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information ON edit_log.asset_id = asset_information.Entity_ID 
+			WHERE recent_user IS NOT NULL ORDER BY edit_id DESC LIMIT 1");
+$obj7 	= mysqli_fetch_object($sql7);
+
 
 ?>    
 <!DOCTYPE html>
@@ -57,6 +61,8 @@ $obj6 	= mysqli_fetch_object($sql6);
 				$mostviewedA = $obj5->tagno;
 				$mostviewedN = $obj5->name;
 				$mostviewedV = $obj5->CNT;
+				$recentuser = $obj7->recent_user;
+				$recentdevice = $obj7->name;
 			?>
 			<tr>
 				<td>
@@ -76,17 +82,17 @@ $obj6 	= mysqli_fetch_object($sql6);
 									<td>
 										<b style="font-size:36pt"><?php echo $statpageviews; ?></b>
 										</br>
-										<b>total device pages views!</b>
+										<b>Total asset pages views!</b>
 									</td>
 									<td>
 										<b style="font-size:36pt"><?php echo $statalllog; ?></b>
 										</br>
-										<b>unique assets added!</b>
+										<b>Unique assets added!</b>
 									</td>
 									<td>
 										<b style="font-size:36pt"><?php echo $statdevicetypes; ?></b>
 										</br>
-										<b>unique device types!</b>
+										<b>Unique device types!</b>
 									</td>
 								</tr>
 								<tr>
@@ -100,6 +106,16 @@ $obj6 	= mysqli_fetch_object($sql6);
 										</h2></a>Most viewed asset! (<?php echo $mostviewedV; ?> views!)</b>
 									</td>
 									<td><a href="search.php?infotag=<?php echo $highesttagA; ?>"><h2><b>Asset #<?php echo $highesttagA; ?></h2></a>Newest asset tag!</b></td>
+								</tr>
+								<tr>
+									<td>
+										<h2><b><?php echo $recentuser; ?></b></h2>
+										<b>Recent user to log in!</b>
+									</td>
+									<td>
+										<a href="search.php?infoname=<?php echo $recentdevice; ?>"><h2><b><?php echo $recentdevice; ?></b></h2></a>
+										<b>Most recent device edited!</b>
+									</td>
 								</tr>
 							</tbody>
 						</table>
