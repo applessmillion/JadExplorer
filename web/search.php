@@ -104,7 +104,8 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 					<div class="mx-3">
 						<h4><?php echo $text_search_display_body_title; ?></h4>
 						<p>
-							<?php echo $text_search_display_body_desc; ?>
+							<?php echo $text_search_display_body_desc;
+								  echo $text_search_display_nohistory;?>
 						<p/>
 					</div>
 					<div class="text-center">
