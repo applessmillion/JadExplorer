@@ -14,6 +14,7 @@ if(isset($_GET['method'])){
 	$assettag = substr($assettag, -5, strpos($assettag, '-')); //Grabs the last 5 chars in the string. Hope people aren't dumb and input the name correctly.
 	$assetIP = $_GET['cip'];
 	$assetuser = $_GET['curuser'];
+	$logdesc = "User ".$assetuser." has logged in."; //Default description
 	
 	### Devices can have multiple IPs. We will fix this by EXPLODING the string.
 		$assetIPsplit = explode(" ", $assetIP);
@@ -35,15 +36,20 @@ if(isset($_GET['method'])){
 		}
 	### Method #3 - Undefined
 	# Doesn't do anything. 
-		else{
-			echo "<B>ERROR</B> - Method '$search' undefined.";
+		else{ echo "<B>ERROR</B> - Method '$search' undefined."; }
+	
+	$objsql = mysqli_fetch_object($sql_checkfordevice);
+			
+	### Let's check to see if anything has changed.
+		if($objsql->name != $assetname){	//Check to see if the name of the asset has changed.
+			mysqli_query($con, "UPDATE asset_information SET name = '$assetname' WHERE Entity_ID = '$entID'");
+			$logdesc += " Asset name changed to $assetname";
 		}
-		$objsql = mysqli_fetch_object($sql_checkfordevice);
+		
 	### Add a new log entry for the device.
 		$entID = $objsql->Entity_ID;
-		$logdesc = "We are editing a device";
 		$sqledit = "INSERT INTO edit_log (asset_id, descpt, recent_user, recent_ip) VALUES ('$entID', '$logdesc', '$assetuser', '$assetIP')";
-		if(!isset($_GET['nosubmit']))mysqli_query($con, $sqledit);
+		if(!isset($_GET['nosubmit'])){mysqli_query($con, $sqledit);}
 		else{
 			echo "Data not being submitted. Here's your variables:</br>";
 			### Echo all vars
