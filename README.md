@@ -7,8 +7,9 @@ This project is under active development. Some files work as intended, while oth
 ## About
 SHU-Explorer is a project developed per requirement of graduating with a Computer Information Systems major at Siena Heights University.
 
-## Use
-SHU-Explorer is a project that will incorporate data pertaining to physical IT-owned devices around the Siena Heights University campus. Data, including hardware information, software information, and physical location data will be stored and viewable. All data is manually gathered or obtained through PowerShell scripts. 
+## Use & Data Collection
+SHU-Explorer is a project that will incorporate data pertaining to physical IT-owned devices around the Siena Heights University campus. Data, including hardware information, software information, and physical location data will be stored and viewable. All asset data is manually gathered or obtained through PowerShell scripts. An optional UpdateAsset.ps script is available to send updated information including IP, logged-in user, and any changes to the core asset details.
+Other data collected includes statistical information such as non-unique page views.
 
 ## Methods
 Project is mostly based in PHP. Minor CSS elements exist that were created for the project. Backend database uses mySQL and recieves commands via PHP on select pages.
