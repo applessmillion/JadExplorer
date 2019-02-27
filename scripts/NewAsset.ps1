@@ -17,6 +17,6 @@ if($domain = "sienahts.edu"){
 	### Run the command to load the URL.
 	Invoke-WebRequest -Uri $visit_url;
 }
-else{
-	ECHO Device is not connected to the Siena Heights domain. The device could not be added.
-}
+
+exit
+
