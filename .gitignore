@@ -1,3 +1,5 @@
 
 web/vars_news.php
 web/private/
+scripts/NewAsset.ps1
+scripts/UpdateAsset.ps1
