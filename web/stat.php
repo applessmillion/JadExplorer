@@ -114,7 +114,7 @@ $obj7 	= mysqli_fetch_object($sql7);
 									</td>
 									<td>
 										<a href="search.php?infoname=<?php echo $recentdevice; ?>"><h2><b><?php echo $recentdevice; ?></b></h2></a>
-										<b>Most recent device edited!</b>
+										<b>Most recent device logged into!</b>
 									</td>
 								</tr>
 							</tbody>
