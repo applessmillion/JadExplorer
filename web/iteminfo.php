@@ -103,7 +103,10 @@ if(isset($_GET['embedded']) == false){ ?>
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Asset ID: </b><?php echo  $assettag;?>
 				</td>
 				<td style="font-size:10pt">
-					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Service Number: </b><?php echo $assetservice; ?>
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Service Number: </b>
+					<?php if($devicemanu == "Dell Inc."){ ?>
+						<a href="https://www.dell.com/support/home/us/en/04/product-support/servicetag/<?php echo $assetservice; ?>/" target="_blank"><?php echo $assetservice; ?></a>
+					<?php }else{ echo $assetservice; }?>
 				</td>
 				<td style="font-size:10pt">
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Serial Number: </b><?php echo $assetserial; ?>
