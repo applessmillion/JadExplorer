@@ -3,7 +3,7 @@ require_once 'vars.php';
 ?>
 <!DOCTYPE html>
 	<head>
-		<title>SHU-Explorer - Search</title>
+		<title><?php echo $text_index_page_title; ?></title>
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>

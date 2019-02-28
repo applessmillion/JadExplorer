@@ -22,7 +22,7 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 		$idtype = 1;
 	}
 ?>    
-	<!DOCTYPE html>
+	<html>
 	<head>
 		<title>Asset <?php echo $info . $text_unspecified_title ?> </title>
 	</head>
@@ -121,9 +121,9 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 }
 else {
 ?>    
-<!DOCTYPE html>
+<html>
 	<head>
-		<title>SHU-Explorer - Search</title>
+		<title><?php echo $text_search_page_title; ?></title>
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>

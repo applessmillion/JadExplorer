@@ -74,8 +74,12 @@ include_once 'vars_news.php';
 
 ### Page browser titles
 	$text_unspecified_title = " | SHU-Explorer";
-	$text_iteminfo_page_title = "Asset Info | SHU-Explorer";
-	$text_results_page_title = "Search Results | SHU-Explorer";
+	$text_iteminfo_page_title = "Asset Info$text_unspecified_title";
+	$text_search_page_title = "Search$text_unspecified_title";
+	$text_about_page_title = "About$text_unspecified_title";
+	$text_index_page_title = "Home$text_unspecified_title";
+	$text_stats_page_title = "Statistics$text_unspecified_title";
+	$text_results_page_title = "Search Results$text_unspecified_title";
 
 ### I made it into a button now. So it's not text, but it's everywhere, so...
 	$text_goback = '<button type="button" class="btn btn-lg btn-dark">Go Back</button>';	

@@ -36,7 +36,7 @@ $obj7 	= mysqli_fetch_object($sql7);
 <!DOCTYPE html>
 <!-- Initalize Page -->
 	<head>
-		<title>SHU-Explorer - Stats</title>
+		<title><?php echo $text_stats_page_title; ?></title>
 	</head>
 		<?php echo $tech_html_head_start_body; ?>
 		<div>

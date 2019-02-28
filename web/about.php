@@ -4,7 +4,7 @@ include_once 'vars.php';
 ?>
 <!DOCTYPE html>
 	<head>
-		<title>Maralook - Contributors</title>
+		<title><?php echo $text_about_page_title; ?></title>
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>
