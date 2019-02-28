@@ -37,6 +37,7 @@ require_once 'vars.php';
 						</br></br>
 						Add new search options: By User, IP, and by Devicetype(maybe)
 					</p>
+					<?php echo $widget_webpage_border; echo $widget_updates; ?>
 					<div class="text-center">
 						<p style="font-size:75%;"><?php echo $copyright_notice; ?></p> 
 					</div>
