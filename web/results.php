@@ -7,10 +7,17 @@ $con = new mysqli($ip,$user,$pw,$db);
 if(isset($_GET['assettag'])){ 
 	$id = $_GET['assettag'];
 	$sqlquery = "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE tagno like '%$id%' ORDER BY tagno DESC LIMIT 30"; 
+	$text_searchresult_heading = "<h1>Showing ".$search_nums." results for #<i>".$id."</i></h1>"; //Define unique heading for ASSETTAG
 }
 elseif(isset($_GET['assetname'])){ 
 	$id = $_GET['assetname'];
 	$sqlquery = "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE name like '%$id%' ORDER BY tagno DESC LIMIT 30";
+	$text_searchresult_heading = "<h1>Showing ".$search_nums." results for <i>".$id."</i></h1>"; //Define unique heading for ASSETNAME
+}
+elseif(isset($_GET['username'])){ 
+	$id = $_GET['username'];
+	$sqlquery = "SELECT * FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID WHERE name like '%$id%' ORDER BY tagno DESC LIMIT 30";
+	$text_searchresult_heading = "<h1>Showing ".$search_nums." results for <i>".$id."</i></h1>"; //Define unique heading for USERNAME
 }
 else{
 	$local_error_code = 1; # Sets a variable we can check later.
@@ -51,9 +58,7 @@ else{
 			<?php }	## This is what happens when we have results.
 			else{
 				## Doing a null search? We got special text for that!
-				if($id){ ?>
-					<h1>Showing <?php echo $search_nums; ?> results for <i><?php echo $id ?></i></h1>
-				<?php }
+				if($id){ $text_searchresult_heading; }
 				else{ ?>
 					<h1><?php echo $text_search_results_null_title; ?></h1>
 					<div class="m-4" style="max-width=50%">
