@@ -19,7 +19,7 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 		WHERE $sqldiff LIMIT 1";
 	$sql 	= mysqli_query($con, $sql_statement);
 	$obj 	= mysqli_fetch_object($sql);
-	$sql_e 	= mysqli_query($con, "SELECT * FROM edit_log WHERE asset_id='$obj->Entity_ID' ORDER BY editdate DESC LIMIT 1");
+	$sql_e 	= mysqli_query($con, "SELECT * FROM edit_log WHERE asset_id='$obj->Entity_ID' && recent_user IS NOT NULL ORDER BY editdate DESC LIMIT 1");
 	$obj_e 	= mysqli_fetch_object($sql_e);
 	
 	$dblisting 		= $obj->Entity_ID;
@@ -29,7 +29,7 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$assettag 		= $obj->tagno;
 	$assetservice 	= $obj->serviceno;
 	$assetserial 	= $obj->serialno;
-	$assetwinserial = "X-" . substr($obj->winserial, -5, strpos($obj->winserial, '-'));
+	$assetmac 	 	= $obj->macaddress;
 	$assetcat 		= $obj->assetcategory;
 	$assetstatus 	= $obj->status;
 	$assetcreate	= $obj->createdate;
@@ -110,11 +110,6 @@ if(isset($_GET['embedded']) == false){ ?>
 				</td>
 			</tr>
 			<tr>
-				<?php if($assetwinserial != "X-"){ ?>
-				<td style="font-size:10pt">
-					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Windows Serial: </b><?php echo  $assetwinserial;?>
-				</td>
-				<?php } ?>
 				<?php if($assetip){ ?>
 				<td style="font-size:10pt">
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Recent IP: </b><?php echo  $assetip;?>
@@ -123,6 +118,11 @@ if(isset($_GET['embedded']) == false){ ?>
 				<?php if($assetuser){ ?>
 				<td style="font-size:10pt">
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Recent User: </b><?php echo  $assetuser;?>
+				</td>
+				<?php } ?>
+				<?php if($assetmac != ""){ ?>
+				<td style="font-size:10pt">
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Ethernet MAC: </b><?php echo  $assetmac;?>
 				</td>
 				<?php } ?>
 			</tr>

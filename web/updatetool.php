@@ -14,6 +14,7 @@ if(isset($_GET['method'])){
 	$assettag = substr($assettag, -5, strpos($assettag, '-')); //Grabs the last 5 chars in the string. Hope people aren't dumb and input the name correctly.
 	$assetIP = $_GET['cip'];
 	$assetuser = $_GET['curuser'];
+	$mac_ethernet	= $_GET['ethernet'];
 	$logdesc = "User ".$assetuser." has logged in."; //Default description
 	
 	### Devices can have multiple IPs. We will fix this by EXPLODING the string.
@@ -56,15 +57,13 @@ if(isset($_GET['method'])){
 			$sqledit = "INSERT INTO edit_log (asset_id, descpt, recent_user, recent_ip) VALUES ('$entID', '$logdesc', '$assetuser', '$assetIP')";
 			mysqli_query($con, $sqledit);
 		}
-		elseif($searchmethod == "checkup"){ //A checkup is a special service. For this, we just wanna check the device name & log it.
-			$logdesc = "The device has been turned on.";
-		
+		elseif($searchmethod == "checkup"){
+			$logdesc = "The device has checked up.";
 			### Let's check to see if the name has changed.
-			if($objsql->name != $assetname){
-				mysqli_query($con, "UPDATE asset_information SET name = '$assetname' WHERE Entity_ID = '$entID'");
+			if($objsql->name != $assetname || $objsql->macaddress != $mac_ethernet){
+				mysqli_query($con, "UPDATE asset_information SET name = '$assetname', macaddress = '$mac_ethernet' WHERE Entity_ID = '$entID'");
 				$logdesc = $logdesc." Asset name changed to $assetname";
 			}
-			
 			$sqledit = "INSERT INTO edit_log (asset_id, descpt, recent_ip) VALUES ('$entID', '$logdesc', '$assetIP')";
 			mysqli_query($con, $sqledit);
 		}

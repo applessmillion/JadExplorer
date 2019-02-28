@@ -8,9 +8,10 @@ $domain = Get-CimInstance -ClassName Win32_ComputerSystem -Property Domain | Sel
 
 ### Let's define our update variables below.
 $computer_ip = Get-NetIPAddress -PrefixOrigin Dhcp | Select-Object -ExpandProperty IPAddress;
+$computer_ethernet = Get-NetAdapter -Name Ethernet | Select-Object -ExpandProperty MacAddress;
 
 ### URL to visit. As long as the above variables do not contain an &, we should be fine.
-$visit_url = "http://www.junklands.com/web/updatetool.php?method=checkup&cname="+$computer_name+"&ctag="+$computer_servicetag+"&cip="+$computer_ip;
+$visit_url = "http://www.junklands.com/web/updatetool.php?method=checkup&cname="+$computer_name+"&ctag="+$computer_servicetag+"&cip="+$computer_ip+"&ethernet="+$computer_ethernet;
 
 if($domain = "sienahts.edu"){ Invoke-WebRequest -Uri $visit_url; }
 

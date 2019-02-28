@@ -6,11 +6,11 @@
 if(isset($_GET['cname'])){
 	### First, we want to convert our URL vars to php vars. This makes it easier to fix their problems.
 		$assetname 		= $_GET['cname'];
-		$assettag 		= $_GET['cname'];
 		
 		$assetservice 	= $_GET['cservice'];
 		$assetcategory	= $_GET['cat'];
 		$assetserial	= $_GET['cserial'];
+		$mac_ethernet	= $_GET['ethernet'];
 
 		$devicemanu		= $_GET['cmanu'];
 		$devicemodel	= $_GET['cmodel'];
@@ -20,14 +20,14 @@ if(isset($_GET['cname'])){
 	
 	### Next, we need to get spaces and weird characters out of the way.
 	# This includes needing to seperate the asset tag# from the name in $assettag
-		$assetname; 	//Nothing needs to change
-		
-		$assettag = substr($assettag, -6, strpos($assettag, '-')); //Grabs the last 5 chars in the string. Hope people aren't dumb and input the name correctly.
-		$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //And when people don't do it right, we'll just remove any text found in the string.
+		$assettagsplit = explode("-", $assetname); // Divide the asset name at the -
+		$assettag = $assettagsplit[1]; // Grab the 2nd half of the asset name.
+		$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //Remove all characters except for numbers. This prevents some oopsies.
 		$devicemodelno = preg_replace('/[^0-9.]+/', '', $devicemodelno); //Strip away everything but numbers
 		$devicemodel = preg_replace('/[0-9]+/', '', $devicemodel); //Strip away all numbers
 		
 		# Good to go variables:
+		$assetname;
 		$assetservice;
 		$assetserial;
 		$devicemanu;
@@ -37,6 +37,7 @@ if(isset($_GET['cname'])){
 			</br>assettag:" . $assettag . 
 			"</br>assetname:" . $assetname . 
 			"</br>assetservice:" . $assetservice . 
+			"</br>mac_ethernet:" . $mac_ethernet . 
 			"</br>assetserial: xxxxx-xxxxx-xxxxx-" . substr($assetserial, -5, strpos($assetserial, '-')) . 
 			"</br>devicemodel:" . $devicemodel . 
 			"</br>devicemodelno:" . $devicemodelno . 
@@ -67,17 +68,14 @@ if(isset($_GET['cname'])){
 		}
 		
 	### Get the device ID for the asset
-		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, winserial, assetcategory, device_ID) 
-						VALUES ('$assetname', '$assettag', '$assetservice', '$assetserial', '$assetcategory', '$deviceID')";
+		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, winserial, assetcategory, macaddress, device_ID) 
+						VALUES ('$assetname', '$assettag', '$assetservice', '$assetserial', '$assetcategory', '$mac_ethernet' '$deviceID')";
 		$assetresults = mysqli_num_rows(mysqli_query($con,$sql_checkassets));
 		if($assetresults == 0){
-			if(mysqli_query($con,$sql_addasset)){
-				echo "Added asset!";
-			}
+			if(mysqli_query($con,$sql_addasset)){ echo "Added asset!"; }
+			else{ echo "Error adding asset."; }
 		}
-		else{
-				echo "</br><b>Asset has already been added.</b>";
-		}
+		else{	echo "</br><b>Asset has already been added.</b>"; }
 }
 else{
 	echo "ERROR problem inserting object";
