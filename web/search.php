@@ -2,7 +2,7 @@
 include_once 'config.php';
 include_once 'vars.php';
 $con = new mysqli($ip,$user,$pw,$db);
-
+	
 #CODE FOR RETRIEVING DATA OF ITEM AND PRINTING RESULTS#
 if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
     if(isset($_GET["infotag"])){
@@ -21,8 +21,11 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 		$iid = $obj->name;
 		$idtype = 1;
 	}
+	$eid = $obj->Entity_ID;
+	$sqlhistory = mysqli_query($con, "SELECT * FROM edit_log WHERE asset_id='$eid' ORDER BY editdate DESC LIMIT 15");
+	$objhis = mysqli_fetch_object($sqlhistory);
 ?>    
-	<html>
+<html>
 	<head>
 		<title>Asset <?php echo $info . $text_unspecified_title ?> </title>
 	</head>
@@ -103,10 +106,25 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 					</div>
 					<div class="mx-3">
 						<h4><?php echo $text_search_display_body_title; ?></h4>
-						<p>
-							<?php echo $text_search_display_body_desc;
-								  echo $text_search_display_nohistory;?>
-						<p/>
+						<p><?php echo $text_search_display_body_desc;?></p>
+					</div>
+					<div class="text-center">
+						<table class="table table-bordered" align="center" style="max-width:75%;min-width:35%;">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col"><b>Log Date</b></th>
+									<th scope="col"><b>Description</b></th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php while ($objhis = mysqli_fetch_object($sqlhistory)) { ?>
+									<tr class="border">
+										<td style="font-size:9pt;"><b><?php echo $objhis->editdate; ?></b></td>
+										<td style="font-size:9pt;"><?php echo $objhis->descpt; ?></td>
+									</tr> 
+								<?php } ?>
+							</tbody>
+						</table>
 					</div>
 					<div class="text-center">
 						<?php echo $widget_webpage_border;?>
