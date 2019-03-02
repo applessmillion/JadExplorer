@@ -19,7 +19,7 @@ include_once 'vars_news.php';
 	$webpage_contentborder_width = ($webpage_contenttable_width-18); 	//border width
 	$webpage_border_color = "#00137F"; 									//line break color
 	$webpage_border_length = "65%";	   									//line break width
-	$webpage_device_iframe_height = 400;								//iframe height. Used on search for iteminfo.php
+	$webpage_device_iframe_height = 440;								//iframe height. Used on search for iteminfo.php
 	$webpage_maincontent_css = "max-width:1300px;";						//100% size for alert, 80% of main content max size.
 	$webpage_table_text_labelcolor = "blue";
 	$webpage_head_image_css = 'width="18%" style="min-width:156px;max-width:256px;"';

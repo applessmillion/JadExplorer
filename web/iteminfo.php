@@ -14,7 +14,7 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	else if(isset($_GET['assetname'])){ $sqldiff = "name='".$_GET['assetname']."'";}
 	
 	$sql_statement = "
-		SELECT Entity_ID, tagno, name, serviceno, serialno, macaddress, winserial, assetcategory, status, createdate, manufacturer, model, model_number, model_price FROM asset_information 
+		SELECT Entity_ID, tagno, name, serviceno, serialno, macaddress, winserial, assetcategory, status, createdate, purchasedate, manufacturer, model, model_number, model_price FROM asset_information 
 		INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID
 		WHERE $sqldiff LIMIT 1";
 	$sql 	= mysqli_query($con, $sql_statement);
@@ -33,6 +33,7 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$assetcat 		= $obj->assetcategory;
 	$assetstatus 	= $obj->status;
 	$assetcreate	= $obj->createdate;
+	$assetpurchase	= $obj->purchasedate;
 	$assetedited	= $obj_e->editdate;
 	$assetip		= $obj_e->recent_ip;
 	$assetuser		= $obj_e->recent_user;
@@ -158,9 +159,10 @@ if(isset($_GET['embedded']) == false){ ?>
 					</td>
 				<?php } ?>
 			</tr>
-			<tr class="border-bottom">
+			<tr class="border-bottom text-center">
+				<td colspan="1" style="font-size:12px"><b><?php echo $text_infobox_lastedit.$assetpurchase;?></b></td>
 				<td colspan="1" style="font-size:11px"><?php echo $text_infobox_created.$assetcreate;?></td>
-				<td colspan="2" style="font-size:11px;text-align:right"><?php echo $text_infobox_lastedit.$assetedited;?></td>
+				<td colspan="1" style="font-size:11px"><?php echo $text_infobox_lastedit.$assetedited;?></td>
 			</tr>
 		</tbody>
 	</table>
