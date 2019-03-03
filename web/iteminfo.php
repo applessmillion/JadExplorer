@@ -56,9 +56,9 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	else{ $astatus = "Bad Data!";}
 	
 	### Set text category for the device
-	if($assetcat == 0){ $acat = "Unpublished Device"; }
-	elseif($assetcat == 1){ $acat = "Windows Computer"; }
-	elseif($assetcat == 2){ $acat = "SHU Server"; }
+	if($assetcat == 0){ $acat = "Unpublished Device"; $img_deviceico = "http://www.junklands.com/web/img/logo.png"; }
+	elseif($assetcat == 1){ $acat = "Windows Computer"; $img_deviceico = "http://www.junklands.com/web/img/computer.png";}
+	elseif($assetcat == 2){ $acat = "SHU Server"; $img_deviceico = "http://www.junklands.com/web/img/server.png";}
 	else{$acat = "Bad Category!";}
 	
 	### Visit the tracking URL for *published* devices only.
@@ -88,7 +88,7 @@ if(isset($_GET['embedded']) == false){ ?>
 	<table class="table">
 		<thead class="thead-dark">
 			<tr>
-				<th scope="col"><img src="http://www.junklands.com/web/img/logo.png" align="center"></th>
+				<th scope="col"><img src="<?php echo $img_deviceico; ?>" style="max-width:30%;min-width:15%"></th>
 				<th scope="col" style="text-align:center"><b style="font-size:21pt;"><?php echo $assetname;?></b></th>
 				<th scope="col" style="text-align:right;"><?php echo $astatus;?></th>
 			</tr>
@@ -159,10 +159,10 @@ if(isset($_GET['embedded']) == false){ ?>
 					</td>
 				<?php } ?>
 			</tr>
-			<tr class="border-bottom text-center">
-				<td colspan="1" style="font-size:12px"><b><?php echo $text_infobox_lastedit.$assetpurchase;?></b></td>
-				<td colspan="1" style="font-size:11px"><?php echo $text_infobox_created.$assetcreate;?></td>
-				<td colspan="1" style="font-size:11px"><?php echo $text_infobox_lastedit.$assetedited;?></td>
+			<tr class="border-bottom">
+				<td colspan="1" style="font-size:14px"><b><?php echo $text_infobox_buydate.$assetpurchase;?></b></td>
+				<td colspan="1" style="font-size:12px"><?php echo $text_infobox_created.$assetcreate;?></td>
+				<td colspan="1" style="font-size:12px"><?php echo $text_infobox_lastedit.$assetedited;?></td>
 			</tr>
 		</tbody>
 	</table>
