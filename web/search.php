@@ -117,11 +117,22 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 								</tr>
 							</thead>
 							<tbody>
-								<?php while ($objhis = mysqli_fetch_object($sqlhistory)) { ?>
+								<?php
+									$search_nums = mysqli_num_rows($sqlhistory);								
+									if($search_nums != 0){
+										while ($objhis = mysqli_fetch_object($sqlhistory)) { ?>
+											<tr class="border">
+												<td style="font-size:9pt;"><b><?php echo $objhis->editdate; ?></b></td>
+												<td style="font-size:9pt;"><?php echo $objhis->descpt; ?></td>
+											</tr> 
+								<?php 
+										} 
+									}
+									else{ 
+								?>
 									<tr class="border">
-										<td style="font-size:9pt;"><b><?php echo $objhis->editdate; ?></b></td>
-										<td style="font-size:9pt;"><?php echo $objhis->descpt; ?></td>
-									</tr> 
+										<td colspan="2" style="font-size:12pt;"><?php echo $text_search_display_nohistory; ?></td>
+									</tr>
 								<?php } ?>
 							</tbody>
 						</table>

@@ -119,6 +119,7 @@ include_once 'vars_news.php';
 	$text_iteminfo_assetinfo_title = "ASSET INFORMATION";
 	$text_iteminfo_deviceinfo_title = "DEVICE INFORMATION";
 	$text_infobox_lastedit = "Last Edited: ";
+	$text_infobox_buydate = "Purchase Date: ";
 	$text_infobox_created = "Asset Added: ";
 	$text_iteminfo_btn_newtab = "Open in New Tab";
 	$text_iteminfo_btn_spiceworks = "Spiceworks Search";
