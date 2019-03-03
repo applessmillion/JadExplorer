@@ -193,7 +193,7 @@ $tech_css_js_styleimports = '
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>';
 
 ### Starts the page. Includes the var above and the body tag to include a few needed variables.
-$randbg = rand(1,4);
+$randbg = rand(1,3);
 $page_bg = "img/bg$randbg.jpg";
 
 $tech_html_head_start_body = $tech_css_js_styleimports . '<body style="background:url('.$page_bg.') no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">';
