@@ -14,8 +14,8 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	else if(isset($_GET['assetname'])){ $sqldiff = "name='".$_GET['assetname']."'";}
 	
 	$sql_statement = "
-		SELECT Entity_ID, tagno, name, serviceno, serialno, macaddress, winserial, assetcategory, status, createdate, purchasedate, manufacturer, model, model_number, model_price FROM asset_information 
-		INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID
+		SELECT Entity_ID, tagno, name, serviceno, serialno, macaddress, winserial, assetcategory, status, createdate, purchasedate, manufacturer, model, model_number, model_price, friendly_name 
+		FROM asset_information INNER JOIN device_information ON asset_information.device_ID = device_information.Device_ID
 		WHERE $sqldiff LIMIT 1";
 	$sql 	= mysqli_query($con, $sql_statement);
 	$obj 	= mysqli_fetch_object($sql);
@@ -41,6 +41,7 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$devicemanu		= $obj->manufacturer;
 	$devicemodel	= $obj->model;
 	$devicemodelno	= $obj->model_number;
+	$devicenicename	= $obj->friendly_name;
 	$deviceprice	= $obj->model_price;
 	
 	### No Asset Tag? Set the var to N/A
@@ -144,8 +145,9 @@ if(isset($_GET['embedded']) == false){ ?>
 						<td colspan="1" style="font-size:10pt">
 							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Manufacturer: </b> <?php echo $devicemanu; ?> 
 						</td>
+						<?php ### DO AN IF/ELSE FOR THE FRIENDLY DEVICE NAME. ?>
 						<td colspan="1" style="font-size:10pt">
-							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Model: </b> <?php echo $devicemodel . " " . $devicemodelno; ?> 
+							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Model: </b> <?php if($devicenicename != NULL){ echo $devicenicename; }else{ echo $devicemodel . " " . $devicemodelno; }?> 
 						</td>
 						<td style="font-size:10pt">
 							<?php if($deviceprice > 0){ ?>

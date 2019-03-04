@@ -95,7 +95,7 @@ else{
 										else {echo "<i>".$obj->name."</i>";}?>
 									</td>
 									<td style="font-size:16px">
-										<?php echo $obj->model ." ". $obj->model_number;?>
+										<?php if($obj->friendly_name != NULL){ echo $obj->friendly_name; }else{ echo $obj->model ." ". $obj->model_number; }?>
 									</td>
 								</tr> 
 							<?php } ?>
