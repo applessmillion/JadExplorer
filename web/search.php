@@ -23,7 +23,6 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 	}
 	$eid = $obj->Entity_ID;
 	$sqlhistory = mysqli_query($con, "SELECT * FROM edit_log WHERE asset_id='$eid' ORDER BY editdate DESC LIMIT 15");
-	$objhis = mysqli_fetch_object($sqlhistory);
 ?>    
 <html>
 	<head>
