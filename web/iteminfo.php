@@ -32,9 +32,6 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$assetmac 	 	= $obj->macaddress;
 	$assetcat 		= $obj->assetcategory;
 	$assetstatus 	= $obj->status;
-	$assetcreate	= $obj->createdate;
-	$assetpurchase	= $obj->purchasedate;
-	$assetedited	= $obj_e->editdate;
 	$assetip		= $obj_e->recent_ip;
 	$assetuser		= $obj_e->recent_user;
 	
@@ -43,6 +40,11 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$devicemodelno	= $obj->model_number;
 	$devicenicename	= $obj->friendly_name;
 	$deviceprice	= $obj->model_price;
+	
+	### Format dates
+	$assetcreate	= date('F j, Y, g:ia', strtotime($obj->createdate));
+	$assetpurchase	= date('F j, Y', strtotime($obj->purchasedate));
+	$assetedited	= date('F j, Y, g:ia', strtotime($obj_e->editdate));
 	
 	### No Asset Tag? Set the var to N/A
 		if($assettag == 0 OR NULL){ $assettag = "N/A";}
@@ -95,10 +97,15 @@ if(isset($_GET['embedded']) == false){ ?>
 			</tr>
 		</thead>
 		<tbody>
+			<?php if($assetpurchase != "December 31, 1969"){ ?>
+				<tr>
+					<th colspan="3" class="table-active">
+						<b style="font-size:12pt;"><?php echo $text_iteminfo_assetinfo_title; ?></b>
+					</th>
+				</tr>
+			<?php } ?>
 			<tr>
-				<th colspan="3" class="table-active">
-					<b style="font-size:12pt;"><?php echo $text_iteminfo_assetinfo_title; ?></b>
-				</th>
+				<td colspan="3" style="font-size:14px"><b><?php echo $text_infobox_buydate.$assetpurchase;?></b></td>
 			</tr>
 			<tr>
 				<td style="font-size:10pt">
@@ -162,8 +169,7 @@ if(isset($_GET['embedded']) == false){ ?>
 				<?php } ?>
 			</tr>
 			<tr class="border-bottom">
-				<td colspan="1" style="font-size:14px"><b><?php echo $text_infobox_buydate.$assetpurchase;?></b></td>
-				<td colspan="1" style="font-size:12px"><?php echo $text_infobox_created.$assetcreate;?></td>
+				<td colspan="2" style="font-size:12px"><?php echo $text_infobox_created.$assetcreate;?></td>
 				<td colspan="1" style="font-size:12px"><?php echo $text_infobox_lastedit.$assetedited;?></td>
 			</tr>
 		</tbody>

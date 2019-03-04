@@ -100,6 +100,7 @@ include_once 'vars_news.php';
 	$text_search_displayname_title = "Showing information for ";
 	$text_search_noresults_title = "Nothing Found!";
 	$text_search_noresults_desc = "We were unable to find a single record matching your search. Try refining your search term, or try a different search method.";
+	$text_search_results_content_desc = "We found some results. Click on the asset tag number or asset name for more information.";
 	$text_search_results_head1 = "Asset No.";
 	$text_search_results_head2 = "Device Name";
 	$text_search_results_head3 = "Device Type";
@@ -195,7 +196,8 @@ $tech_css_js_styleimports = '
 ### Starts the page. Includes the var above and the body tag to include a few needed variables.
 $randbg = rand(1,3);
 $page_bg = "img/bg$randbg.jpg";
-
+$utility_timezone = "America/Detroit";
+date_default_timezone_set($utility_timezone);
 $tech_html_head_start_body = $tech_css_js_styleimports . '<body style="background:url('.$page_bg.') no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">';
 
 ?>

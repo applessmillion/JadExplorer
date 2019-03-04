@@ -56,13 +56,10 @@ else{
 				<h1><?php echo $text_search_noresults_title; ?></h1>
 				<?php echo $text_search_noresults_desc; ?>
 			<?php }	## This is what happens when we have results.
-			else{
-				## Doing a null search? We got special text for that!
-				if($id){ $text_searchresult_heading; }
-				else{ ?>
-					<h1><?php echo $text_search_results_null_title; ?></h1>
+			else{ ?>
+					<h1><?php if($_GET['assetname']){ echo $text_search_displayname_title; }elseif($_GET['assettag']){ echo $text_search_displayasset_title; }else{ echo $text_search_results_null_title;} echo $id;?></h1>
 					<div class="m-4" style="max-width=50%">
-						<p><?php echo $text_search_results_null_desc; ?></p>
+						<p><?php if($id){ echo $text_search_results_content_desc; }else{ echo $text_search_results_null_title;?></p>
 					</div>
 				<?php	}
 					echo $widget_webpage_border; 
