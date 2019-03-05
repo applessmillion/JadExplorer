@@ -121,7 +121,7 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 									if($search_nums != 0){
 										while ($objhis = mysqli_fetch_object($sqlhistory)) { ?>
 											<tr class="border">
-												<td style="font-size:9pt;"><b><?php echo $objhis->editdate; ?></b></td>
+												<td style="font-size:9pt;"><b><?php echo date('M j, Y, g:ia', strtotime($objhis->editdate)+$utility_timezone_offset); ?></b></td>
 												<td style="font-size:9pt;"><?php echo $objhis->descpt; ?></td>
 											</tr> 
 								<?php 
@@ -173,7 +173,7 @@ else {
 						<h1><?php echo $text_search_head_title; ?></h1>
 						<?php echo $widget_webpage_border; ?>
 					</div>
-					<div class="mx-5">
+					<div class="mx-3">
 						<h3><?php echo $text_search_body_title; ?></h3>
 						<?php echo $text_search_body_desc; ?>
 						
@@ -182,7 +182,7 @@ else {
 						<table class="table">
 							<tr>
 								<td>
-									<table style="max-width:400px" align="center" class="border">
+									<table style="max-width:450px" align="center" class="border">
 										<thead class="thead-dark">
 											<tr>
 												<th>
@@ -212,7 +212,7 @@ else {
 										</tbody>
 									</table>
 								</td><td>
-									<table style="max-width:400px" align="center" class="border">
+									<table style="max-width:450px" align="center" class="border">
 										<thead class="thead-dark">
 											<tr>
 												<th>

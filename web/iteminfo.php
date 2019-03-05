@@ -23,8 +23,6 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$obj_e 	= mysqli_fetch_object($sql_e);
 	
 	$dblisting 		= $obj->Entity_ID;
-	$dbdevice 		= $obj->Device_ID;
-	
 	$assetname 		= $obj->name;
 	$assettag 		= $obj->tagno;
 	$assetservice 	= $obj->serviceno;
@@ -42,9 +40,9 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$deviceprice	= $obj->model_price;
 	
 	### Format dates
-	$assetcreate	= date('F j, Y, g:ia', strtotime($obj->createdate));
-	$assetpurchase	= date('F j, Y', strtotime($obj->purchasedate));
-	$assetedited	= date('F j, Y, g:ia', strtotime($obj_e->editdate));
+	$assetcreate	= date('F j, Y, g:ia', strtotime($obj->createdate)+$utility_timezone_offset);
+	$assetpurchase	= date('F j, Y', strtotime($obj->purchasedate)+$utility_timezone_offset);
+	$assetedited	= date('F j, Y, g:ia', strtotime($obj_e->editdate)+$utility_timezone_offset);
 	
 	### No Asset Tag? Set the var to N/A
 		if($assettag == 0 OR NULL){ $assettag = "N/A";}
@@ -97,16 +95,16 @@ if(isset($_GET['embedded']) == false){ ?>
 			</tr>
 		</thead>
 		<tbody>
-			<?php if($assetpurchase != "December 31, 1969"){ ?>
+			<tr>
+				<th colspan="3" class="table-active">
+					<b style="font-size:12pt;"><?php echo $text_iteminfo_assetinfo_title; ?></b>
+				</th>
+			</tr>
+			<?php if($assetpurchase != $utility_timezone_offset_origindate){ ?>
 				<tr>
-					<th colspan="3" class="table-active">
-						<b style="font-size:12pt;"><?php echo $text_iteminfo_assetinfo_title; ?></b>
-					</th>
+					<td colspan="3" style="font-size:14px"><b><?php echo $text_infobox_buydate.$assetpurchase;?></b></td>
 				</tr>
 			<?php } ?>
-			<tr>
-				<td colspan="3" style="font-size:14px"><b><?php echo $text_infobox_buydate.$assetpurchase;?></b></td>
-			</tr>
 			<tr>
 				<td style="font-size:10pt">
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Asset ID: </b><?php echo  $assettag;?>
@@ -152,7 +150,6 @@ if(isset($_GET['embedded']) == false){ ?>
 						<td colspan="1" style="font-size:10pt">
 							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Manufacturer: </b> <?php echo $devicemanu; ?> 
 						</td>
-						<?php ### DO AN IF/ELSE FOR THE FRIENDLY DEVICE NAME. ?>
 						<td colspan="1" style="font-size:10pt">
 							<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Model: </b> <?php if($devicenicename != NULL){ echo $devicenicename; }else{ echo $devicemodel . " " . $devicemodelno; }?> 
 						</td>
@@ -170,7 +167,10 @@ if(isset($_GET['embedded']) == false){ ?>
 			</tr>
 			<tr class="border-bottom">
 				<td colspan="2" style="font-size:12px"><?php echo $text_infobox_created.$assetcreate;?></td>
-				<td colspan="1" style="font-size:12px"><?php echo $text_infobox_lastedit.$assetedited;?></td>
+			<?php $search_nums = mysqli_num_rows($sql_e);								
+				if($search_nums != 0){ ?>
+					<td colspan="1" style="font-size:12px"><?php echo $text_infobox_lastedit.$assetedited;?></td>
+				<?php } ?>
 			</tr>
 		</tbody>
 	</table>
@@ -183,7 +183,7 @@ if(isset($_GET['embedded']) == false){ ?>
 		<a href="https://spiceworks.sienaheights.edu/search?query=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank">
 			<button type="button" class="btn btn-secondary btn-sm"><b><?php echo $text_iteminfo_btn_spiceworks; ?></b></button>
 		</a>
-		<a href="/edit/?<?php if($assettag == 0){echo "name=".$assetname;}else{echo "tag=".$assettag;}?>" target="_blank">
+		<a href="edit?<?php if($assettag == 0){echo "name=".$assetname;}else{echo "tag=".$assettag;}?>" target="_blank">
 			<button type="button" class="btn btn-success btn-sm"><b><?php echo $text_iteminfo_btn_edit; ?></b></button>
 		</a>
 	</div>

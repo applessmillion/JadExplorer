@@ -69,7 +69,7 @@ if(isset($_GET['cname'])){
 		
 	### Get the device ID for the asset
 		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, winserial, assetcategory, macaddress, device_ID) 
-						VALUES ('$assetname', '$assettag', '$assetservice', '$assetserial', '$assetcategory', '$mac_ethernet' '$deviceID')";
+						VALUES ('$assetname', '$assettag', '$assetservice', '$assetserial', '$assetcategory', '$mac_ethernet', '$deviceID')";
 		$assetresults = mysqli_num_rows(mysqli_query($con,$sql_checkassets));
 		if($assetresults == 0){
 			if(mysqli_query($con,$sql_addasset)){ echo "Added asset!"; }

@@ -3,70 +3,25 @@
    To edit database values, check out config.php. */
 
 ### Include alert variables. Alert vars can be edited via vars_alert.php. 
+include_once 'vars_contact.php';
 include_once 'vars_alert.php';
 include_once 'vars_news.php';
+include_once 'vars_error.php';
 
 #########################
 #   USEFUL VARIABLES    #
 #########################
-
-### Contact details. Used on the about page mainly.
-	$contact_email = "contact@jadefury.com";
-	$link_github = "https://github.com/applessmillion/";
-
+	
 ### Variables for the elemets on each webpage
 	$webpage_contenttable_width = 710; 								 	//table width
 	$webpage_contentborder_width = ($webpage_contenttable_width-18); 	//border width
 	$webpage_border_color = "#00137F"; 									//line break color
 	$webpage_border_length = "65%";	   									//line break width
-	$webpage_device_iframe_height = 440;								//iframe height. Used on search for iteminfo.php
+	$webpage_device_iframe_height = 460;								//iframe height. Used on search for iteminfo.php
 	$webpage_maincontent_css = "max-width:1300px;";						//100% size for alert, 80% of main content max size.
 	$webpage_table_text_labelcolor = "blue";
 	$webpage_head_image_css = 'width="18%" style="min-width:156px;max-width:256px;"';
 	$table_tagcol_text_size = 20;
-
-### Copyright notice for SHU-Explorer.
-	$copyright_notice = "Copyright 2019. JADEFURY LLC/Benjamin Robert. All Rights Reserved.";
-	
-#########################
-# ERROR PAGE VARIABLES  #
-#########################
-	$error_generic_title = "Oops";
-
-### Variables displayed on 500 pages. 
-	$error500_page_title = "Internal Server Error (500)";
-	$error500_page_headtext = "500 Error - Internal Server Error";
-	$error500_page_description = "The page you're looking for couldn't be found. Try <a href='../'>returning home</a>. If you think this is an error, feel free to contact us at $contact_email";
-### Variables displayed on 404 pages. 
-	$error404_page_title = "Page Not Found";
-	$error404_page_headtext = "404 Error - Page Not Found";
-	$error404_page_description = "Looks like our server is having some trouble. Try refreshing, and if the problem persists, feel free to contact us at $contact_email";
-### Search page history errors.
-	$error_display_history_none = "Hmm.. No history found!";
-	$error_display_history_timeout = "Timed out! Try again later?";
-	$error_display_history_misc = "Unknown Error";
-### Search page result errors
-	$error_record_nullid_desc = "
-		It appears you've visited this page by accident. Click <b>Go Back</b> 
-		to return to safety. If you're visiting a link that was copied or shared, 
-		make sure it's all there!</br>
-		If you believe you're seeing this page in error, contact us at $contact_email!</br>
-		It is also possible the asset you're looking for has changed it's name. If that is
-		the case, try searching for it's <b>Asset Tag Number</b>";
-	$error_record_nullid_title = "Record Not Found!";
-	$error_record_noid = "No record ID has been specified. Try again!";
-	$error_record_unknown = "An unknown error has ocurred.";
-### Error vars for results.php
-	$error_results_badurl_title = "Error! Bad URL";
-	$error_results_badurl_desc = "
-		We had trouble searching with the information provided. Please go back and try again. If you believe this
-		 is an error, feel free to contact us at $contact_email. If you continue to have issues, try using a different
-		 search method.
-		";
-
-### Need to revisit these... at least rename them.	
-	$error_record_page = 'Error: Could not fetch item info. Refresh and try again';
-	$error_record_notfound = 'This item could not be found. Perhaps you clicked on a bad link?';
 
 #########################
 #  WEBPAGE TEXT BLOCKS  #
@@ -80,6 +35,7 @@ include_once 'vars_news.php';
 	$text_index_page_title = "Home$text_unspecified_title";
 	$text_stats_page_title = "Statistics$text_unspecified_title";
 	$text_results_page_title = "Search Results$text_unspecified_title";
+	$text_edit_page_title = "Edit Asset$text_unspecified_title";
 
 ### I made it into a button now. So it's not text, but it's everywhere, so...
 	$text_goback = '<button type="button" class="btn btn-lg btn-dark">Go Back</button>';	
@@ -144,8 +100,8 @@ include_once 'vars_news.php';
 		Class taught by Professor Hong Chen at Siena Heights University. Project created and developed by Benjamin Robert.</br>
 		Any work derived or based from this project is to be attributed correctly per the MIT License. Visit the LICENSE file on GitHub for more information.</br>
 		</br></br>
-		Need to contact us about anything? Send an email to <b>$contact_email</b></br>
-		SHU-Explorer's source code is also available. <a class='head' href='$link_github'>Find me on GitHub</a>.</br>
+		Need to contact us about anything? Send an email to <b>".$contact_email."</b></br>
+		SHU-Explorer's source code is also available. <a class='head' href='".$link_github."'>Find me on GitHub</a>.</br>
 		";
 
 #########################
@@ -157,7 +113,7 @@ include_once 'vars_news.php';
 ### About Widget
 	$widget_aboutinfo = 
 		"A Senior Seminar project for Siena Heights University.</br>
-		$copyright_notice</br>
+		".$copyright_notice."</br>
 		By using our service, you acknowledge that we use cookies to customize your experience.
 		";
 
@@ -196,8 +152,8 @@ $tech_css_js_styleimports = '
 ### Starts the page. Includes the var above and the body tag to include a few needed variables.
 $randbg = rand(1,3);
 $page_bg = "img/bg$randbg.jpg";
-$utility_timezone = "America/Detroit";
-date_default_timezone_set($utility_timezone);
 $tech_html_head_start_body = $tech_css_js_styleimports . '<body style="background:url('.$page_bg.') no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">';
 
+$utility_timezone_offset = 7200; //In seconds. GoDaddy hosts us in Mountain time. Calculate offset in seconds from that timezone (2HOURS*60SECONDS*60MINUTES)
+$utility_timezone_offset_origindate = "January 1, 1970";	//Don't change unless you know what you're doing. Default is "December 31, 1969".
 ?>
