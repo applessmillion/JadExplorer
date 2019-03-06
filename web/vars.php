@@ -28,7 +28,7 @@ include_once 'vars_error.php';
 #########################
 
 ### Page browser titles
-	$text_unspecified_title = " | SHU-Explorer";
+	$text_unspecified_title = " | JadExplorer";
 	$text_iteminfo_page_title = "Asset Info$text_unspecified_title";
 	$text_search_page_title = "Search$text_unspecified_title";
 	$text_about_page_title = "About$text_unspecified_title";
@@ -44,10 +44,10 @@ include_once 'vars_error.php';
 	$text_search_form_assetsearch_label = "Asset Tag Number:";
 	$text_search_form_namesearch_title = "Search by Computer Name";
 	$text_search_form_namesearch_label = "Computer Name:";
-	$text_search_head_title = "Asset Search";
+	$text_search_head_title = "Search for Computer Assets";
 	$text_search_body_title = "Search for Devices";
 	$text_search_body_desc = "
-		Search for an asset using the methods below. Partial search terms will display records closely matching what you've entered.
+		Search for computer-related assets using the methods below. Partial search terms will display records closely matching what you've entered.
 		If your search term is too broad, up to 30 records will be shown. From the results page, you can click on a record for more
 		detailed information, such as the asset service tag, last IP, last user logged in, and more.
 		";	
@@ -82,26 +82,26 @@ include_once 'vars_error.php';
 	$text_iteminfo_btn_spiceworks = "Spiceworks Search";
 	$text_iteminfo_btn_edit = "Edit Info";
 ### Text used in stats.php page
-	$text_stat_head_title = "Some Statistical Stats";
+	$text_stat_head_title = "Statistics";
 	$text_stat_body_desc = "See stats webpage to edit. Since it uses PHP snippets, I've gone ahead and just put the text in that file directly.";
 ### Index texts
-	$text_index_body_title = "SHU-Explorer - Asset Searching Tool";
+	$text_index_body_title = "JadExplorer - Device Searching Tool";
 	$text_index_body_desc = "
-		SHU-Explorer contains records on various IT-related assets located at Siena Heights University. 
+		JadExplorer contains records on various IT-related assets located at Siena Heights University. 
 		By using the various search tools, you can find information relating to any of these assets, such as
 		location, name, device owner, along with other details.
 		";
 ### About page texts
-	$text_about_body_title = "What is SHU-Explorer?";
+	$text_about_body_title = "What is JadExplorer?";
 	$text_about_body_desc = "
-		SHU-Explorer contains records on various IT-related assets at Siena Heights University. 
+		JadExplorer contains records on various IT-related assets at Siena Heights University. 
 		You can find information relating to any of these assets, such as name, recent IP, service tag, and more.</br>
 		This project exists as a Senior Seminar project. More info on this can be seen on the GitHub page.</br>
 		Class taught by Professor Hong Chen at Siena Heights University. Project created and developed by Benjamin Robert.</br>
 		Any work derived or based from this project is to be attributed correctly per the MIT License. Visit the LICENSE file on GitHub for more information.</br>
 		</br></br>
 		Need to contact us about anything? Send an email to <b>".$contact_email."</b></br>
-		SHU-Explorer's source code is also available. <a class='head' href='".$link_github."'>Find me on GitHub</a>.</br>
+		JadExplorer's source code is also available. <a class='head' href='".$link_github."'>Find me on GitHub</a>.</br>
 		";
 
 #########################
