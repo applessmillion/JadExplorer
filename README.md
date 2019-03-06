@@ -1,14 +1,14 @@
 ![logo](https://raw.githubusercontent.com/applessmillion/SHU-Explorer/master/web/img/logo-dark.png)
 
-# SHU-Explorer
+# Jadexplorer
 ## Notice
 This project is under active development. Some files work as intended, while others do not. Once the front-end is finished, SQL statements will be provided to generate databases compatible with this project.
 
 ## About
-SHU-Explorer is a project developed per requirement of graduating with a Computer Information Systems major at Siena Heights University.
+Jadexplorer is a project developed per requirement of graduating with a Computer Information Systems major at Siena Heights University.
 
 ## Use & Data Collection
-SHU-Explorer is a project that will incorporate data pertaining to physical IT-owned devices around the Siena Heights University campus. Data, including hardware information, software information, and physical location data will be stored and viewable. All asset data is manually gathered or obtained through PowerShell scripts. An optional UpdateAsset.ps script is available to send updated information including IP, logged-in user, and any changes to the core asset details.
+Jadexplorer is a project that will incorporate data pertaining to physical IT-owned devices around the Siena Heights University campus. Data, including hardware information, software information, and physical location data will be stored and viewable. All asset data is manually gathered or obtained through PowerShell scripts. An optional UpdateAsset.ps script is available to send updated information including IP, logged-in user, and any changes to the core asset details.
 Other data collected includes statistical information such as non-unique page views.
 
 ## Methods
