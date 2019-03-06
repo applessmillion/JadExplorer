@@ -26,7 +26,7 @@ include_once 'vars.php';
 						<h1><?php echo $text_about_body_title; ?></h1>
 						<?php echo $widget_webpage_border; ?>
 					</div>
-					<p class="mx-5">
+					<p class="mx-4 text-left">
 						<?php echo $text_about_body_desc; ?>
 					</p>
 				</td>

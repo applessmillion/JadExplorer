@@ -71,11 +71,12 @@ $obj7 	= mysqli_fetch_object($sql7);
 						<h1><?php echo $text_stat_head_title; ?></h1>
 						<?php echo $widget_webpage_border; ?>
 					</div>
-					<div class="text-center table-borderless">
+					<div class="mx-4 text-left">
 						<p>
-							Stats are fun, so here's a few below!
+							<?php echo $text_stat_body_desc; ?>
 						</p>
-					<div class="table-responsive{-sm|-md|-lg|-xl}">
+					</div>
+					<div class="table-responsive{-sm|-md|-lg|-xl} text-center table-borderless">
 						<table class="table">
 							<tbody class="text-center">
 								<tr>

@@ -35,11 +35,11 @@ if(isset($_GET['method'])){
 			$sql_checkfordevice = mysqli_query($con, "SELECT * FROM asset_information WHERE tagno='$assettag' ORDER BY createdate LIMIT 1");
 			echo "Submitting update information based on <B>ASSET NUMBER</B></br>";
 		}
-	### Method #4 - Checking up
+	### Method #3 - Checking up
 		elseif($searchmethod == "checkup"){
 			echo "Checking up!";
 		}
-	### Method #3 - Undefined
+	### Method #4 - Undefined
 	# Doesn't do anything. 
 		else{ echo "<B>ERROR</B> - Method '$search' undefined."; }
 	
