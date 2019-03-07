@@ -83,7 +83,8 @@ include_once 'vars_error.php';
 	$text_iteminfo_btn_edit = "Edit Info";
 ### Text used in stats.php page
 	$text_stat_head_title = "Statistics";
-	$text_stat_body_desc = "See stats webpage to edit. Since it uses PHP snippets, I've gone ahead and just put the text in that file directly.";
+	$text_stat_body_desc = "Below is a list of statistics from assets that have been tracked. Device names and asset tags can be clicked on
+							for the info page on the asset.";
 ### Index texts
 	$text_index_body_title = "JadExplorer - Device Searching Tool";
 	$text_index_body_desc = "
