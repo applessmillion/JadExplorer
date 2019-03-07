@@ -9,13 +9,30 @@ if(isset($_GET['method'])){
 	$searchmethod 	= $_GET['method'];
 	$assetserial	= $_GET['ctag'];
 	$assetname 		= $_GET['cname'];
-	$assettag 		= $assetname;
-	$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //Remove all characters except for numbers. This prevents some oopsies.
-	$assettag = substr($assettag, -5, strpos($assettag, '-')); //Grabs the last 5 chars in the string. Hope people aren't dumb and input the name correctly.
 	$assetIP = $_GET['cip'];
 	$assetuser = $_GET['curuser'];
 	$mac_ethernet	= $_GET['ethernet'];
 	$logdesc = "User ".$assetuser." has logged in."; //Default description
+
+	### Let's get a bit advanced with the asset tag 
+	# If we detect a dash, we'll explode the string and get the 2nd half.
+	# If not, we'll remove the characters from the tag and take the last 5 numbers.
+	# If it does not contain 5 numbers, we'll just set it to nothing.
+		if(stripos($assetname, '-') !== false){
+			$assettagsplit = explode("-", $assetname); // Divide the asset name at the -
+			$assettag = $assettagsplit[1]; // Grab the 2nd half of the asset name.
+			$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //Remove all characters except for numbers.
+		}
+		else{
+			$assettag = preg_replace('/[^0-9.]+/', '', $assetname); //Remove all characters except for numbers.
+			if(strlen($assettag >= 5)){
+				$assettag = substr($assettag, -5); //In case it is like SCI3015555
+			}
+			else{
+				### Just set assettag to nothing.
+				$assettag = "";
+			}
+		}
 	
 	### Devices can have multiple IPs. We will fix this by EXPLODING the string.
 		$assetIPsplit = explode(" ", $assetIP);
