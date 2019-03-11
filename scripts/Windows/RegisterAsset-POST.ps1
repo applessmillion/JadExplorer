@@ -19,8 +19,8 @@ $verify = 1;
 
 ### Compile all the above info.
 $submit_variables = @{cname=$computer_name;cmodel=$computer_model;cserial=$computer_winserial;
-					cmanu=$computer_manufacturer;cservice=$computer_servicetag;ethernet=$computer_ethernet;
-					"cat"=1;v=$verify}
+ cmanu=$computer_manufacturer;cservice=$computer_servicetag;ethernet=$computer_ethernet;
+ "cat"=1;v=$verify}
 					
 ### Visit page and submit the POST variables.
 Invoke-WebRequest -Uri $visit_url -Method POST -Body $submit_variables
