@@ -39,10 +39,31 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$devicenicename	= $obj->friendly_name;
 	$deviceprice	= $obj->model_price;
 	
-	### Format dates
-	$assetcreate	= date('F j, Y, g:ia', strtotime($obj->createdate)+$utility_timezone_offset);
-	$assetpurchase	= date('F j, Y', strtotime($obj->purchasedate)+$utility_timezone_offset);
+	### Doesn't need any timezone or DST checking. This is manually entered.
+	$assetpurchase	= date('F j, Y', strtotime($obj->purchasedate));
+	
 	$assetedited	= date('F j, Y, g:ia', strtotime($obj_e->editdate)+$utility_timezone_offset);
+	$assetcreate	= date('F j, Y, g:ia', strtotime($obj->createdate)+$utility_timezone_offset);
+	
+	### If the DST fix is on, here's how we do it.
+	if($enable_daylight_savings_adjustments == TRUE){
+		### FOR EDITDATE, Check the start of DST (Mar. 10). If it's started, check to see when it ends.
+		if( date("m",strtotime($obj_e->editdate)) >= 3 && date("d",strtotime($obj_e->editdate)) >= 10){
+			### Check the end of DST (Nov. 3). If the date falls after Nov 3, we ignore all of this!
+			if( date("d",strtotime($obj_e->editdate)) >= 3 && date("d",strtotime($obj_e->editdate)) <= 11){
+				### Add an extra hour. This takes place during daylight savings.
+				$assetedited	= date('F j, Y, g:ia', strtotime($obj_e->editdate)+($utility_timezone_offset+3600));
+			}
+		}
+		### FOR CREATEDATE, Check the start of DST (Mar. 10). If it's started, check to see when it ends.
+		if( date("m",strtotime($obj->createdate)) >= 3 && date("d",strtotime($obj->createdate)) >= 10){
+			### Check the end of DST (Nov. 3). If the date falls after Nov 3, we ignore all of this!
+			if( date("d",strtotime($obj->createdate)) >= 3 && date("d",strtotime($obj->createdate)) <= 11){
+				### Add an extra hour. This takes place during daylight savings. Format too.
+				$assetedited	= date('F j, Y, g:ia', strtotime($obj->createdate)+($utility_timezone_offset+3600));
+			}
+		}
+	}
 	
 	### No Asset Tag? Set the var to N/A
 		if($assettag == 0 OR NULL){ $assettag = "N/A";}

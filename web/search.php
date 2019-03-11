@@ -121,7 +121,28 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 									if($search_nums != 0){
 										while ($objhis = mysqli_fetch_object($sqlhistory)) { ?>
 											<tr class="border">
-												<td style="font-size:9pt;"><b><?php echo date('M j, Y, g:ia', strtotime($objhis->editdate)+$utility_timezone_offset); ?></b></td>
+												<td style="font-size:9pt;">
+													<b>
+													<?php 
+													### Let's figure out our DST problem here. This is for the edit history.
+														### If the DST fix is on, here's how we do it.
+														if($enable_daylight_savings_adjustments == TRUE){
+															### FOR THE FRIGGIN PRICE HISTORY, Check the start of DST (Mar. 10). If it's started, check to see when it ends.
+															if( date("m",strtotime($objhis->editdate)) >= 3 && date("d",strtotime($objhis->editdate)) >= 10){
+																### Check the end of DST (Nov. 3). If the date falls after Nov 3, we ignore all of this!
+																if( date("d",strtotime($objhis->editdate)) >= 3 && date("d",strtotime($objhis->editdate)) <= 11){
+																	### Add an extra hour. This takes place during daylight savings.
+																	echo date('F j, Y, g:ia', strtotime($objhis->editdate)+($utility_timezone_offset+3600));
+																}
+																else{ echo date('M j, Y, g:ia', strtotime($objhis->editdate)+$utility_timezone_offset); }
+															}
+															else{ echo date('M j, Y, g:ia', strtotime($objhis->editdate)+$utility_timezone_offset); }
+														}
+														### We need the elses or it'll just print both dates. Best not do that.
+														else{ echo date('M j, Y, g:ia', strtotime($objhis->editdate)+$utility_timezone_offset); }
+													?>
+													</b>
+												</td>
 												<td style="font-size:9pt;"><?php echo $objhis->descpt; ?></td>
 											</tr> 
 								<?php 
