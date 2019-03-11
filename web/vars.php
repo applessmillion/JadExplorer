@@ -143,6 +143,10 @@ include_once 'vars_error.php';
 #    TECH VARIABLES     #
 #########################
 
+### ONLY set to true when your server clock does not change for DST and DST is observed.
+$enable_daylight_savings_adjustments = TRUE; //Does magic voodoo to fix DST-related issues.
+
+
 ### Imports the few lines required for Bootstrap. 
 $tech_css_js_styleimports = '
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
