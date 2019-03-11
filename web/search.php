@@ -127,14 +127,11 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 													### Let's figure out our DST problem here. This is for the edit history.
 														### If the DST fix is on, here's how we do it.
 														if($enable_daylight_savings_adjustments == TRUE){
-															### FOR THE FRIGGIN PRICE HISTORY, Check the start of DST (Mar. 10). If it's started, check to see when it ends.
-															if( date("m",strtotime($objhis->editdate)) >= 3 && date("d",strtotime($objhis->editdate)) >= 10){
-																### Check the end of DST (Nov. 3). If the date falls after Nov 3, we ignore all of this!
-																if( date("d",strtotime($objhis->editdate)) >= 3 && date("d",strtotime($objhis->editdate)) <= 11){
-																	### Add an extra hour. This takes place during daylight savings.
-																	echo date('F j, Y, g:ia', strtotime($objhis->editdate)+($utility_timezone_offset+3600));
-																}
-																else{ echo date('M j, Y, g:ia', strtotime($objhis->editdate)+$utility_timezone_offset); }
+															### FOR THE PRICE HISTORY - Check if date falls between DST (Mar 10 thru Nov 3)
+															if(strtotime($objhis->editdate) >= date(strtotime("second Sunday of March ".date('Y', strtotime($objhis->editdate)))) && 
+															  strtotime($objhis->editdate) <= date(strtotime("first Sunday of November ".date('Y', strtotime($objhis->editdate))))){
+																### Add an extra hour. This takes place during daylight savings.
+																echo date('F j, Y, g:ia', strtotime($objhis->editdate)+($utility_timezone_offset+3600));
 															}
 															else{ echo date('M j, Y, g:ia', strtotime($objhis->editdate)+$utility_timezone_offset); }
 														}

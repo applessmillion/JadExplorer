@@ -46,28 +46,28 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$assetcreate	= date('F j, Y, g:ia', strtotime($obj->createdate)+$utility_timezone_offset);
 	
 	### If the DST fix is on, here's how we do it.
+	# I love PHP for that strtotime magic
 	if($enable_daylight_savings_adjustments == TRUE){
-		### FOR EDITDATE, Check the start of DST (Mar. 10). If it's started, check to see when it ends.
-		if( date("m",strtotime($obj_e->editdate)) >= 3 && date("d",strtotime($obj_e->editdate)) >= 10){
-			### Check the end of DST (Nov. 3). If the date falls after Nov 3, we ignore all of this!
-			if( date("d",strtotime($obj_e->editdate)) >= 3 && date("d",strtotime($obj_e->editdate)) <= 11){
-				### Add an extra hour. This takes place during daylight savings.
-				$assetedited	= date('F j, Y, g:ia', strtotime($obj_e->editdate)+($utility_timezone_offset+3600));
-			}
+		### FOR THE PRICE HISTORY
+		if(strtotime($obj_e->editdate) >= date(strtotime("second Sunday of March ".date('Y', strtotime($obj_e->editdate)))) && 
+		   strtotime($obj_e->editdate) <= date(strtotime("first Sunday of November ".date('Y', strtotime($obj_e->editdate))))){
+			### Add an extra hour. This takes place during daylight savings.
+			$assetedited = date('F j, Y, g:ia', strtotime($obj_e->editdate)+($utility_timezone_offset+3600));
 		}
-		### FOR CREATEDATE, Check the start of DST (Mar. 10). If it's started, check to see when it ends.
-		if( date("m",strtotime($obj->createdate)) >= 3 && date("d",strtotime($obj->createdate)) >= 10){
-			### Check the end of DST (Nov. 3). If the date falls after Nov 3, we ignore all of this!
-			if( date("d",strtotime($obj->createdate)) >= 3 && date("d",strtotime($obj->createdate)) <= 11){
-				### Add an extra hour. This takes place during daylight savings. Format too.
-				$assetedited	= date('F j, Y, g:ia', strtotime($obj->createdate)+($utility_timezone_offset+3600));
-			}
+		else{ $assetedited = date('M j, Y, g:ia', strtotime($obj_e->editdate)+$utility_timezone_offset); }
+		### FOR CREATEDATE
+		if(strtotime($obj->createdate) >= date(strtotime("second Sunday of March ".date('Y', strtotime($obj->createdate)))) && 
+		   strtotime($obj->createdate) <= date(strtotime("first Sunday of November ".date('Y', strtotime($obj->createdate))))){
+			### Add an extra hour. This takes place during daylight savings.
+			$assetcreate = date('F j, Y, g:ia', strtotime($obj->createdate)+($utility_timezone_offset+3600));
 		}
-	}
-	
-	### No Asset Tag? Set the var to N/A
+		else{ $assetcreate = date('M j, Y, g:ia', strtotime($obj->createdate)+$utility_timezone_offset); }
+	}	
+	### We need the elses or it'll just print both dates. Best not do that.
+	else{ echo date('M j, Y, g:ia', strtotime($objhis->editdate)+$utility_timezone_offset); }
+														
+	### Set null variables to N/A
 		if($assettag == 0 OR NULL){ $assettag = "N/A";}
-	### No Serial Number? Set to N/A!
 		if($assetserial == 0 OR NULL){ $assetserial = "N/A";}
 	
 	### Set status of the device
