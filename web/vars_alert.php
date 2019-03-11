@@ -4,8 +4,8 @@
 #########################
 ### Alert text variables. 
 # Just define a value for alert_text and the alert will display.
-	$alert_title = "Daylight Savings";
-	$alert_text = "DST is in effect, meaning times after March 10 will be an hour behind. This is due to the server clock not changing.";
+	$alert_title = "";
+	$alert_text = "";
 
 ## Alert box customization. Colors yay!
 	$webpage_alert_border_color = "#7F0000";	//Alert border color. Prefer a darker color than the bg
