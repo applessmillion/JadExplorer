@@ -6,27 +6,32 @@ require_once 'vars.php';
 ##################CONNECTION INFO FOR DATABASE###################
 $con = new mysqli($ip,$user,$pw,$db);
 ########################STARTING CONTENT#########################
+###SQL query that will find the device with the highest Entity ID. Based on auto-incremental value.
+# Provides overall assets, most recent name and tag.
 $sql 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY Entity_ID DESC LIMIT 1");
 $obj 	= mysqli_fetch_object($sql);
 
+#SQL query that finds the total number of page visits for the asset pages.
 $sql2 	= mysqli_query($con, "SELECT * FROM page_visits ORDER BY Log_ID DESC LIMIT 1");
 $obj2 	= mysqli_fetch_object($sql2);
 
-$sql3 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY createdate DESC LIMIT 1");
-$obj3 	= mysqli_fetch_object($sql3);
-
+###SQL query finding the number of devices added. Based on auto-incremental value.
 $sql4 	= mysqli_query($con, "SELECT * FROM device_information ORDER BY Device_ID DESC LIMIT 1");
 $obj4 	= mysqli_fetch_object($sql4);
 
+###SQL query that finds the top-visited page based on page visits.
+# Rather complex query statement where a count column is created.
 $obj5sql = "SELECT page_visits.page_id, asset_information.name, asset_information.tagno, COUNT(page_visits.page_id) CNT
 			FROM page_visits INNER JOIN asset_information ON page_visits.page_id = asset_information.Entity_ID 
 			GROUP BY page_id ORDER BY COUNT(page_id) DESC LIMIT 1";
 $sql5 	= mysqli_query($con, $obj5sql);
 $obj5 	= mysqli_fetch_object($sql5);
 
+###SQL query finding the highest asset tag, and which device it belongs to. 
 $sql6 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY tagno DESC LIMIT 1");
 $obj6 	= mysqli_fetch_object($sql6);
 
+###SQL query finding the most recently edited device, where the user column is not blank. Finds logins and the device edited/logged into.
 $sql7 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information ON edit_log.asset_id = asset_information.Entity_ID 
 			WHERE recent_user IS NOT NULL ORDER BY edit_id DESC LIMIT 1");
 $obj7 	= mysqli_fetch_object($sql7);
@@ -34,11 +39,10 @@ $obj7 	= mysqli_fetch_object($sql7);
 
 ?>    
 <!DOCTYPE html>
-<!-- Initalize Page -->
 	<head>
 		<title><?php echo $text_stats_page_title; ?></title>
 	</head>
-		<?php echo $tech_html_head_start_body; ?>
+	<?php echo $tech_html_head_start_body; ?>
 		<div>
 			<?php 
 				echo file_get_contents("gtag.html");
@@ -55,8 +59,8 @@ $obj7 	= mysqli_fetch_object($sql7);
 				$highesttagN = $obj6->name;
 				$highesttagA = $obj6->tagno;
 				$statpageviews = $obj2->Log_ID;
-				$recentaddN = $obj3->name;
-				$recentaddA = $obj3->tagno;
+				$recentaddN = $obj->name;
+				$recentaddA = $obj->tagno;
 				$statdevicetypes = $obj4->Device_ID;
 				$mostviewedA = $obj5->tagno;
 				$mostviewedN = $obj5->name;
@@ -97,7 +101,7 @@ $obj7 	= mysqli_fetch_object($sql7);
 									</td>
 								</tr>
 								<tr>
-									<td><a href="search.php?infoname=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>Newest device to be added!</b></td>
+									<td><a href="search.php?infoname=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>Newest asset to be added!</b></td>
 									<td>
 										<a href="search.php?
 											<?php if($mostviewedN == "Unknown" OR NULL){ echo "infotag=".$mostviewedA; }else{ echo "infoname=".$mostviewedN; } ?>
@@ -111,7 +115,7 @@ $obj7 	= mysqli_fetch_object($sql7);
 								<tr>
 									<td>
 										<h2><b><?php echo $recentuser; ?></b></h2>
-										<b>Recent user to log in!</b>
+										<b>Most recent user to log in!</b>
 									</td>
 									<td>
 										<a href="search.php?infoname=<?php echo $recentdevice; ?>"><h2><b><?php echo $recentdevice; ?></b></h2></a>

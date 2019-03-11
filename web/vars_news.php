@@ -2,18 +2,20 @@
 #########################
 #    RECENT NEWS VARS   #
 #########################
+### Allows for the news widget to be disabled.
+# Way more convenient than gutting the refrences to it in each individual page.
 $DISPLAY_NEWS = true;
 
 ### News and stuff. Displays in the $widget_updates.
 	$text_recentnews_title = "Recent Updates & Notices";
-	$text_recentnews_first_date = "February 28, 2018";
-	$text_recentnews_first_text = "Device Service Tags for Dell devices will now link to Dell's website with info on the product.";
-	$text_recentnews_second_date = "February 26, 2018";
-	$text_recentnews_second_text = "Working on optimizing page backgrounds and load times.";
+	$text_recentnews_first_date = "March 11, 2018";
+	$text_recentnews_first_text = "Added support for Daylight Savings Time. Times will now appear correctly.";
+	$text_recentnews_second_date = "March 8, 2018";
+	$text_recentnews_second_text = "Testing has begun on login scripts. You may notice some devices updating as they are logged into.";
 	
 	
 ### Recent News Widget
-# Let's give myself an option to toggle visibility.
+# Gives the ability to toggle the display of the news widget.
 	if($DISPLAY_NEWS == false){
 		$widget_updates = "";
 	}

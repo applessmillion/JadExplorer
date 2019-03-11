@@ -20,7 +20,7 @@ include_once 'vars_error.php';
 	$webpage_device_iframe_height = 460;								//iframe height. Used on search for iteminfo.php
 	$webpage_maincontent_css = "max-width:1300px;";						//100% size for alert, 80% of main content max size.
 	$webpage_table_text_labelcolor = "blue";
-	$webpage_head_image_css = 'width="18%" style="min-width:156px;max-width:256px;"';
+	$webpage_head_image_css = 'width="20%" style="min-width:156px;max-width:256px;"';
 	$table_tagcol_text_size = 20;
 
 #########################
