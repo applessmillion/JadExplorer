@@ -4,14 +4,14 @@
 	$con = new mysqli($ip,$p_user,$p_pw,$db);
 
 ### Check to see if the 	
-if(isset($_GET['method'])){
+if(isset($_POST['method'])){
 	
-	$searchmethod 	= $_GET['method'];
-	$assetserial	= $_GET['ctag'];
-	$assetname 		= $_GET['cname'];
-	$assetIP = $_GET['cip'];
-	$assetuser = $_GET['curuser'];
-	$mac_ethernet	= $_GET['ethernet'];
+	$searchmethod 	= $_POST['method'];
+	$assetserial	= $_POST['ctag'];
+	$assetname 		= $_POST['cname'];
+	$assetIP = $_POST['cip'];
+	$assetuser = $_POST['curuser'];
+	$mac_ethernet	= $_POST['ethernet'];
 	$logdesc = "User ".$assetuser." has logged in."; //Default description
 
 	### Let's get a bit advanced with the asset tag 
@@ -65,7 +65,7 @@ if(isset($_GET['method'])){
 	### Add a new log entry for the device.
 		$entID = $objsql->Entity_ID;
 		
-		if(!isset($_GET['nosubmit'])){
+		if(!isset($_POST['nosubmit'])){
 			### Let's check to see if anything has changed.
 			if($objsql->name != $assetname){	//Check to see if the name of the asset has changed.
 				mysqli_query($con, "UPDATE asset_information SET name = '$assetname' WHERE Entity_ID = '$entID'");
@@ -83,18 +83,6 @@ if(isset($_GET['method'])){
 			}
 			$sqledit = "INSERT INTO edit_log (asset_id, descpt, recent_ip) VALUES ('$entID', '$logdesc', '$assetIP')";
 			mysqli_query($con, $sqledit);
-		}
-		else{
-			echo "Data not being submitted. Here's your variables:</br>";
-			### Echo all vars
-			echo $searchmethod . "</br>";
-			echo $assetserial . "</br>";
-			echo $assetname . "</br>";
-			echo $assettag . "</br>";
-			echo $assetuser . "</br>";
-			echo $entID . "</br>";
-			echo $assetIP . "</br>";
-			echo $sqledit;
 		}
 }
 else{

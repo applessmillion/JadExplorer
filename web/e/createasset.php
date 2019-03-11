@@ -3,18 +3,18 @@
 	include_once 'config.php';
 	$con = new mysqli($ip,$p_user,$p_pw,$db);
 
-if(isset($_GET['cname'])){
+if(isset($_POST['cname'])){
 	### First, we want to convert our URL vars to php vars. This makes it easier to fix their problems.
-		$assetname 		= $_GET['cname'];
+		$assetname 		= $_POST['cname'];
 		
-		$assetservice 	= $_GET['cservice'];
-		$assetcategory	= $_GET['cat'];
-		$assetserial	= $_GET['cserial'];
-		$mac_ethernet	= $_GET['ethernet'];
+		$assetservice 	= $_POST['cservice'];
+		$assetcategory	= $_POST['cat'];
+		$assetserial	= $_POST['cserial'];
+		$mac_ethernet	= $_POST['ethernet'];
 
-		$devicemanu		= $_GET['cmanu'];
-		$devicemodel	= $_GET['cmodel'];
-		$devicemodelno	= $_GET['cmodel'];
+		$devicemanu		= $_POST['cmanu'];
+		$devicemodel	= $_POST['cmodel'];
+		$devicemodelno	= $_POST['cmodel'];
 		
 		$deviceID		= NULL;
 	
@@ -31,23 +31,11 @@ if(isset($_GET['cname'])){
 		$assetservice;
 		$assetserial;
 		$devicemanu;
-
-	### Let's print this beauty.
-		echo "<b>COLLECTED DATA</b>:
-			</br>assettag:" . $assettag . 
-			"</br>assetname:" . $assetname . 
-			"</br>assetservice:" . $assetservice . 
-			"</br>mac_ethernet:" . $mac_ethernet . 
-			"</br>assetserial: xxxxx-xxxxx-xxxxx-" . substr($assetserial, -5, strpos($assetserial, '-')) . 
-			"</br>devicemodel:" . $devicemodel . 
-			"</br>devicemodelno:" . $devicemodelno . 
-			"</br>devicemanu:" . $devicemanu . 
-			"</br></br><b>STATUS</b>:</br>";
 			
 	### SQL statements:
-		$sql_checkdevices = "SELECT * FROM device_information WHERE model_number='$devicemodelno' AND model='$devicemodel' LIMIT 1";
-		$sql_checkassets = "SELECT * FROM asset_information WHERE tagno='$assettag' AND serviceno='$assetservice' LIMIT 1";
-		$sql_nodevices = "INSERT INTO device_information (manufacturer, model, model_number) VALUES ('$devicemanu', '$devicemodel', '$devicemodelno')";
+		$sql_checkdevices 	= "SELECT * FROM device_information WHERE model_number='$devicemodelno' AND model='$devicemodel' LIMIT 1";
+		$sql_checkassets 	= "SELECT * FROM asset_information WHERE tagno='$assettag' AND serviceno='$assetservice' LIMIT 1";
+		$sql_nodevices 		= "INSERT INTO device_information (manufacturer, model, model_number) VALUES ('$devicemanu', '$devicemodel', '$devicemodelno')";
 	
 	### Are there results? If so, we don't have to add a new device!
 		$numresults = mysqli_num_rows(mysqli_query($con,$sql_checkdevices));
@@ -61,6 +49,7 @@ if(isset($_GET['cname'])){
 				echo "</br>Success.</br>New device ID: " . $deviceID;
 			}
 		}
+	### Don't add a new device!
 		else{
 			$obj = mysqli_fetch_assoc(mysqli_query($con,$sql_checkdevices));
 			$deviceID = $obj["Device_ID"];
