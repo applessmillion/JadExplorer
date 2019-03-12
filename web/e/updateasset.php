@@ -1,18 +1,24 @@
 <?php
 ### Get database info and connect
-	include_once 'config.php';
+	include_once '../config.php';
 	$con = new mysqli($ip,$p_user,$p_pw,$db);
 
-### Check to see if the 	
+### Check to see if the method is defined. This is how we'll pull info on the device.
 if(isset($_POST['method'])){
-	
-	$searchmethod 	= $_POST['method'];
-	$assetserial	= $_POST['ctag'];
-	$assetname 		= $_POST['cname'];
-	$assetIP = $_POST['cip'];
-	$assetuser = $_POST['curuser'];
-	$mac_ethernet	= $_POST['ethernet'];
-	$logdesc = "User ".$assetuser." has logged in."; //Default description
+	### Get variables from POST
+		$searchmethod 	= $_POST['method'];
+		$assetserial	= $_POST['ctag'];
+		$assetname 		= $_POST['cname'];
+		$assetIP 		= $_POST['cip'];
+		$assetuser 		= $_POST['curuser'];
+		$mac_ethernet	= $_POST['ethernet'];
+		$domain			= $_POST['domain'];
+		
+		$logdesc = "User ".$assetuser." has logged in."; //Default description
+
+	### Check if the verification matches. By default, the script's verification is "1"
+		$verification	= $_POST['v'];
+		$phpverify 		= 1;
 
 	### Let's get a bit advanced with the asset tag 
 	# If we detect a dash, we'll explode the string and get the 2nd half.
@@ -33,13 +39,11 @@ if(isset($_POST['method'])){
 				$assettag = "";
 			}
 		}
-	
 	### Devices can have multiple IPs. We will fix this by EXPLODING the string.
 		$assetIPsplit = explode(" ", $assetIP);
 		$assetIP = $assetIPsplit[0]; //Sets the IP to the first one in the list. We don't really care about which one is selected.
 	
-	### For updates, we should expect data to change a lot. This means we need to have multiple methods to find the device.
-	
+### For updates, we should expect data to change a lot. This means we need to have multiple methods to find the device.	
 	### Method #1 - Service Tag. These are fairly unique, and if it has one, that's great. They never change.
 	# Prefer this method as human error is next to none since it's added automatically.
 		if($searchmethod == "service"){
@@ -61,7 +65,6 @@ if(isset($_POST['method'])){
 		else{ echo "<B>ERROR</B> - Method '$search' undefined."; }
 	
 	$objsql = mysqli_fetch_object($sql_checkfordevice);
-		
 	### Add a new log entry for the device.
 		$entID = $objsql->Entity_ID;
 		
