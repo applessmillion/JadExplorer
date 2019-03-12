@@ -36,6 +36,10 @@ $sql7 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information
 			WHERE recent_user IS NOT NULL ORDER BY edit_id DESC LIMIT 1");
 $obj7 	= mysqli_fetch_object($sql7);
 
+###SQL query finding the most recently edited device. Pulls 5 recents to show on the bottom of the stats page.
+$sql3 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information ON edit_log.asset_id = asset_information.Entity_ID 
+			ORDER BY edit_id DESC LIMIT 5");
+
 
 ?>    
 <!DOCTYPE html>
@@ -122,6 +126,40 @@ $obj7 	= mysqli_fetch_object($sql7);
 										<b>Most recent device logged into!</b>
 									</td>
 								</tr>
+							</tbody>
+						</table>
+						Here's a list of recently edited items!
+						<table width="70%" align="center" class="table-bordered text-left">
+							<thead class="thead-dark">
+								<tr class="text-left border">
+									<th class="mx-2">
+										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>Device Name</b>
+									</th>
+									<th>
+										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>User</b>
+									</th>
+									<th>
+										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>Edit</b>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php while ($objlist = mysqli_fetch_object($sql3)) { ?>
+									<tr class="border">
+										<td>
+											<a class="reg"
+											<?php if($objlist->tagno == 0){ echo "href='search.php?infoname=" . urlencode($objlist->name) . "' style='font-size:18'>N/A</a>"; }
+											else{ echo "href='search.php?infotag=" . urlencode($objlist->tagno) . "' style='font-size:18'><b>". $objlist->name . "</b></a>"; } 
+											?> 
+										</td>
+										<td style="font-size:16px">
+											<?php echo $objlist->recent_user; ?>
+										</td>
+										<td style="font-size:16px">
+											<?php echo $objlist->descpt; ?>
+										</td>
+									</tr> 
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>
