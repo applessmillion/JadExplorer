@@ -129,14 +129,14 @@ $sql3 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information
 							</tbody>
 						</table>
 						Here's a list of recently edited items!
-						<table width="70%" align="center" class="table-bordered text-left">
+						<table width="60%" align="center" class="table-bordered text-left">
 							<thead class="thead-dark">
 								<tr class="text-left border">
 									<th class="mx-2">
 										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>Device Name</b>
 									</th>
 									<th>
-										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>User</b>
+										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>Username</b>
 									</th>
 									<th>
 										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>Edit</b>
