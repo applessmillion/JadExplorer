@@ -17,7 +17,11 @@ if(isset($_POST['cname'])){
 		$devicemodelno	= $_POST['cmodel'];
 		
 		$deviceID		= NULL;
-	
+		
+	### Check if the verification matches. By default, the script's verification is "1"
+		$verification	= $_POST['v'];
+		$phpverify 		= 1;
+		
 	### Next, we need to get spaces and weird characters out of the way.
 	# This includes needing to seperate the asset tag# from the name in $assettag
 		$assettagsplit = explode("-", $assetname); // Divide the asset name at the -
@@ -31,42 +35,49 @@ if(isset($_POST['cname'])){
 		$assetservice;
 		$assetserial;
 		$devicemanu;
-			
-	### SQL statements:
-		$sql_checkdevices 	= "SELECT * FROM device_information WHERE model_number='$devicemodelno' AND model='$devicemodel' LIMIT 1";
-		$sql_checkassets 	= "SELECT * FROM asset_information WHERE tagno='$assettag' AND serviceno='$assetservice' LIMIT 1";
-		$sql_nodevices 		= "INSERT INTO device_information (manufacturer, model, model_number) VALUES ('$devicemanu', '$devicemodel', '$devicemodelno')";
-	
-	### Are there results? If so, we don't have to add a new device!
-		$numresults = mysqli_num_rows(mysqli_query($con,$sql_checkdevices));
-		echo "Number of results: " . $numresults;
-		if($numresults == 0){
-			echo "</br>CONNECTED TO DB SUCCESSFULLY</br>ADDING DEVICE TYPE TO device_information...";
-			if(mysqli_query($con, $sql_nodevices)){
-				$relook = $con->query($sql_checkdevices);
-				$obj = mysqli_fetch_assoc($relook);
-				$deviceID = $obj["Device_ID"];
-				echo "</br>Success.</br>New device ID: " . $deviceID;
-			}
+
+	### Test the verification. If it is not the same, we shouldn't submit data.
+		if($verification != $phpverify){
+		echo "</br><b>The verification key did not match what was expected.</b>";
+		echo "</br>ERROR: Bad verification code: ".$_GET['v'];
 		}
-	### Don't add a new device!
 		else{
-			$obj = mysqli_fetch_assoc(mysqli_query($con,$sql_checkdevices));
-			$deviceID = $obj["Device_ID"];
-			echo "</br>Connected.</br>Device ID: " . $deviceID;
+			### SQL statements:
+				$sql_checkdevices 	= "SELECT * FROM device_information WHERE model_number='$devicemodelno' AND model='$devicemodel' LIMIT 1";
+				$sql_checkassets 	= "SELECT * FROM asset_information WHERE tagno='$assettag' AND serviceno='$assetservice' LIMIT 1";
+				$sql_nodevices 		= "INSERT INTO device_information (manufacturer, model, model_number) VALUES ('$devicemanu', '$devicemodel', '$devicemodelno')";
+			
+			### Are there results? If so, we don't have to add a new device!
+				$numresults = mysqli_num_rows(mysqli_query($con,$sql_checkdevices));
+				echo "Number of results: <b>" . $numresults . "</b></br>";
+				if($numresults == 0){
+					echo "</br>CONNECTED TO DATABASE SUCCESSFULLY</br>ADDING DEVICE TYPE TO device_information...";
+					if(mysqli_query($con, $sql_nodevices)){
+						$relook = $con->query($sql_checkdevices);
+						$obj = mysqli_fetch_assoc($relook);
+						$deviceID = $obj["Device_ID"];
+						echo "</br>Success.</br>New device ID: <b>" . $deviceID . "</b></br>";
+					}
+				}
+			### Don't add a new device!
+				else{
+					$obj = mysqli_fetch_assoc(mysqli_query($con,$sql_checkdevices));
+					$deviceID = $obj["Device_ID"];
+					echo "</br>Connected.</br>Existing Device ID: <b>" . $deviceID . "</b></br>";
+				}
+				
+			### Get the device ID for the asset
+				$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, winserial, assetcategory, macaddress, device_ID) 
+								VALUES ('$assetname', '$assettag', '$assetservice', '$assetserial', '$assetcategory', '$mac_ethernet', '$deviceID')";
+				$assetresults = mysqli_num_rows(mysqli_query($con,$sql_checkassets));
+				if($assetresults == 0){
+					if(mysqli_query($con,$sql_addasset)){ echo "Added asset!"; }
+					else{ echo "Error adding asset."; }
+				}
+				else{	echo "</br><b>Asset has already been added.</b>"; }
 		}
-		
-	### Get the device ID for the asset
-		$sql_addasset = "INSERT INTO asset_information (name, tagno, serviceno, winserial, assetcategory, macaddress, device_ID) 
-						VALUES ('$assetname', '$assettag', '$assetservice', '$assetserial', '$assetcategory', '$mac_ethernet', '$deviceID')";
-		$assetresults = mysqli_num_rows(mysqli_query($con,$sql_checkassets));
-		if($assetresults == 0){
-			if(mysqli_query($con,$sql_addasset)){ echo "Added asset!"; }
-			else{ echo "Error adding asset."; }
-		}
-		else{	echo "</br><b>Asset has already been added.</b>"; }
 }
 else{
-	echo "ERROR problem inserting object";
+	echo "<b>Basic information was not provided, so an attempt to insert a record could not be made.</b>";
 }
 ?> 
