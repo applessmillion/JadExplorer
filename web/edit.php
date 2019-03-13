@@ -48,14 +48,20 @@ else if(isset($_GET["name"])){
 					</div>
 					<form>
 						<div class="form-group m-3">
-							<div class="form-row">
+							<h3>Asset-Specific Information</h3>
+							<div class="form-row my-2">
 								<div class="col">
 									<label>Asset Name</label>
-									<input class="form-control" value="<?php echo $assetname; ?>" type="text" placeholder="Name">
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text">Name</div>
+										</div>
+										<input class="form-control" value="<?php echo $assetname; ?>" type="text" placeholder="COMPUTER-15555">
+									</div>
 								</div>
 								<div class="col">
 									<label>Asset Tag</label>
-									<input class="form-control" value="<?php echo $assettag; ?>" type="text" placeholder="Tag #">
+									<input class="form-control" value="<?php echo $assettag; ?>" type="text" placeholder="15555">
 								</div>
 								<div class="col">
 									<label>Service Tag</label>
@@ -70,22 +76,51 @@ else if(isset($_GET["name"])){
 									</select>
 								</div>
 							</div>
-							</br>
-							<div class="form-row">
+							<div class="form-row my-2">
 								<div class="col">
 									<label>Purchase Date</label>
-									<input class="form-control" value="<?php echo date('Y-m-d', strtotime($obj->purchasedate)+$utility_timezone_offset); ?>" type="date" id="pdate" value="pdate" min="2007-07-01">
+									<input class="form-control" value="<?php echo date('Y-m-d', strtotime($obj->purchasedate)+$utility_timezone_offset); ?>" type="date" id="pdate" value="pdate">
 								</div>
 								<div class="col">
-									<label>textbox</label>
+									<label>Serial Number</label>
 									<input class="form-control" type="text" placeholder="textbox">
 								</div>
 								<div class="col">
-									<label>textbox</label>
-									<input class="form-control" type="text" placeholder="textbox">
+								<label>Device Cost</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+										  <div class="input-group-text">$</div>
+										</div>
+										<input type="text" class="form-control" id="cost" placeholder="499.99" name="cost">
+									</div>
 								</div>
 							</div>
-							
+						<div class="form-group m-2">
+							<h3>Location Information</h3>
+							<div class="form-row">
+								<div class="col">
+									<label>Campus</label>
+									<input class="form-control" value="<?php echo NULL; ?>" type="text" placeholder="Adrian">
+								</div>
+								<div class="col">
+									<label>Building</label>
+									<select class="form-control">
+										<option id="">Unspecified</option>
+										<option id="Science Building">Science Building</option>
+										<option id="Dominican Hall">Dominican Hall</option>
+										<option id="Library">Library</option>
+										<option id="Sacred Heart Hall">Sacred Heart Hall</option>
+										<option id="St. Joseph Hall">St. Joseph Hall</option>
+										<option id="">Other Options Here</option>
+										<option id="">Other Options Here</option>
+										<option id="">Other Options Here</option>
+									</select>
+								</div>
+								<div class="col">
+									<label>Room Number</label>
+									<input class="form-control" value="<?php echo NULL ?>" type="text" placeholder="300A" <?php if($aservice != NULL){echo "readonly";} ?>>
+								</div>
+							</div>
 						</div>
 					</form>
 				</td>
