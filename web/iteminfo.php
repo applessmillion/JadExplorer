@@ -23,6 +23,13 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$obj_e 	= mysqli_fetch_object($sql_e);
 	
 	$dblisting 		= $obj->Entity_ID;
+	
+	### Gather location information regarding the asset if it exists.
+	$sql_locinfo = "SELECT * FROM location_information WHERE Asset_ID='$obj->Entity_ID' LIMIT 1";
+	$sqlcon_loc	 = mysqli_query($con, $sql_l);
+	$obj_l 	= mysqli_fetch_object($sql_l);
+	
+	### Variables that pertain to the ASSET
 	$assetname 		= $obj->name;
 	$assettag 		= $obj->tagno;
 	$assetservice 	= $obj->serviceno;
@@ -33,11 +40,17 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$assetip		= $obj_e->recent_ip;
 	$assetuser		= $obj_e->recent_user;
 	
+	### Variables that pertain to the asset's DEVICE
 	$devicemanu		= $obj->manufacturer;
 	$devicemodel	= $obj->model;
 	$devicemodelno	= $obj->model_number;
 	$devicenicename	= $obj->friendly_name;
 	$deviceprice	= $obj->model_price;
+	
+	### Variables that pertain to the asset's LOCATION
+	$loccampus		= $obj_l->campus;
+	$locbuilding	= $obj_l->building;
+	$locroom		= $obj_l->room;
 	
 	### Doesn't need any timezone or DST checking. This is manually entered.
 	$assetpurchase	= date('F j, Y', strtotime($obj->purchasedate));
