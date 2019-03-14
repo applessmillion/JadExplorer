@@ -34,7 +34,7 @@ if(isset($_POST['cname'])){
 	### Test the verification. If it is not the same, we shouldn't submit data.
 		if($verification != $phpverify){
 			echo "</br><b>The verification key did not match what was expected.</b>";
-			echo "</br>ERROR: Bad verification code: ".$_GET['v'];
+			echo "</br>ERROR: Bad verification code: ".$_POST['v'];
 		}
 		else{
 			### SQL statements:
