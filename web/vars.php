@@ -54,13 +54,16 @@ include_once 'vars_error.php';
 ### Text displayed on the asset search page
 	$text_search_displayasset_title = "Displaying information for Asset No. ";
 	$text_search_displayname_title = "Showing information for ";
-	$text_search_noresults_title = "Nothing Found!";
-	$text_search_noresults_desc = "We were unable to find a single record matching your search. Try refining your search term, or try a different search method.";
-	$text_search_results_content_desc = "We found some results. Click on the asset tag number or asset name for more information.";
+	$text_search_username_title = "Showing recent devices for ";
+	$text_search_noresults_title = "Results Not Found.";
+	$text_search_noresults_desc = "We were unable to find a record matching your search. Try refining your search, or try a different search method.";
+	$text_search_results_content_desc = "Click on the asset tag number or asset name for more information.";
+	$text_search_results_content_user_desc = "Below is a list of devices the user has logged into.";
 	$text_search_results_head1 = "Asset No.";
 	$text_search_results_head2 = "Device Name";
 	$text_search_results_head3 = "Device Type";
-	$text_search_results_null_title = "Showing 30 Results";
+	$text_search_results_head4 = "Date";
+	$text_search_results_null_title = "Showing Randomized Results";
 	$text_search_results_null_desc = "It appears you did not enter any data when searching. Go back and enter something into the search box, or browse the random devices below.";
 ### Text displayed on the asset's info page
 	$text_search_display_body_title = "Device Activity";
