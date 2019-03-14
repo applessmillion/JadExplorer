@@ -44,6 +44,8 @@ include_once 'vars_error.php';
 	$text_search_form_assetsearch_label = "Asset Tag Number:";
 	$text_search_form_namesearch_title = "Search by Computer Name";
 	$text_search_form_namesearch_label = "Computer Name:";
+	$text_search_form_unamesearch_title = "Search by Username";
+	$text_search_form_unamesearch_label = "Username:";
 	$text_search_head_title = "Search for Computer Assets";
 	$text_search_body_title = "Search for Devices";
 	$text_search_body_desc = "

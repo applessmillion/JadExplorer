@@ -200,7 +200,7 @@ else {
 						<table class="table">
 							<tr>
 								<td>
-									<table style="max-width:450px" align="center" class="border">
+									<table align="center" class="border">
 										<thead class="thead-dark">
 											<tr>
 												<th>
@@ -211,26 +211,27 @@ else {
 										<tbody>
 											<td>
 												<form action="results.php" method="get" class="m-2">
-													<label><b><?php echo $text_search_form_assetsearch_label; ?></b></label>
+													<label class="text-left"><b><?php echo $text_search_form_assetsearch_label; ?></b></label>
 													<div class="form-row align-items-center">
 														<div class="col-auto">
 															<div class="input-group mb-2">
 																<div class="input-group-prepend">
-																  <div class="input-group-text">#</div>
+																  <div class="input-group-text">Tag #</div>
 																</div>
-																<input type="text" class="form-control" id="Asset" placeholder="15746" name="assettag">
+																<input type="text" class="form-control" id="Asset" placeholder="12345" name="assettag">
 															</div>
 														</div>
 														<div class="col-auto">
-															<button type="submit" class="btn btn-primary mb-2">Submit</button>
+															<button type="submit" class="btn btn-primary mb-2">Search</button>
 														</div>
 													</div>
 												</form>
 											</td>
 										</tbody>
 									</table>
-								</td><td>
-									<table style="max-width:450px" align="center" class="border">
+								</td>
+								<td>
+									<table align="center" class="border">
 										<thead class="thead-dark">
 											<tr>
 												<th>
@@ -252,7 +253,40 @@ else {
 															</div>
 														</div>
 														<div class="col-auto">
-															<button type="submit" class="btn btn-primary mb-2">Submit</button>
+															<button type="submit" class="btn btn-primary mb-2">Search</button>
+														</div>
+													</div>
+												</form>
+											</td>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<table style="max-width:450px" align="center" class="border">
+										<thead class="thead-dark">
+											<tr>
+												<th>
+													<div style="font-size:22px"><?php echo $text_search_form_unamesearch_title; ?></div>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<td>
+												<form action="results.php" method="get" class="m-2">
+													<label class="text-left"><b><?php echo $text_search_form_unamesearch_label; ?></b></label>
+													<div class="form-row align-items-center">
+														<div class="col-auto">
+															<div class="input-group mb-2">
+																<div class="input-group-prepend">
+																  <div class="input-group-text">Name</div>
+																</div>
+																<input type="text" class="form-control" id="Name" placeholder="USERNME" name="username">
+															</div>
+														</div>
+														<div class="col-auto">
+															<button type="submit" class="btn btn-primary mb-2">Search</button>
 														</div>
 													</div>
 												</form>
