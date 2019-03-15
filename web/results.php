@@ -70,7 +70,7 @@ else{
 					<div class="mx-5">
 						<p>
 							<?php 
-							if($id && isset($_GET['username'])){ echo $text_search_results_content_user_desc; }
+							if($id && $_GET['username']){ echo $text_search_results_content_user_desc; }
 							elseif($id){ echo $text_search_results_content_desc; }
 							else{ echo $text_search_results_null_desc;?>
 						</p>
