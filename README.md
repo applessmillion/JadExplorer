@@ -4,6 +4,8 @@
 ## Notice
 This project is under active development. Some files work as intended, while others do not. Once the front-end is finished, SQL statements will be provided to generate databases compatible with this project.
 
+A live demo can be viewed at [JadeXplorer.com](http://www.jadexplorer.com/)
+
 ## About
 Jadexplorer is a project developed per requirement of graduating with a Computer Information Systems major at Siena Heights University.
 
