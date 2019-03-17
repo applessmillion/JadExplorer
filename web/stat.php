@@ -1,48 +1,44 @@
 <?php
-#INCLUDE THE FOLLOWING TO MAKE THE REST WORK#
 require_once 'config.php';
-require_once 'vars.php';
-
-##################CONNECTION INFO FOR DATABASE###################
+require_once 'vars/main.php';
+### CONNECTION INFO FOR DATABASE
 $con = new mysqli($ip,$user,$pw,$db);
-########################STARTING CONTENT#########################
-###SQL query that will find the device with the highest Entity ID. Based on auto-incremental value.
-# Provides overall assets, most recent name and tag.
-$sql 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY Entity_ID DESC LIMIT 1");
-$obj 	= mysqli_fetch_object($sql);
 
-#SQL query that finds the total number of page visits for the asset pages.
-$sql2 	= mysqli_query($con, "SELECT * FROM page_visits ORDER BY Log_ID DESC LIMIT 1");
-$obj2 	= mysqli_fetch_object($sql2);
+### SQL query that will find the device with the highest Entity ID. Based on auto-incremental value.
+	# Provides overall assets, most recent name and tag.
+	$sql 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY Entity_ID DESC LIMIT 1");
+	$obj 	= mysqli_fetch_object($sql);
 
-###SQL query finding the number of devices added. Based on auto-incremental value.
-$sql4 	= mysqli_query($con, "SELECT * FROM device_information ORDER BY Device_ID DESC LIMIT 1");
-$obj4 	= mysqli_fetch_object($sql4);
+	#SQL query that finds the total number of page visits for the asset pages.
+	$sql2 	= mysqli_query($con, "SELECT * FROM page_visits ORDER BY Log_ID DESC LIMIT 1");
+	$obj2 	= mysqli_fetch_object($sql2);
 
-###SQL query that finds the top-visited page based on page visits.
-# Rather complex query statement where a count column is created.
-$obj5sql = "SELECT page_visits.page_id, asset_information.name, asset_information.tagno, COUNT(page_visits.page_id) CNT
-			FROM page_visits INNER JOIN asset_information ON page_visits.page_id = asset_information.Entity_ID 
-			GROUP BY page_id ORDER BY COUNT(page_id) DESC LIMIT 1";
-$sql5 	= mysqli_query($con, $obj5sql);
-$obj5 	= mysqli_fetch_object($sql5);
+	###SQL query finding the number of devices added. Based on auto-incremental value.
+	$sql4 	= mysqli_query($con, "SELECT * FROM device_information ORDER BY Device_ID DESC LIMIT 1");
+	$obj4 	= mysqli_fetch_object($sql4);
 
-###SQL query finding the highest asset tag, and which device it belongs to. 
-$sql6 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY tagno DESC LIMIT 1");
-$obj6 	= mysqli_fetch_object($sql6);
+	###SQL query that finds the top-visited page based on page visits.
+	# Rather complex query statement where a count column is created.
+	$obj5sql = "SELECT page_visits.page_id, asset_information.name, asset_information.tagno, COUNT(page_visits.page_id) CNT
+				FROM page_visits INNER JOIN asset_information ON page_visits.page_id = asset_information.Entity_ID 
+				GROUP BY page_id ORDER BY COUNT(page_id) DESC LIMIT 1";
+	$sql5 	= mysqli_query($con, $obj5sql);
+	$obj5 	= mysqli_fetch_object($sql5);
 
-###SQL query finding the most recently edited device, where the user column is not blank. Finds logins and the device edited/logged into.
-$sql7 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information ON edit_log.asset_id = asset_information.Entity_ID 
-			WHERE recent_user IS NOT NULL ORDER BY edit_id DESC LIMIT 1");
-$obj7 	= mysqli_fetch_object($sql7);
+	###SQL query finding the highest asset tag, and which device it belongs to. 
+	$sql6 	= mysqli_query($con, "SELECT * FROM asset_information ORDER BY tagno DESC LIMIT 1");
+	$obj6 	= mysqli_fetch_object($sql6);
 
-###SQL query finding the most recently edited device. Pulls 5 recents to show on the bottom of the stats page.
-$sql3 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information ON edit_log.asset_id = asset_information.Entity_ID 
-			ORDER BY edit_id DESC LIMIT 5");
+	###SQL query finding the most recently edited device, where the user column is not blank. Finds logins and the device edited/logged into.
+	$sql7 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information ON edit_log.asset_id = asset_information.Entity_ID 
+				WHERE recent_user IS NOT NULL ORDER BY edit_id DESC LIMIT 1");
+	$obj7 	= mysqli_fetch_object($sql7);
 
-
+	###SQL query finding the most recently edited device. Pulls 10 recents to show on the bottom of the stats page.
+	$sql3 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information ON edit_log.asset_id = asset_information.Entity_ID 
+				ORDER BY edit_id DESC LIMIT 10");
 ?>    
-<!DOCTYPE html>
+<html>
 	<head>
 		<title><?php echo $text_stats_page_title; ?></title>
 	</head>
@@ -91,55 +87,64 @@ $sql3 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information
 									<td>
 										<b style="font-size:36pt"><?php echo $statpageviews; ?></b>
 										</br>
-										<b>Total asset pages views!</b>
+										<b><?php echo $text_stat_desc_pageviews; ?></b>
 									</td>
 									<td>
 										<b style="font-size:36pt"><?php echo $statalllog; ?></b>
 										</br>
-										<b>Unique assets added!</b>
+										<b><?php echo $text_stat_desc_uniquea; ?></b>
 									</td>
 									<td>
 										<b style="font-size:36pt"><?php echo $statdevicetypes; ?></b>
 										</br>
-										<b>Unique device types!</b>
+										<b><?php echo $text_stat_desc_uniqued; ?></b>
 									</td>
 								</tr>
 								<tr>
-									<td><a href="search.php?infoname=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>Newest asset to be added!</b></td>
+									<td>
+										<a href="search.php?infoname=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>
+										<b><?php echo $text_stat_desc_newasset; ?></b>
+									</td>
 									<td>
 										<a href="search.php?
 											<?php if($mostviewedN == "Unknown" OR NULL){ echo "infotag=".$mostviewedA; }else{ echo "infoname=".$mostviewedN; } ?>
 										">
 										<h2><b>
 											<?php echo $mostviewedN; ?>
-										</h2></a>Most viewed asset! (<?php echo $mostviewedV; ?> views!)</b>
+										</h2></a><?php $text_stat_desc_mostviewed."(".$mostviewedV."views!)"; ?></b>
 									</td>
-									<td><a href="search.php?infotag=<?php echo $highesttagA; ?>"><h2><b>Asset #<?php echo $highesttagA; ?></h2></a>Newest asset tag!</b></td>
+									<td>
+										<a href="search.php?infotag=<?php echo $highesttagA; ?>">
+											<h2><?php echo $text_stat_desc_assetno.$highesttagA; ?></h2>
+										</a>
+										<b><?php echo $text_stat_desc_newtag; ?></b></td>
 								</tr>
 								<tr>
 									<td>
 										<h2><b><?php echo $recentuser; ?></b></h2>
-										<b>Most recent user to log in!</b>
+										<b><?php echo $text_stat_desc_recentulogin;?></b>
 									</td>
 									<td>
 										<a href="search.php?infoname=<?php echo $recentdevice; ?>"><h2><b><?php echo $recentdevice; ?></b></h2></a>
-										<b>Most recent device logged into!</b>
+										<b><?php echo $text_stat_desc_recentdlogin;?></b>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						Here's a list of recently edited items!
+						<div class="mx-3">
+							<p><?php echo $text_stat_body_recentlogins; ?></p>
+						</div>
 						<table width="60%" align="center" class="table-bordered text-left">
 							<thead class="thead-dark">
 								<tr class="text-left border">
 									<th class="mx-2">
-										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>Device Name</b>
+										<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_device; ?></b>
 									</th>
 									<th>
-										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>Username</b>
+										<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_user; ?></b>
 									</th>
 									<th>
-										<b style="font-size:"<?php echo $table_tagcol_text_size;?>>Edit</b>
+										<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_edit; ?></b>
 									</th>
 								</tr>
 							</thead>
