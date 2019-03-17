@@ -1,6 +1,6 @@
 <?php
 include_once 'config.php';
-include_once 'vars.php';
+require_once 'vars/main.php';
 $con = new mysqli($ip,$user,$pw,$db);
 	
 #CODE FOR RETRIEVING DATA OF ITEM AND PRINTING RESULTS#

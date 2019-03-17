@@ -1,5 +1,5 @@
 <?php
-require_once 'vars.php';
+require_once 'vars/main.php';
 require_once 'config.php';
 $con = new mysqli($ip,$user,$pw,$db);
 

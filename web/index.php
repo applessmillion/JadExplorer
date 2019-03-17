@@ -1,7 +1,7 @@
 <?php
-require_once 'vars.php';
+require_once 'vars/main.php';
 ?>
-<!DOCTYPE html>
+<html>
 	<head>
 		<title><?php echo $text_index_page_title; ?></title>
 	</head>

@@ -3,7 +3,7 @@
 # and a full mode. Webpage is embedded in search results on search.php?info*
 
 include_once 'config.php';
-include_once 'vars.php';
+require_once 'vars/main.php';
 
 if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	### CONNECTION INFO FOR DATABASE
