@@ -103,21 +103,23 @@ $con = new mysqli($ip,$user,$pw,$db);
 								<tr>
 									<td>
 										<a href="search.php?infoname=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>
-										<b><?php echo $text_stat_desc_newasset; ?></b>
+										<?php echo $text_stat_desc_newasset; ?>
 									</td>
 									<td>
 										<a href="search.php?
 											<?php if($mostviewedN == "Unknown" OR NULL){ echo "infotag=".$mostviewedA; }else{ echo "infoname=".$mostviewedN; } ?>
 										">
-										<h2><b>
-											<?php echo $mostviewedN; ?>
-										</h2></a><?php $text_stat_desc_mostviewed."(".$mostviewedV."views!)"; ?></b>
+										<h2>
+											<b><?php echo $mostviewedN; ?></b>
+										</h2>
+										</a><b><?php echo $text_stat_desc_mostviewed." (".$mostviewedV." views!)"; ?></b>
 									</td>
 									<td>
 										<a href="search.php?infotag=<?php echo $highesttagA; ?>">
-											<h2><?php echo $text_stat_desc_assetno.$highesttagA; ?></h2>
+											<h2><b><?php echo $text_stat_desc_assetno.$highesttagA; ?></b></h2>
 										</a>
-										<b><?php echo $text_stat_desc_newtag; ?></b></td>
+										<b><?php echo $text_stat_desc_newtag; ?></b>
+									</td>
 								</tr>
 								<tr>
 									<td>
