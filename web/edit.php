@@ -24,7 +24,10 @@ else if(isset($_GET["name"])){
 	$assetserial 	= $obj->serialno;
 	$assetmac 	 	= $obj->macaddress;
 	$assetstatus 	= $obj->status;
-	$assetpurchase	= $obj->purchasedate;
+	
+	$assetpurchase 	= date('Y-m-d', strtotime($obj->purchasedate)+$utility_timezone_offset);
+	if(date('Y', strtotime($obj->purchasedate)) <= 2005){$assetpurchase = "";}
+	
 ?>
 <html>
 	<head>
@@ -64,10 +67,6 @@ else if(isset($_GET["name"])){
 									<input class="form-control" value="<?php echo $assettag; ?>" type="text" placeholder="15555">
 								</div>
 								<div class="col">
-									<label>Service Tag</label>
-									<input class="form-control" value="<?php echo $aservice; ?>" type="text" placeholder="Service No." <?php if($aservice != NULL){echo "readonly";} ?>>
-								</div>
-								<div class="col">
 									<label>Status</label>
 									<select class="form-control">
 										<option id="1">Active</option>
@@ -78,21 +77,26 @@ else if(isset($_GET["name"])){
 							</div>
 							<div class="form-row my-2">
 								<div class="col">
-									<label>Purchase Date</label>
-									<input class="form-control" value="<?php echo date('Y-m-d', strtotime($obj->purchasedate)+$utility_timezone_offset); ?>" type="date" id="pdate" value="pdate">
-								</div>
-								<div class="col">
-									<label>Serial Number</label>
-									<input class="form-control" type="text" placeholder="textbox">
-								</div>
-								<div class="col">
-								<label>Device Cost</label>
+									<label>Service Tag</label>
 									<div class="input-group mb-2">
 										<div class="input-group-prepend">
-										  <div class="input-group-text">$</div>
+										  <div class="input-group-text">#</div>
 										</div>
-										<input type="text" class="form-control" id="cost" placeholder="499.99" name="cost">
+										<input class="form-control" value="<?php echo $aservice; ?>" type="text" placeholder="Service No." <?php if($aservice != NULL){echo "readonly";} ?>>
 									</div>
+								</div>
+								<div class="col">
+								<label>Serial Number</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+										  <div class="input-group-text">#</div>
+										</div>
+										<input type="text" class="form-control" id="cost" placeholder="H12VDS-1D273H-12JG4K" name="serial">
+									</div>
+								</div>
+								<div class="col">
+									<label>Purchase Date</label>
+									<input class="form-control" value="<?php echo $assetpurchase; ?>" type="date" id="pdate" value="pdate">
 								</div>
 							</div>
 						<div class="form-group m-2">
@@ -117,12 +121,20 @@ else if(isset($_GET["name"])){
 									</select>
 								</div>
 								<div class="col">
-									<label>Room Number</label>
-									<input class="form-control" value="<?php echo NULL ?>" type="text" placeholder="300A" <?php if($aservice != NULL){echo "readonly";} ?>>
+									<label>Room</label>
+									<input class="form-control" value="<?php echo NULL ?>" type="text" placeholder="300A">
 								</div>
 							</div>
 						</div>
 					</form>
+					<div class="text-right mt-4 mx-3">
+						<a href="edit.php?<?php echo "assettag=".$assettag; ?>">
+							<button type="button" class="btn btn-primary btn-sm"><b>Submit Changes</b></button>
+						</a>
+						<a href="edit.php?<?php echo "assettag=".$assettag; ?>">
+							<button type="button" class="btn btn-secondary btn-sm"><b>Cancel</b></button>
+						</a>
+					</div>
 				</td>
 			</tr>
 			<?php echo $webpage_bottomcontentbox; ?>
