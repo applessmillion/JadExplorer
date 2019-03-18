@@ -14,7 +14,7 @@ include_once 'error.php';
 #########################
 
 ### Page browser titles
-	$text_unspecified_title = " | JadExplorer";
+	$text_unspecified_title = " | JadeXplorer";
 	$text_iteminfo_page_title = "Asset Info$text_unspecified_title";
 	$text_search_page_title = "Search$text_unspecified_title";
 	$text_about_page_title = "About$text_unspecified_title";
@@ -94,23 +94,23 @@ include_once 'error.php';
 	$text_iteminfo_btn_spiceworks = "Spiceworks Search";
 	$text_iteminfo_btn_edit = "Edit Info";
 ### Index texts
-	$text_index_body_title = "JadExplorer - Device Searching Tool";
+	$text_index_body_title = "JadeXplorer - Device Searching Tool";
 	$text_index_body_desc = "
-		JadExplorer contains records on various IT-related assets located at Siena Heights University. 
+		JadeXplorer contains records on various IT-related assets located at Siena Heights University. 
 		By using the various search tools, you can find information relating to any of these assets, such as
 		location, name, device owner, along with other details.
 		";
 ### About page texts
-	$text_about_body_title = "What is JadExplorer?";
+	$text_about_body_title = "What is JadeXplorer?";
 	$text_about_body_desc = "
-		JadExplorer contains records on various IT-related assets at Siena Heights University. 
+		JadeXplorer contains records on various IT-related assets at Siena Heights University. 
 		You can find information relating to any of these assets, such as name, recent IP, service tag, and more.</br>
 		This project exists as a Senior Seminar project. More info on this can be seen on the GitHub page.</br>
 		Class taught by Professor Hong Chen at Siena Heights University. Project created and developed by Benjamin Robert.</br>
 		Any work derived or based from this project is to be attributed correctly per the MIT License. Visit the LICENSE file on GitHub for more information.</br>
 		</br></br>
 		Need to contact us about anything? Send an email to <b>".$contact_email."</b></br>
-		JadExplorer's source code is also available. <a class='head' href='".$link_github."'>Find me on GitHub</a>.</br>
+		JadeXplorer's source code is also available. <a class='head' href='".$link_github."'>Find me on GitHub</a>.</br>
 		";
 
 #########################
