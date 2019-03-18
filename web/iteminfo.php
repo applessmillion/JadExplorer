@@ -101,10 +101,15 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	elseif($assetcat == 2){ $acat = "SHU Server"; $img_deviceico = "http://www.junklands.com/web/img/server.png";}
 	else{$acat = "Bad Category!";}
 	
-	### Visit the tracking URL for *published* devices only.
-	if($assetcat != 0){
-		$staturl = "http://junklands.com/web/tracker.php?visit=".$obj->Entity_ID;
-		file("$staturl");
+	### Visit the tracking URL.
+	if($assettag != 0 || $assetservice != NULL){
+		### Let's be safe here. Only start a connection for a valid GET property.
+			$con_trak = new mysqli($ip,$p_user,$p_pw,$db);
+		### Convert GET to php var.
+			$visitid = $dblisting;
+			$visitip = $_SERVER['REMOTE_ADDR'];
+		### SQL statement.
+			mysqli_query($con_trak, "INSERT INTO page_visits (page_id, visitor_ip) VALUES ('$visitid', '$visitip')");
 	}
 	
 	### Echo variable containing Bootstrap stuff.
