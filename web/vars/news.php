@@ -4,7 +4,7 @@
 #########################
 ### Allows for the news widget to be disabled.
 # Way more convenient than gutting the refrences to it in each individual page.
-$DISPLAY_NEWS = true;
+$DISPLAY_NEWS = false;
 
 ### News and stuff. Displays in the $widget_updates.
 	$text_recentnews_title = "Recent Updates & Notices";
