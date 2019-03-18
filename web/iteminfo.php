@@ -52,6 +52,11 @@ if(isset($_GET['assettag']) OR isset($_GET['assetname'])){
 	$locbuilding	= $obj_l->building;
 	$locroom		= $obj_l->room;
 	
+	### If one of these is NULL, set to "N/A"
+	if($loccampus == NULL){ $loccampus = "N/A";}
+	if($locroom == NULL){ $locroom = "N/A";}
+	if($locbuilding == NULL){ $locbuilding = "N/A";}
+	
 	### Doesn't need any timezone or DST checking. This is manually entered.
 	$assetpurchase	= date('F j, Y', strtotime($obj->purchasedate));
 	
@@ -156,19 +161,29 @@ if(isset($_GET['embedded']) == false){ ?>
 			<tr>
 				<?php if($assetip){ ?>
 				<td style="font-size:10pt">
-					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Recent IP: </b><?php echo  $assetip;?>
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Recent IP: </b><?php echo $assetip;?>
 				</td>
 				<?php } ?>
 				<?php if($assetuser){ ?>
 				<td style="font-size:10pt">
-					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Recent User: </b><?php echo  $assetuser;?>
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Recent User: </b><?php echo $assetuser;?>
 				</td>
 				<?php } ?>
 				<?php if($assetmac != ""){ ?>
 				<td style="font-size:10pt">
-					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Ethernet MAC: </b><?php echo  $assetmac;?>
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">MAC: </b><?php echo $assetmac;?>
 				</td>
 				<?php } ?>
+			</tr>
+			<tr>
+				<td colspan="3" style="font-size:10pt">
+					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Location: </b>
+					<?php ###If a location is set, show it. If not, don't show anything. 
+					if($loccampus != "N/A" || $locbuilding != "N/A"){ ?>
+						<?php echo $locbuilding." Rm.".$locroom." ";?>
+						<?php if($loccampus != NULL){ echo "(".$loccampus." Campus)";} ?>
+					<?php }else{ echo "N/A"; } ?>
+				</td>
 			</tr>
 			<tr>
 				<th colspan="2" class="table-active">
@@ -217,7 +232,7 @@ if(isset($_GET['embedded']) == false){ ?>
 		<a href="https://spiceworks.sienaheights.edu/search?query=<?php if($assettag == 0){echo $assetname;}else{echo $assettag;}?>" target="_blank">
 			<button type="button" class="btn btn-secondary btn-sm"><b><?php echo $text_iteminfo_btn_spiceworks; ?></b></button>
 		</a>
-		<a href="edit?<?php if($assettag == 0){echo "name=".$assetname;}else{echo "tag=".$assettag;}?>" target="_blank">
+		<a href="edit.php?<?php if($assettag == 0){echo "name=".$assetname;}else{echo "tag=".$assettag;}?>" target="_blank">
 			<button type="button" class="btn btn-success btn-sm"><b><?php echo $text_iteminfo_btn_edit; ?></b></button>
 		</a>
 	</div>
