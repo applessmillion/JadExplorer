@@ -33,6 +33,21 @@ if(isset($_POST['cname'])){
 		$devicemanu;
 		
 	### Data verification
+		if(stripos($assetname, '-') !== false){
+			$assettagsplit = explode("-", $assetname); // Divide the asset name at the -
+			$assettag = $assettagsplit[1]; // Grab the 2nd half of the asset name.
+			$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //Remove all characters except for numbers.
+		}
+		else{
+			$assettag = preg_replace('/[^0-9.]+/', '', $assetname); //Remove all characters except for numbers.
+			if(strlen($assettag >= 5)){
+				$assettag = substr($assettag, -5); //In case it is like SCI3015555
+			}
+			else{
+				### Just set assettag to nothing.
+				$assettag = "";
+			}
+		}
 	if(strlen($assettag) != $ASSET_ID_LENGTH){$assettag = 0}
 
 	### Test the verification. If it is not the same, we shouldn't submit data.

@@ -19,7 +19,8 @@ $verify = 1;
 
 ### Compile all the above info.
 $submit_variables = 
-    @{cname=$computer_name;     
+    @{cname=$computer_name;  
+     checkup="true";
 	 cmodel=$computer_model;
 	 cserial=$computer_winserial;
      cmanu=$computer_manufacturer;

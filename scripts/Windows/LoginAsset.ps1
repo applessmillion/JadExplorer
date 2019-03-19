@@ -26,6 +26,7 @@ $verify = 1;
 $submit_variables = 
     @{
 	 method=$method;
+	 checkup="false";
 	 cname=$computer_name;
      cmodel=$computer_model;
      cmanu=$computer_manufacturer;
