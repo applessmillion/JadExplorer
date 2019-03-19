@@ -2,6 +2,13 @@
 /* File for editing text and variables for most of the pages on the site.
    To edit database values, check out config.php. */
 
+#########################
+#     HARD SETTINGS     #
+#########################
+$WEBSITE_DEMO_MODE = FALSE; //Overrides some main.php settings.
+$DISPLAY_NEWS = FALSE;
+$ASSET_ID_LENGTH = 5;
+
 ### Include other files containing variables. These files are used to better categorize variables.
 include_once 'contact.php';
 include_once 'formatting.php';
@@ -169,4 +176,6 @@ $tech_html_head_start_body = $tech_css_js_styleimports . '<body style="backgroun
 
 $utility_timezone_offset = 7200; //In seconds. GoDaddy hosts us in Mountain time. Calculate offset in seconds from that timezone (2HOURS*60SECONDS*60MINUTES)
 $utility_timezone_offset_origindate = "January 1, 1970";	//Don't change unless you know what you're doing. Default is "December 31, 1969".
+
+if($WEBSITE_DEMO_MODE){ include_once 'demo.php'; }
 ?>

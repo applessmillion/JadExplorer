@@ -28,6 +28,7 @@ else if(isset($_GET["name"])){
 	$assetpurchase 	= date('Y-m-d', strtotime($obj->purchasedate)+$utility_timezone_offset);
 	if(date('Y', strtotime($obj->purchasedate)) <= 2005){$assetpurchase = "";}
 	
+if($WEBSITE_DEMO_MODE == FALSE){
 ?>
 <html>
 	<head>
@@ -140,4 +141,5 @@ else if(isset($_GET["name"])){
 			<?php echo $webpage_bottomcontentbox; ?>
 		</div>
 	</body>
-</html> 
+</html>
+<?php }else{ echo "Editing is not enabled in DEMO mode."; }

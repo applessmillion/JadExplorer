@@ -1,6 +1,7 @@
 <?php
 ### Get database info and connect
-	include_once 'config.php';
+	require_once '../config.php';
+	include_once '../vars/main.php';
 	$con = new mysqli($ip,$p_user,$p_pw,$db);
 
 if(isset($_POST['cname'])){
@@ -30,6 +31,9 @@ if(isset($_POST['cname'])){
 		$assetservice;
 		$assetserial;
 		$devicemanu;
+		
+	### Data verification
+	if(strlen($assettag) != $ASSET_ID_LENGTH){$assettag = 0}
 
 	### Test the verification. If it is not the same, we shouldn't submit data.
 		if($verification != $phpverify){

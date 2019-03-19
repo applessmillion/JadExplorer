@@ -1,6 +1,7 @@
 <?php
 ### Get database info and connect
-	include_once '../config.php';
+	require_once '../config.php';
+	include_once '../vars/main.php';
 	$con = new mysqli($ip,$p_user,$p_pw,$db);
 
 ### Check to see if the method is defined. This is how we'll pull info on the device.
