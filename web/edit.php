@@ -25,8 +25,12 @@ else if(isset($_GET["name"])){
 	$assetmac 	 	= $obj->macaddress;
 	$assetstatus 	= $obj->status;
 	
+	### Make variables human friendly
 	$assetpurchase 	= date('Y-m-d', strtotime($obj->purchasedate)+$utility_timezone_offset);
 	if(date('Y', strtotime($obj->purchasedate)) <= 2005){$assetpurchase = "";}
+	if($assetstatus == 0){$assetstatus = "Active";}
+	elseif($assetstatus == 1){$assetstatus = "Decommissioned";}
+	elseif($assetstatus == 2){$assetstatus = "Unknown";}
 	
 if($WEBSITE_DEMO_MODE == FALSE){
 ?>
@@ -60,19 +64,20 @@ if($WEBSITE_DEMO_MODE == FALSE){
 										<div class="input-group-prepend">
 											<div class="input-group-text">Name</div>
 										</div>
-										<input class="form-control" value="<?php echo $assetname; ?>" type="text" placeholder="COMPUTER-15555">
+										<input class="form-control" value="<?php echo $assetname; ?>" type="text" placeholder="COMPUTER-#####">
 									</div>
 								</div>
 								<div class="col">
 									<label>Asset Tag</label>
-									<input class="form-control" value="<?php echo $assettag; ?>" type="text" placeholder="15555">
+									<input class="form-control" value="<?php echo $assettag; ?>" type="text" placeholder="#####">
 								</div>
 								<div class="col">
 									<label>Status</label>
 									<select class="form-control">
-										<option id="1">Active</option>
-										<option id="0">Decommissioned</option>
-										<option id="2">Unknown</option>
+										<option id="<?php echo $assetstatus;?>" selected="selected">Current: <?php echo $assetstatus;?></option>
+										<option id="Active">Active</option>
+										<option id="Decommissioned">Decommissioned</option>
+										<option id="Unknown">Unknown</option>
 									</select>
 								</div>
 							</div>
@@ -83,7 +88,7 @@ if($WEBSITE_DEMO_MODE == FALSE){
 										<div class="input-group-prepend">
 										  <div class="input-group-text">#</div>
 										</div>
-										<input class="form-control" value="<?php echo $aservice; ?>" type="text" placeholder="Service No." <?php if($aservice != NULL){echo "readonly";} ?>>
+										<input class="form-control" value="<?php echo $aservice; ?>" type="text" placeholder="########" <?php if($aservice != NULL){echo "readonly";} ?>>
 									</div>
 								</div>
 								<div class="col">
@@ -92,12 +97,12 @@ if($WEBSITE_DEMO_MODE == FALSE){
 										<div class="input-group-prepend">
 										  <div class="input-group-text">#</div>
 										</div>
-										<input type="text" class="form-control" id="cost" placeholder="H12VDS-1D273H-12JG4K" name="serial">
+										<input type="text" class="form-control" id="cost" placeholder="#####-#####-#####" name="serial">
 									</div>
 								</div>
 								<div class="col">
 									<label>Purchase Date</label>
-									<input class="form-control" value="<?php echo $assetpurchase; ?>" type="date" id="pdate" value="pdate">
+									<input class="form-control" value="<?php echo $assetpurchase; ?>" type="date" id="pdate">
 								</div>
 							</div>
 						<div class="form-group m-2">
@@ -105,11 +110,23 @@ if($WEBSITE_DEMO_MODE == FALSE){
 							<div class="form-row">
 								<div class="col">
 									<label>Campus</label>
-									<input class="form-control" value="<?php echo NULL; ?>" type="text" placeholder="Adrian">
+									<select class="form-control">
+										<option id="<?php echo $loccampus;?>" selected="selected">Current: <?php echo $loccampus;?></option>
+										<option id="Adrian">Adrian</option>
+										<option id="Battle Creek">Battle Creek</option>
+										<option id="Benton Harbor">Benton Harbor</option>
+										<option id="Dearborn">Dearborn</option>
+										<option id="Kalamazoo">Kalamazoo</option>
+										<option id="Lansing">Lansing</option>
+										<option id="Monroe">Monroe</option>
+										<option id="Southfield">Southfield</option>
+										<option id="Unknown">Unknown</option>
+									</select>
 								</div>
 								<div class="col">
 									<label>Building</label>
 									<select class="form-control">
+										<option id="<?php echo $locbuilding;?>" selected="selected">Current: <?php echo $locbuilding;?></option>
 										<option id="">Unspecified</option>
 										<option id="Science Building">Science Building</option>
 										<option id="Dominican Hall">Dominican Hall</option>
@@ -123,7 +140,7 @@ if($WEBSITE_DEMO_MODE == FALSE){
 								</div>
 								<div class="col">
 									<label>Room</label>
-									<input class="form-control" value="<?php echo NULL ?>" type="text" placeholder="300A">
+									<input class="form-control" value="<?php echo NULL ?>" type="text" placeholder="123A">
 								</div>
 							</div>
 						</div>
