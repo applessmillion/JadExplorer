@@ -129,7 +129,7 @@ if(isset($_GET['embedded']) == false){ ?>
 		</div>
 		<div class="card" style="margin: 0 auto;max-width:50%;min-width:600px">
 <?php } ?>
-<div class="card" style="max-width=80%;">
+<div class="card">
 	<table class="table">
 		<thead class="thead-dark">
 			<tr>
@@ -149,7 +149,7 @@ if(isset($_GET['embedded']) == false){ ?>
 					<td colspan="3" style="font-size:14px"><b><?php echo $text_infobox_buydate.$assetpurchase;?></b></td>
 				</tr>
 			<?php } ?>
-			<tr>
+			<tr class=" border-top border-bottom">
 				<td style="font-size:10pt">
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Asset ID: </b><?php echo  $assettag;?>
 				</td>
@@ -163,7 +163,7 @@ if(isset($_GET['embedded']) == false){ ?>
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Serial Number: </b><?php echo $assetserial; ?>
 				</td>
 			</tr>
-			<tr>
+			<tr class=" border-top border-bottom">
 				<?php if($assetip){ ?>
 				<td style="font-size:10pt">
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Recent IP: </b><?php echo $assetip;?>
@@ -180,7 +180,7 @@ if(isset($_GET['embedded']) == false){ ?>
 				</td>
 				<?php } ?>
 			</tr>
-			<tr>
+			<tr class="border-top border-bottom">
 				<td colspan="3" style="font-size:10pt">
 					<b style="color:<?php echo $webpage_table_text_labelcolor;?>">Location: </b>
 					<?php ###If a location is set, show it. If not, don't show anything. 
@@ -190,7 +190,7 @@ if(isset($_GET['embedded']) == false){ ?>
 					<?php }else{ echo "N/A"; } ?>
 				</td>
 			</tr>
-			<tr>
+			<tr class="border-top border-bottom">
 				<th colspan="2" class="table-active">
 					<b style="font-size:12pt"><?php echo $text_iteminfo_deviceinfo_title; ?></b>
 				</th>
@@ -198,7 +198,7 @@ if(isset($_GET['embedded']) == false){ ?>
 					<b class="mx-1" style="font-size:10pt;"><?php echo  $acat ?>
 				</th>
 			</tr>
-			<tr>
+			<tr class="border-top border-bottom">
 				<?php
 					if($assetcat != 2){?>
 						<td colspan="1" style="font-size:10pt">
@@ -219,7 +219,7 @@ if(isset($_GET['embedded']) == false){ ?>
 					</td>
 				<?php } ?>
 			</tr>
-			<tr class="border-bottom">
+			<tr class="border-top border-bottom">
 				<td colspan="2" style="font-size:12px"><?php echo $text_infobox_created.$assetcreate;?></td>
 			<?php $search_nums = mysqli_num_rows($sql_e);								
 				if($search_nums != 0){ ?>
