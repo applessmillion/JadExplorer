@@ -24,9 +24,4 @@ Data is gathered by hand and sometimes automatically entered via PowerShell scri
 Project "overseen" by Professor Hong Chen at Siena Heights University.
 Project created, developed, and overseen by Benjamin Robert.
 
-Any and all work derived, copied, or based from this project to be used in any other work is to be attributed correctly per the MIT License. Visit the LICENSE file for more information.
-
-
-Project is based on <a href="https://github.com/applessmillion/maralook">Maralook</a>. Major edits were introduced to accomodate for the different data structure and theme of the website.
-
-Any use of this project's files, including use for other projects similar to this one, must have a copyright notice and proper attribution. This includes projects that are for public and private use. Refrer to the project license if you plan on using this project for anything.
+Any and all work derived, copied, or based from this project to be used in any other work is to be attributed correctly per the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) License</a>.
