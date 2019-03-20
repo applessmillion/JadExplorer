@@ -83,7 +83,11 @@ if(isset($_POST['cname'])){
 								VALUES ('$assetname', '$assettag', '$assetservice', '$assetserial', '$assetcategory', '$mac_ethernet', '$deviceID')";
 				$assetresults = mysqli_num_rows(mysqli_query($con,$sql_checkassets));
 				if($assetresults == 0){
-					if(mysqli_query($con,$sql_addasset)){ echo "Added asset!"; }
+					if(mysqli_query($con,$sql_addasset)){ 
+						echo "Added asset!"; 
+						$logdesc = "Asset has been added to the database.";
+						$sqledit = "INSERT INTO edit_log (asset_id, descpt) VALUES ('$entID', '$logdesc')";
+						mysqli_query($con, $sqledit);
 					else{ echo "</br>Error adding asset."; }
 				}
 				else{	echo "</br><b>Asset has already been added.</b>"; }
