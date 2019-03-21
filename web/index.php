@@ -31,9 +31,7 @@ require_once 'vars/main.php';
 							echo $widget_updates;
 						?>
 					</p>
-					<div class="text-center">
-						<p style="font-size:75%;"><?php echo $copyright_notice; ?></p> 
-					</div>
+					</br></br></br></br></br></br>
 				</td>
 			</tr>
 			<?php echo $webpage_bottomcontentbox; ?>
