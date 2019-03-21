@@ -144,7 +144,7 @@ if(isset($_GET['embedded']) == false){ ?>
 					<b style="font-size:12pt;"><?php echo $text_iteminfo_assetinfo_title; ?></b>
 				</th>
 			</tr>
-			<?php if($assetpurchase != $utility_timezone_offset_origindate){ ?>
+			<?php if(date('Y', strtotime($obj_e->editdate) >= 2000){ ?>
 				<tr>
 					<td colspan="3" style="font-size:14px"><b><?php echo $text_infobox_buydate.$assetpurchase;?></b></td>
 				</tr>

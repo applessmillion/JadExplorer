@@ -27,7 +27,7 @@ if(isset($_POST['method'])){
 	# If it does not contain 5 numbers, we'll just set it to nothing.
 		if(stripos($assetname, '-') !== false){
 			$assettagsplit = explode("-", $assetname); // Divide the asset name at the -
-			$assettag = $assettagsplit[1]; // Grab the 2nd half of the asset name.
+			$assettag = $assettagsplit[count($assettagsplit)-1]; // Grab the 2nd half of the asset name.
 			$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //Remove all characters except for numbers.
 		}
 		else{
@@ -40,6 +40,10 @@ if(isset($_POST['method'])){
 				$assettag = "";
 			}
 		}
+		
+	### Data verification
+		if(strlen($assettag) != $ASSET_ID_LENGTH){$assettag = 0;}
+		
 	### Devices can have multiple IPs. We will fix this by EXPLODING the string.
 		$assetIPsplit = explode(" ", $assetIP);
 		$assetIP = $assetIPsplit[0]; //Sets the IP to the first one in the list. We don't really care about which one is selected.
