@@ -6,6 +6,7 @@
 #     HARD SETTINGS     #
 #########################
 $WEBSITE_DEMO_MODE = FALSE; //Overrides some main.php settings.
+$WEBSITE_RESTRICTED_MODE = FALSE; //Removes header and certain functions.
 $DISPLAY_NEWS = FALSE;
 $ASSET_ID_LENGTH = 5;
 
