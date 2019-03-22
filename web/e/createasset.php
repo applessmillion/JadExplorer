@@ -22,7 +22,7 @@ if(isset($_POST['cname'])){
 	### Next, we need to get spaces and weird characters out of the way.
 	# This includes needing to seperate the asset tag# from the name in $assettag
 		$assettagsplit = explode("-", $assetname); // Divide the asset name at the -
-		$assettag = $assettagsplit[1]; // Grab the 2nd half of the asset name.
+		$assettag = $assettagsplit[count($assettagsplit)-1]; // Grab the last part of the asset name.
 		$assettag = preg_replace('/[^0-9.]+/', '', $assettag); //Remove all characters except for numbers. This prevents some oopsies.
 		$devicemodelno = preg_replace('/[^0-9.]+/', '', $devicemodelno); //Strip away everything but numbers
 		$devicemodel = preg_replace('/[0-9]+/', '', $devicemodel); //Strip away all numbers

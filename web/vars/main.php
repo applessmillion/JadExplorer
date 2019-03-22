@@ -159,7 +159,7 @@ include_once 'error.php';
 #    TECH VARIABLES     #
 #########################
 
-### ONLY set to true when your server clock does not change for DST and DST is observed.
+### Set to true if your area observes DST and your server clock does not change for it.
 $enable_daylight_savings_adjustments = TRUE; //Does magic voodoo to fix DST-related issues.
 
 
@@ -176,7 +176,7 @@ $page_bg = "img/bg$randbg.jpg";
 $tech_html_head_start_body = $tech_css_js_styleimports . '<body style="background:url('.$page_bg.') no-repeat;background-size:cover;line-height:1;background-attachment:fixed;text-align:center;height:100%">';
 
 $utility_timezone_offset = 7200; //In seconds. GoDaddy hosts us in Mountain time. Calculate offset in seconds from that timezone (2HOURS*60SECONDS*60MINUTES)
-$utility_timezone_offset_origindate = "January 1, 1970";	//Don't change unless you know what you're doing. Default is "December 31, 1969".
+$utility_timezone_offset_origindate = "2000";	//Cutoff year for purchase date on items.
 
 if($WEBSITE_DEMO_MODE){ include_once 'demo.php'; }
 ?>
