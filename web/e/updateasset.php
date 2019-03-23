@@ -13,6 +13,7 @@ if(isset($_POST['method'])){
 		$assetIP 		= $_POST['cip'];
 		$assetuser 		= $_POST['curuser'];
 		$mac_ethernet	= $_POST['ethernet'];
+		$win_serial		= $_POST['cserial'];
 		$domain			= $_POST['domain'];
 		
 		$logdesc = "User ".$assetuser." has logged in."; //Default description

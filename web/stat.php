@@ -193,7 +193,7 @@ $con = new mysqli($ip,$user,$pw,$db);
 											<tr class="border">
 												<td>
 													<a class="reg"
-													<?php if($objlist->tagno == 0){ echo "href='search.php?infoname=" . urlencode($objlist->name) . "' style='font-size:18'>".$objlist->name."</a>"; }
+													<?php if($objlist->tagno == 0){ echo "href='search.php?infoname=" . urlencode($objlist->name) . "' style='font-size:16'>".$objlist->name."</a>"; }
 													else{ echo "href='search.php?infotag=" . urlencode($objlist->tagno) . "' style='font-size:16'><b>". $objlist->name . "</b></a>"; } 
 													?> 
 												</td>
