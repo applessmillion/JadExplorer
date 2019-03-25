@@ -12,12 +12,11 @@ $computer_user = id -un; ### Get the username of the person logging in.
 $computer_IP = ipconfig getifaddr en0;
 if($computer_IP == ""){ ipconfig getifaddr en1; }
 
-$visit_url = "http://your.url/e/updatetool.php";
+$visit_url = "http://www.junklands.com/web/updatetool.php";
 
 curl -X GET 
-    -F "cname=$computer_name";
-    -F "cserial=$computer_serial";
-    -F "cip=$computer_IP";
-    -F "curuser=$computer_user";
-
-$visit_url;
+	-F "cname=$computer_name" 
+	-F "cserial=$computer_serial" 
+	-F "cip=$computer_IP" 
+	-F "curuser=$computer_user" 
+	$visit_url;
