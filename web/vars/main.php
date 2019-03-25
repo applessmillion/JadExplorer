@@ -145,7 +145,7 @@ include_once 'error.php';
 
 ### Content boxes that are used on almost every page. Sets up the layout for the main content.
 	$webpage_topcontentbox = 
-		'<div class="card" style="margin: 0 auto;max-width:80%">
+		'<div class="card" style="margin: 0 auto;max-width:85%">
 			<table align="center" width="$webpage_contenttable_width" style="background-color:white" class="table table-borderless">
 				<tbody>';
 				
