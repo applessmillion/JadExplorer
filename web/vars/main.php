@@ -15,6 +15,7 @@ include_once 'contact.php';
 include_once 'formatting.php';
 include_once 'alert.php';
 include_once 'news.php';
+include_once 'header.php';
 include_once 'error.php';
 
 #########################
