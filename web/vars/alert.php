@@ -2,22 +2,16 @@
 #########################
 #    ALERT VARIABLES    #
 #########################
-### Alert text variables. 
-# Just define a value for alert_text and the alert will display.
-	$alert_title = "";
-	$alert_text = "";
-
-## Alert box customization. Colors yay!
-	$webpage_alert_border_color = "#7F0000";	//Alert border color. Prefer a darker color than the bg
-	$webpage_alert_bg_color = "#FF5E5E";		//Alert bg color. Should be ligher color, cuz text is black.
+$alert_title 					= "";			//Title of alert. Displays at 24pt.
+$alert_text 					= "";			//Description of alert. Displays at 16pt. 
+$webpage_alert_border_color 	= "#7F0000";	//Alert border color. Prefer a darker color than the background.
+$webpage_alert_bg_color 		= "#FF5E5E";	//Alert bg color. Should be ligher color for the text.
 	
-### For alerts at the top of the page
+### HTML for the alert widget. This will display on EVERY page when enabled.
 	$widget_webpage_alert = '
-		<div class="card" style="background-color:'.$webpage_alert_bg_color.';border:2px solid '.$webpage_alert_border_color.'">
+		<div class="card p-5" style="background-color:'.$webpage_alert_bg_color.';border:2px solid '.$webpage_alert_border_color.'">
 			<b class="mt-1 text-center" style="font-size:24px;">'. $alert_title .'</b>
 			<b class="mx-2 my-1 text-left" "style="font-size:16px;">'.$alert_text.'</b>
 		</div>
-		</br></br>';
-		
-## Other variables are located in the vars.php file.
-?>
+		';
+## Other variables are located in the vars.php file. ?>

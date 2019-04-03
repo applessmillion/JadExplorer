@@ -2,12 +2,9 @@
 #########################
 #   CONTACT VARIABLES   #
 #########################
-### Contact details. Used on the about page mainly.
-	$contact_email = "contact@jadefury.com";
-	$contact_email_admin = "contact@jadefury.com";
-	$link_github = "https://github.com/applessmillion/JadeXplorer";
-### Copyright notice for SHU-Explorer.
-	$copyright_notice = "Copyright JADEFURY LLC.";
-
-## Other variables are located in the vars.php file.
-?>
+$contact_email 						= "helpdesk@sienaheights.edu"; //Contact email for your support.
+$contact_email_admin 				= "contact@jadefury.com"; //Contact email for JADEFURY.
+$copyright_notice 					= "Copyright JADEFURY LLC."; //Used in various locations around the site.
+$link_privacy_policy 				= "http://jadexplorer.com/privacy-policy/pp.pdf";
+$link_terms_of_service 				= "http://jadexplorer.com/terms-of-service/";
+## Other variables are located in the vars.php file. ?>

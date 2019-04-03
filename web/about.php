@@ -5,13 +5,12 @@ require_once 'vars/main.php';
 <html>
 	<head>
 		<title><?php echo $text_about_page_title; ?></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>
-			<?php 
-				echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html");
-			?>
+			<?php echo file_get_contents("gtag.html"); include_once 'header.php'; ?>
 			</br>
 		</div>
 		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
@@ -37,4 +36,5 @@ require_once 'vars/main.php';
 			<?php echo $webpage_bottomcontentbox; ?>
 		</div>
 	</body>
+	<?php echo $widget_footer; ?>
 </html>

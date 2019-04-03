@@ -22,26 +22,26 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 		$idtype = 1;
 	}
 	$eid = $obj->Entity_ID;
-	$sqlhistory = mysqli_query($con, "SELECT * FROM edit_log WHERE asset_id='$eid' ORDER BY editdate DESC LIMIT 15");
+	$sqlhistory = mysqli_query($con, "SELECT * FROM edit_log WHERE asset_id='$eid' ORDER BY editdate DESC LIMIT 20");
+	
+	$obj_24h = mysqli_fetch_object(mysqli_query($con, "SELECT COUNT(edit_id) CNT FROM edit_log WHERE asset_id='$eid' AND editdate >= (NOW() - INTERVAL 1 DAY) AND recent_user IS NOT NULL"));
+	$obj_7d = mysqli_fetch_object(mysqli_query($con, "SELECT COUNT(edit_id) CNT FROM edit_log WHERE asset_id='$eid' AND editdate >= (NOW() - INTERVAL 7 DAY) AND recent_user IS NOT NULL"));
+	$obj_30d = mysqli_fetch_object(mysqli_query($con, "SELECT COUNT(edit_id) CNT FROM edit_log WHERE asset_id='$eid' AND editdate >= (NOW() - INTERVAL 30 DAY) AND recent_user IS NOT NULL"));
+
 ?>    
 <html>
 	<head>
 		<title>Asset <?php echo $info . $text_unspecified_title ?> </title>
+		<meta charset="utf-8">
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>
-			<?php 
-				echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html"); 
-			?>
+			<?php echo file_get_contents("gtag.html"); include_once 'header.php'; ?>
 			</br>
 		</div>
 		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
-			<?php 
-				if($alert_text != ""){ echo $widget_webpage_alert;}
-				echo $webpage_topcontentbox;
-		
-		##What happens when our $id is null? Bad URL? Bad copy&paste? Doesn't matter! We're going to give an error page!
+		<?php if($alert_text != ""){ echo $widget_webpage_alert;} echo $webpage_topcontentbox;
+		##What happens when our $id is null? We're going to give an error page!
         if($iid == NULL) { ?>
             <tr class="table-warning">
 				<th>
@@ -64,18 +64,11 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 					</br></br></br>
 					<div class="text-center">
 						<?php echo $widget_webpage_border;?>
-						<b>
-							<?php ######## Bad practice. Need to look into giving a legit URL to go back on. What happens when someone shares the link and it does this? ?>
-							<a href="javascript:history.go(-1)"><?php echo $text_goback; ?></a>
-						</b>
+						<b><a href="javascript:history.go(-1)"><?php echo $text_goback; ?></a></b>
 					</div>
 				</td>
 			</tr>
-		
-        <?php }
-		
-		##What happens when everything goes right? We'll show them the results!
-        else { ?>
+        <?php }else{ ?>
             <tr class="table-primary">
 				<th>
 					<?php
@@ -107,12 +100,31 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 						<h4><?php echo $text_search_display_body_title; ?></h4>
 						<p><?php echo $text_search_display_body_desc;?></p>
 					</div>
-					<div class="text-center">
-						<table class="table table-bordered" align="center" style="max-width:75%;min-width:35%;">
+						<table class="table-sm table-borderless text-center" align="center" style="max-width:75%;">
+							<tbody>
+								<tr>
+									<th><h3><?php echo $obj_24h->CNT; ?></h3></th>
+									<th><h3><?php echo $obj_7d->CNT; ?></h3></th>
+									<th><h3><?php echo $obj_30d->CNT; ?></h3></th>
+								</tr>
+								<tr>
+									<td>Logins in the past 24 hours.</td>
+									<td>Logins in the past week.</td>
+									<td>Logins within the past month.</td>
+								</tr>
+							</tbody>
+						</table>
+						</br>
+						<table class="table table-striped table-sm" align="center" style="max-width:75%;min-width:38%;">
 							<thead class="thead-dark">
 								<tr>
-									<th scope="col"><b>Log Date</b></th>
-									<th scope="col"><b>Description</b></th>
+								<th class="d-inline-block col-12">
+									<h4><b>Recent Activity</b></h4>
+								</th>
+								</tr>
+								<tr>
+									<th class="d-inline-block col-3"><b><?php echo $text_search_activity_head_log; ?></b></th>
+									<th class="d-inline-block col-9"><b><?php echo $text_search_activity_head_desc; ?></b></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -121,7 +133,7 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 									if($search_nums != 0){
 										while ($objhis = mysqli_fetch_object($sqlhistory)) { ?>
 											<tr class="border">
-												<td style="font-size:9pt;">
+												<td style="font-size:10pt;" class="d-inline-block col-3">
 													<b>
 													<?php 
 													### Let's figure out our DST problem here. This is for the edit history.
@@ -140,16 +152,13 @@ if(isset($_GET["infotag"]) OR isset($_GET["infoname"])) {
 													?>
 													</b>
 												</td>
-												<td style="font-size:9pt;"><?php echo $objhis->descpt; ?></td>
+												<td style="font-size:10pt;" class="d-inline-block col-9"><?php echo $objhis->descpt; ?></td>
 											</tr> 
 								<?php 
 										} 
 									}
-									else{ 
-								?>
-									<tr class="border">
-										<td colspan="2" style="font-size:12pt;"><?php echo $text_search_display_nohistory; ?></td>
-									</tr>
+									else{ ?>
+									<tr class="border"><td colspan="2" style="font-size:12pt;"><?php echo $text_search_display_nohistory; ?></td></tr>
 								<?php } ?>
 							</tbody>
 						</table>
@@ -170,11 +179,15 @@ else {
 <html>
 	<head>
 		<title><?php echo $text_search_page_title; ?></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>
-			<?php echo file_get_contents("gtag.html");
-			echo file_get_contents("header.html") ?>
+			<?php 
+				echo file_get_contents("gtag.html");
+				include_once 'header.php';
+			?>
 			</br>
 		</div>
 		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
@@ -191,111 +204,104 @@ else {
 						<h1><?php echo $text_search_head_title; ?></h1>
 						<?php echo $widget_webpage_border; ?>
 					</div>
-					<div class="mx-3">
+					<div class="mx-2">
 						<h3><?php echo $text_search_body_title; ?></h3>
 						<?php echo $text_search_body_desc; ?>
-						
-						<!-- Init table -->
-						</br>
-						<table class="table">
-							<tr>
-								<td>
-									<table align="center" class="border">
-										<thead class="thead-dark">
-											<tr>
-												<th>
-													<div style="font-size:22px"><?php echo $text_search_form_assetsearch_title; ?></div>
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											<td>
-												<form action="results.php" method="get" class="m-2">
-													<label class="text-left"><b><?php echo $text_search_form_assetsearch_label; ?></b></label>
-													<div class="form-row align-items-center">
-														<div class="col-auto">
-															<div class="input-group mb-2">
-																<div class="input-group-prepend">
-																  <div class="input-group-text">Tag #</div>
-																</div>
-																<input type="text" class="form-control" id="Asset" placeholder="12345" name="assettag">
+						<div class="row justify-content-start mt-4">
+							<div class="col-4">
+								<table align="center" class="border" style="padding:0.6rem!important">
+									<thead class="thead-dark">
+										<tr>
+											<th><div style="font-size:22px"><?php echo $text_search_form_assetsearch_title; ?></div></th>
+										</tr>
+									</thead>
+									<tbody>
+										<td>
+											<form action="results.php" method="get" class="m-1 mt-2 mb-3">
+												<label class="text-left"><b><?php echo $text_search_form_assetsearch_label; ?></b></label>
+												<div class="form-row align-items-center">
+													<div class="col-auto">
+														<div class="input-group">
+															<div class="input-group-prepend">
+															  <div class="input-group-text"><i class="fas fa-tag"></i></div>
+															</div>
+															<input type="text" class="form-control" id="Asset" placeholder="12345" name="assettag">
+															<div class="input-group-append">
+																<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
 															</div>
 														</div>
-														<div class="col-auto">
-															<button type="submit" class="btn btn-primary mb-2">Search</button>
-														</div>
 													</div>
-												</form>
-											</td>
-										</tbody>
-									</table>
-								</td>
-								<td>
-									<table align="center" class="border">
-										<thead class="thead-dark">
-											<tr>
-												<th>
-													<div style="font-size:22px"><?php echo $text_search_form_namesearch_title; ?></div>
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											<td>
-												<form action="results.php" method="get" class="m-2">
-													<label class="text-left"><b><?php echo $text_search_form_namesearch_label; ?></b></label>
-													<div class="form-row align-items-center">
-														<div class="col-auto">
-															<div class="input-group mb-2">
-																<div class="input-group-prepend">
-																  <div class="input-group-text">Name</div>
-																</div>
-																<input type="text" class="form-control" id="Name" placeholder="COMPUTER-12345" name="assetname">
+												</div>
+											</form>
+										</td>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-4">
+								<table style="max-width:415px" align="center" class="border">
+									<thead class="thead-dark">
+										<tr>
+											<th><div style="font-size:22px"><?php echo $text_search_form_unamesearch_title; ?></div></th>
+										</tr>
+									</thead>
+									<tbody>
+										<td>
+											<form action="results.php" method="get" class="m-1">
+												<label class="text-left"><b><?php echo $text_search_form_unamesearch_label; ?></b></label>
+												<div class="form-row align-items-center">
+													<div class="col-auto">
+														<div class="input-group ml-1">
+															<div class="input-group-prepend">
+																<div class="input-group-text"><i class="fas fa-user-friends"></i></div>
+															</div>
+															<input type="text" class="form-control" id="Name" placeholder="username1" name="username">
+															<div class="input-group-append">
+																<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
 															</div>
 														</div>
-														<div class="col-auto">
-															<button type="submit" class="btn btn-primary mb-2">Search</button>
-														</div>
 													</div>
-												</form>
-											</td>
-										</tbody>
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<table style="max-width:450px" align="center" class="border">
-										<thead class="thead-dark">
-											<tr>
-												<th>
-													<div style="font-size:22px"><?php echo $text_search_form_unamesearch_title; ?></div>
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											<td>
-												<form action="results.php" method="get" class="m-2">
-													<label class="text-left"><b><?php echo $text_search_form_unamesearch_label; ?></b></label>
-													<div class="form-row align-items-center">
-														<div class="col-auto">
-															<div class="input-group mb-2">
-																<div class="input-group-prepend">
-																  <div class="input-group-text">Name</div>
-																</div>
-																<input type="text" class="form-control" id="Name" placeholder="USERNME" name="username">
+													<div class="form-check mx-3">
+														<input type="checkbox" class="form-check-input" id="Exact" name="s">
+														<label class="form-check-label" for="Exact">Only show EXACT results.</label>
+													</div>
+												</div>
+											</form>
+										</td>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-4">
+								<table align="center" class="border">
+									<thead class="thead-dark">
+										<tr>
+											<th>
+												<div style="font-size:22px"><?php echo $text_search_form_namesearch_title; ?></div>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<td>
+											<form action="results.php" method="get" class="m-1 mt-2 mb-3">
+												<label class="text-left"><b><?php echo $text_search_form_namesearch_label; ?></b></label>
+												<div class="form-row align-items-center">
+													<div class="col-auto">
+														<div class="input-group">
+															<div class="input-group-prepend">
+															  <div class="input-group-text"><i class="fas fa-desktop"></i></div>
+															</div>
+															<input type="text" class="form-control" id="Name" placeholder="COMPUTER-12345" name="assetname">
+															<div class="input-group-append">
+																<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
 															</div>
 														</div>
-														<div class="col-auto">
-															<button type="submit" class="btn btn-primary mb-2">Search</button>
-														</div>
 													</div>
-												</form>
-											</td>
-										</tbody>
-									</table>
-								</td>
-							</tr>
-						</table>
+												</div>
+											</form>
+										</td>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 				</td>
 			</tr>
@@ -304,6 +310,7 @@ else {
 	echo $webpage_bottomcontentbox; ?>
 		</div></div>
 	</body>
+	<?php echo $widget_footer; ?>
 </html>
 
 <?php

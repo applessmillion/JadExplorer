@@ -3,6 +3,7 @@ require_once 'config.php';
 require_once 'vars/main.php';
 ### CONNECTION INFO FOR DATABASE
 $con = new mysqli($ip,$user,$pw,$db);
+$STAT_TABLE_LIMIT = 16;
 
 ### SQL query that will find the device with the highest Entity ID. Based on auto-incremental value.
 	# Provides overall assets, most recent name and tag.
@@ -34,24 +35,26 @@ $con = new mysqli($ip,$user,$pw,$db);
 				WHERE recent_user IS NOT NULL ORDER BY edit_id DESC LIMIT 1");
 	$obj7 	= mysqli_fetch_object($sql7);
 
-	###SQL query finding the most recently edited devices. Pulls 10 recents to show on the bottom of the stats page.
+	###SQL query finding the most recently edited devices. Pulls 14 recents to show on the bottom of the stats page.
 	$sql3a 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information ON edit_log.asset_id = asset_information.Entity_ID 
-				WHERE recent_user IS NULL
-				ORDER BY edit_id DESC LIMIT 15");
-	###SQL query finding the most recently edited devices. Pulls 10 recents to show on the bottom of the stats page.
+				WHERE recent_user IS NULL OR descpt LIKE '%updated%'
+				ORDER BY edit_id DESC LIMIT $STAT_TABLE_LIMIT");
+	###SQL query finding the most recently edited devices. Pulls 14 recents to show on the bottom of the stats page.
 	$sql3b 	= mysqli_query($con, "SELECT * FROM edit_log INNER JOIN asset_information ON edit_log.asset_id = asset_information.Entity_ID
 				WHERE recent_user IS NOT NULL
-				ORDER BY edit_id DESC LIMIT 15");
+				ORDER BY edit_id DESC LIMIT $STAT_TABLE_LIMIT");
 ?>    
 <html>
 	<head>
 		<title><?php echo $text_stats_page_title; ?></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>
 			<?php 
 				echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html");
+				include_once 'header.php';
 			?>
 			</br>
 		</div>
@@ -85,7 +88,7 @@ $con = new mysqli($ip,$user,$pw,$db);
 							<?php echo $text_stat_body_desc; ?>
 						</p>
 					</div>
-					<div class="table-responsive-xl} text-center table-borderless">
+					<div class="table-responsive-xl text-center table-borderless">
 						<table class="table">
 							<tbody class="text-center">
 								<tr>
@@ -107,11 +110,11 @@ $con = new mysqli($ip,$user,$pw,$db);
 								</tr>
 								<tr>
 									<td>
-										<a href="search.php?infoname=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>
+										<a onclick="doLoading()" href="search.php?infoname=<?php echo $recentaddN; ?>"><h2><b><?php echo $recentaddN; ?></h2></a>
 										<?php echo $text_stat_desc_newasset; ?>
 									</td>
 									<td>
-										<a href="search.php?
+										<a onclick="doLoading()" href="search.php?
 											<?php if($mostviewedN == "Unknown" OR NULL){ echo "infotag=".$mostviewedA; }else{ echo "infoname=".$mostviewedN; } ?>
 										">
 										<h2>
@@ -120,7 +123,7 @@ $con = new mysqli($ip,$user,$pw,$db);
 										</a><b><?php echo $text_stat_desc_mostviewed." (".$mostviewedV." views!)"; ?></b>
 									</td>
 									<td>
-										<a href="search.php?infotag=<?php echo $highesttagA; ?>">
+										<a onclick="doLoading()" href="search.php?infotag=<?php echo $highesttagA; ?>">
 											<h2><b><?php echo $text_stat_desc_assetno.$highesttagA; ?></b></h2>
 										</a>
 										<b><?php echo $text_stat_desc_newtag; ?></b>
@@ -132,84 +135,88 @@ $con = new mysqli($ip,$user,$pw,$db);
 										<b><?php echo $text_stat_desc_recentulogin;?></b>
 									</td>
 									<td>
-										<a href="search.php?infoname=<?php echo $recentdevice; ?>"><h2><b><?php echo $recentdevice; ?></b></h2></a>
+										<a onclick="doLoading()" href="search.php?infoname=<?php echo $recentdevice; ?>"><h2><b><?php echo $recentdevice; ?></b></h2></a>
 										<b><?php echo $text_stat_desc_recentdlogin;?></b>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="mx-3">
-							<p><?php echo $text_stat_body_recentlogins; ?></p>
+							<p><?php echo $text_stat_body_desc2; ?></p>
 						</div>
-						<table class="table table-responsive-lg">
-							<td>
-								<table width="85%" align="left" class="table-bordered table-sm text-left">
-									<thead class="thead-dark">
-										<tr class="text-center">
-											<th colspan="2"><b style="font-size:24px">Recent Device Edits</th>
-										</tr>
-										<tr class="text-left">
-											<th class="mx-2">
-												<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_device; ?></b>
-											</th>
-											<th>
-												<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_edit; ?></b>
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php while ($objlist = mysqli_fetch_object($sql3a)) { ?>
-											<tr class="border">
-												<td>
-													<a class="reg"
-													<?php if($objlist->tagno == 0){ echo "href='search.php?infoname=" . urlencode($objlist->name) . "' style='font-size:18'>N/A</a>"; }
-													else{ echo "href='search.php?infotag=" . urlencode($objlist->tagno) . "' style='font-size:16'><b>". $objlist->name . "</b></a>"; } ?> 
-												</td>
-												<td style="font-size:15px">
-													<?php echo $objlist->descpt; ?>
-												</td>
-											</tr> 
-										<?php } ?>
-									</tbody>
-								</table>
-							</td>
-							<td>
-								<table align="right" class="table-bordered table-sm text-left" width="120%">
-									<thead class="thead-dark">
-										<tr class="text-center">
-											<th colspan="2"><b style="font-size:24px">Recent User Logins</th>
-										</tr>
-										<tr class="text-left">
-											<th class="mx-2">
-												<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_device; ?></b>
-											</th>
-											<th>
-												<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_user; ?></b>
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php while ($objlist = mysqli_fetch_object($sql3b)) { ?>
-											<tr class="border">
-												<td>
-													<a class="reg"
-													<?php if($objlist->tagno == 0){ echo "href='search.php?infoname=" . urlencode($objlist->name) . "' style='font-size:16'>".$objlist->name."</a>"; }
-													else{ echo "href='search.php?infotag=" . urlencode($objlist->tagno) . "' style='font-size:16'><b>". $objlist->name . "</b></a>"; } 
-													?> 
-												</td>
-												<td style="font-size:15px">
-													<b><?php echo $objlist->recent_user; ?></b>
-												</td>
-											</tr> 
-										<?php } ?>
-									</tbody>
-								</table>
-							</td>
-						</table>
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<table class="table-striped table-sm text-left" width="100%">
+										<thead class="thead-dark">
+											<tr class="text-center">
+												<th colspan="2"><b style="font-size:24px">Recent Device Edits</th>
+											</tr>
+											<tr class="text-left">
+												<th class="mx-2" style="width:22%">
+													<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_device; ?></b>
+												</th>
+												<th>
+													<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_edit; ?></b>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php while ($objlist = mysqli_fetch_object($sql3a)) { ?>
+												<tr class="border">
+													<td>
+														<a onclick="doLoading()" class="reg"
+														<?php if($objlist->tagno == 0){ echo "href='search.php?infoname=" . urlencode($objlist->name) . "' style='font-size:15'>".$objlist->name."</a>"; }
+														 else{ echo "href='search.php?infotag=" . urlencode($objlist->tagno) . "' style='font-size:15'><b>". $objlist->name . "</b></a>"; } ?> 
+													</td>
+													<td style="font-size:13px">
+														<?php echo $objlist->descpt; ?>
+													</td>
+												</tr> 
+											<?php } ?>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-4">
+									<table class="table-striped table-sm text-left" width="100%">
+										<thead class="thead-dark">
+											<tr class="text-center">
+												<th colspan="2"><b style="font-size:24px">Recent User Logins</th>
+											</tr>
+											<tr class="text-left">
+												<th class="mx-2">
+													<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_device; ?></b>
+												</th>
+												<th>
+													<b style="font-size:"<?php echo $table_tagcol_text_size;?>><?php echo $text_stat_table_head_user; ?></b>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php while ($objlist = mysqli_fetch_object($sql3b)) { ?>
+												<tr class="border">
+													<td>
+														<a onclick="doLoading()" class="reg"
+														<?php if($objlist->tagno == 0){ echo "href='search.php?infoname=" . urlencode($objlist->name) . "' style='font-size:15'>".$objlist->name."</a>"; }
+														else{ echo "href='search.php?infotag=" . urlencode($objlist->tagno) . "' style='font-size:15'><b>". $objlist->name . "</b></a>"; } 
+														?> 
+													</td>
+													<td style="font-size:15px">
+														<b><?php echo $objlist->recent_user; ?></b>
+													</td>
+												</tr> 
+											<?php } ?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
+					<?php echo $widget_webpage_border; ?>
 				</td>
 			</tr>
 			<?php echo $webpage_bottomcontentbox; ?>
 		</div>
 	</body>
+	<?php echo $widget_footer; ?>
 </html>

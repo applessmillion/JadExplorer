@@ -25,6 +25,13 @@ else if(isset($_GET["name"])){
 	$assetmac 	 	= $obj->macaddress;
 	$assetstatus 	= $obj->status;
 	
+### Location variables from dblisting lookup
+	$query_loc = mysqli_query($con, "SELECT * FROM location_information WHERE Asset_ID='$dblisting'");
+	$objl = mysqli_fetch_object($query_loc);
+	$loccampus		= $objl->campus;
+	$locbuilding	= $objl->building;
+	$locroom		= $objl->room;
+	
 	### Make variables human friendly
 	$assetpurchase 	= date('Y-m-d', strtotime($obj->purchasedate)+$utility_timezone_offset);
 	if(date('Y', strtotime($obj->purchasedate)) <= 2005){$assetpurchase = "";}
@@ -37,13 +44,12 @@ if($WEBSITE_DEMO_MODE == FALSE){
 <html>
 	<head>
 		<title><?php echo $text_edit_page_title; ?></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	</head>
 	<?php echo $tech_html_head_start_body; ?>
 		<div>
-			<?php echo file_get_contents("gtag.html");
-				echo file_get_contents("header.html");
-			?>
-			</br>
+			<?php echo file_get_contents("gtag.html"); include_once 'header.php'; ?>
 		</div>
 		<div class="container-fluid" style="<?php echo $webpage_maincontent_css; ?>">
 			<?php echo $webpage_topcontentbox; ?>
@@ -127,20 +133,25 @@ if($WEBSITE_DEMO_MODE == FALSE){
 									<label>Building</label>
 									<select class="form-control">
 										<option id="<?php echo $locbuilding;?>" selected="selected">Current: <?php echo $locbuilding;?></option>
-										<option id="">Unspecified</option>
-										<option id="Science Building">Science Building</option>
+										<option id="Campus Village">Campus Village</option>
 										<option id="Dominican Hall">Dominican Hall</option>
+										<option id="FieldHouse">FieldHouse</option>
 										<option id="Library">Library</option>
+										<option id="Nursing">Nursing Building</option>
+										<option id="Performing Arts Center">Performing Arts Center</option>
 										<option id="Sacred Heart Hall">Sacred Heart Hall</option>
+										<option id="Science Building">Science Building</option>
+										<option id="Spencer Athletic Complex">Spencer Athletic Complex</option>
+										<option id="St. Catherine">St. Catherine</option>
 										<option id="St. Joseph Hall">St. Joseph Hall</option>
-										<option id="">Other Options Here</option>
-										<option id="">Other Options Here</option>
-										<option id="">Other Options Here</option>
+										<option id="Studio Angelico">Studio Angelico</option>
+										<option id="University Center">University Center</option>
+										<option id="N/A">Unspecified</option>
 									</select>
 								</div>
 								<div class="col">
 									<label>Room</label>
-									<input class="form-control" value="<?php echo NULL ?>" type="text" placeholder="123A">
+									<input class="form-control" value="<?php echo $locroom; ?>" type="text" placeholder="123A">
 								</div>
 							</div>
 						</div>
@@ -158,5 +169,6 @@ if($WEBSITE_DEMO_MODE == FALSE){
 			<?php echo $webpage_bottomcontentbox; ?>
 		</div>
 	</body>
+	<?php echo $widget_footer; ?>
 </html>
-<?php }else{ echo "Editing is not enabled in DEMO mode."; }
+<?php } ?>
